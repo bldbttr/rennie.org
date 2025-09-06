@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": "make-something-people-want",
+      "text": "Make something people want",
+      "author": "Paul Graham",
+      "type": "quote",
+      "year": "2005",
+      "source": "Y Combinator",
+      "image_prompt": "A vibrant startup office scene with passionate entrepreneurs building something amazing, people collaborating around laptops and whiteboards, warm lighting, modern aesthetic, inspiring and energetic mood, digital art style",
+      "tags": ["startup", "entrepreneurship", "y-combinator"],
+      "status": "active"
+    }
+  ],
+  "metadata": {
+    "version": "1.0", 
+    "last_updated": "2025-09-06",
+    "total_items": 1
+  }
+}

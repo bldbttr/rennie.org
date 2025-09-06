@@ -1,0 +1,38 @@
+# Environment files
+.env
+.env.local
+*.key
+
+# Generated content (created by GitHub Actions)
+generated/
+public/images/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Dependencies
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test_*.png
+*_test.py
+nano-banana-test/
+
+# Keep bin/ directory but ignore temporary files in it
+bin/*.tmp
+bin/*.log

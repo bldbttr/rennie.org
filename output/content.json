@@ -1,0 +1,63 @@
+[
+  {
+    "content_file": "content/inspiration/paul-graham-make-something.md",
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "style_name": "essence-of-desire",
+    "style_approach": "artistic",
+    "style_data": {
+      "description": "Abstract representation of human desire, joy, and utility",
+      "approach": "Capture the feeling rather than literal objects",
+      "base_prompt": "Abstract expressionist composition conveying the essence of human desire and fulfillment, flowing organic forms suggesting connection between need and satisfaction, warm resonant colors that evoke joy and utility, emotional landscape rather than literal representation",
+      "color_palette": [
+        "warm golden energy",
+        "deep satisfying blues",
+        "vibrant life-affirming oranges",
+        "gentle connecting greens"
+      ],
+      "mood_elements": [
+        "fulfillment",
+        "connection",
+        "joy of utility",
+        "essence of satisfaction"
+      ],
+      "composition": "Flowing, organic forms that suggest connection and fulfillment without being literal"
+    },
+    "prompt": {
+      "text": "Abstract expressionist composition conveying the essence of human desire and fulfillment, flowing organic forms suggesting connection between need and satisfaction, warm resonant colors that evoke joy and utility, emotional landscape rather than literal representation. Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. Capturing the essence of fulfillment, connection, joy of utility, essence of satisfaction. Using a palette of warm golden energy, deep satisfying blues, vibrant life-affirming oranges, gentle connecting greens. Flowing, organic forms that suggest connection and fulfillment without being literal. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "Abstract expressionist composition conveying the essence of human desire and fulfillment, flowing organic forms suggesting connection between need and satisfaction, warm resonant colors that evoke joy and utility, emotional landscape rather than literal representation",
+        "personal_context": "A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.",
+        "mood": [
+          "fulfillment",
+          "connection",
+          "joy of utility",
+          "essence of satisfaction"
+        ],
+        "colors": [
+          "warm golden energy",
+          "deep satisfying blues",
+          "vibrant life-affirming oranges",
+          "gentle connecting greens"
+        ],
+        "composition": "Flowing, organic forms that suggest connection and fulfillment without being literal",
+        "visual_notes": ""
+      }
+    },
+    "metadata": {
+      "source": "https://paulgraham.com/good.html",
+      "status": "active",
+      "tags": [],
+      "why_i_like_it": "PG's advice resonates with me and this specifically is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this constantly."
+    },
+    "brightness_analysis": {
+      "brightness": 0.37,
+      "is_light": false,
+      "text_color": "#ecf0f1",
+      "background_color": "#34495e",
+      "accent_color": "#e74c3c"
+    }
+  }
+]

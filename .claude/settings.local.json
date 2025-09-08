@@ -15,7 +15,10 @@
       "Bash(pip install:*)",
       "WebSearch",
       "WebFetch(domain:ai.google.dev)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(open output/index.html)",
+      "Bash(chmod:*)",
+      "Bash(./bin/build-site.sh:*)"
     ],
     "deny": [],
     "ask": []

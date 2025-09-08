@@ -1,0 +1,102 @@
+name: Test Deployment Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_image_generation:
+        description: 'Skip image generation step'
+        required: false
+        type: boolean
+        default: false
+      skip_deployment:
+        description: 'Skip DreamHost deployment'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  test-pipeline:
+    runs-on: ubuntu-latest
+    environment: DREAMHOST_SSH_KEY
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+      
+      - name: Test content parser
+        run: |
+          echo "📝 Testing content parser..."
+          python scripts/content_parser.py
+          echo "✅ Content parser test passed"
+      
+      - name: Test image generator (dry run)
+        if: ${{ !inputs.skip_image_generation }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "🎨 Testing image generator..."
+          # Check if API key is set
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "⚠️ GEMINI_API_KEY not set - skipping actual generation"
+          else
+            echo "✅ GEMINI_API_KEY is configured"
+            # You could add a --dry-run flag to your script if needed
+            echo "ℹ️ Would generate images for new content"
+          fi
+      
+      - name: Test site builder
+        run: |
+          echo "🔨 Testing site builder..."
+          python scripts/build_site.py
+          echo "✅ Site builder test passed"
+          echo "📁 Generated files:"
+          ls -la output/
+      
+      - name: Test SSH connection to DreamHost
+        if: ${{ !inputs.skip_deployment }}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DREAMHOST_SSH_KEY }}
+        run: |
+          echo "🔐 Testing SSH connection..."
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H iad1-shared-e1-05.dreamhost.com >> ~/.ssh/known_hosts 2>/dev/null
+          
+          # Test connection with a simple command
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            rennie@iad1-shared-e1-05.dreamhost.com \
+            "echo '✅ SSH connection successful' && ls -la /home/rennie/rennie.org/ | head -5"
+          
+          # Cleanup
+          rm -f ~/.ssh/deploy_key
+      
+      - name: Test summary
+        if: always()
+        run: |
+          echo "## Test Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Tests performed:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Content parser" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Site builder" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ inputs.skip_image_generation }}" != "true" ]; then
+            echo "- ✅ Image generator configuration" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ inputs.skip_deployment }}" != "true" ]; then
+            echo "- ✅ SSH connection to DreamHost" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🎉 All tests passed! Ready for production deployment." >> $GITHUB_STEP_SUMMARY

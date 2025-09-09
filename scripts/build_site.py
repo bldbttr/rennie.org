@@ -211,9 +211,18 @@ def create_html_template() -> str:
                     <a id="source-link" href="#" target="_blank" class="source-link">Source</a>
                 </div>
                 <div class="footer-right">
-                    <span id="model-badge" class="model-badge">Gemini Flash</span>
+                    <span id="model-badge" class="model-badge">
+                        <a href="https://ai.google.dev/gemini-api/docs/models/gemini#gemini-2.5-flash" target="_blank" style="color: inherit; text-decoration: none;">Gemini 2.5 Flash</a>
+                    </span>
                     <span id="breathing-indicator" class="breathing-indicator">●</span>
-                    <span id="content-info" class="content-info" title="Click for generation details">Style: essence-of-desire</span>
+                    <span id="content-info" class="content-info">
+                        Style: essence-of-desire
+                        <div id="generation-tooltip" class="generation-tooltip hidden">
+                            <div class="tooltip-content">
+                                <!-- Content loaded dynamically -->
+                            </div>
+                        </div>
+                    </span>
                 </div>
             </div>
         </div>
@@ -229,10 +238,6 @@ def create_html_template() -> str:
             </div>
         </div>
         
-        <!-- Controls Hint -->
-        <div id="controls-hint" class="controls-hint">
-            Press <kbd>Space</kbd> or click for new thought
-        </div>
     </div>
     
     <!-- JavaScript -->
@@ -335,7 +340,6 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    animation: breathe var(--breathing-duration) ease-in-out infinite;
 }
 
 .quote-main {
@@ -447,7 +451,7 @@ body {
 }
 
 .mobile-quote-content {
-    animation: breathe var(--breathing-duration) ease-in-out infinite;
+    /* No breathing animation for text content */
 }
 
 .mobile-quote-text {
@@ -616,11 +620,81 @@ body {
     cursor: pointer;
     transition: opacity 0.2s ease;
     position: relative;
+    z-index: 10;
 }
 
 .content-info:hover {
     opacity: 1;
     text-decoration: underline;
+}
+
+/* Generation Tooltip (Desktop Hover) */
+.generation-tooltip {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 10px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.generation-tooltip:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip-content {
+    background: rgba(0, 0, 0, 0.95);
+    color: #ffffff;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    max-width: 350px;
+    min-width: 250px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+
+.tooltip-content p {
+    margin: 0.3rem 0;
+}
+
+.tooltip-content strong {
+    color: var(--accent-color);
+    margin-right: 0.5rem;
+}
+
+.tooltip-prompt {
+    white-space: normal;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    border-left: 3px solid var(--accent-color);
+}
+
+/* Arrow pointing down */
+.tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
+}
+
+/* Hide tooltip on mobile/touch devices */
+@media (max-width: 768px) {
+    .generation-tooltip {
+        display: none !important;
+    }
 }
 
 /* Generation Details Modal */

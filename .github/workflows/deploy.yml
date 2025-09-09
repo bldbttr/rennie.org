@@ -53,8 +53,17 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           echo "🎨 Generating images for new content..."
-          python scripts/generate_images.py --new-only
-          if [ $? -eq 0 ]; then
+          echo "Python version: $(python --version)"
+          echo "Working directory: $(pwd)"
+          echo "Environment variables:"
+          echo "  GEMINI_API_KEY set: $([ -n "$GEMINI_API_KEY" ] && echo "yes" || echo "no")"
+          echo "Files in scripts directory:"
+          ls -la scripts/
+          echo "Running image generation with verbose output..."
+          python scripts/generate_images.py --new-only --variations 1
+          exit_code=$?
+          echo "Image generation exit code: $exit_code"
+          if [ $exit_code -eq 0 ]; then
             echo "✅ Image generation completed successfully"
             # Check if any new images were created
             if [ -n "$(git status --porcelain generated/images/)" ]; then
@@ -65,7 +74,7 @@ jobs:
               echo "NEW_IMAGES_GENERATED=false" >> $GITHUB_ENV
             fi
           else
-            echo "❌ Image generation failed"
+            echo "❌ Image generation failed with exit code: $exit_code"
             exit 1
           fi
       

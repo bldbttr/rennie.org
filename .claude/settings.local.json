@@ -21,7 +21,11 @@
       "Bash(./bin/build-site.sh:*)",
       "Bash(/dev/null)",
       "Bash(yamllint:*)",
-      "Bash(./bin/deploy.sh:*)"
+      "Bash(./bin/deploy.sh:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py --new-only)"
     ],
     "deny": [],
     "ask": []

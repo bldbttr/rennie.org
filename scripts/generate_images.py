@@ -324,11 +324,11 @@ class ImageGenerator:
         
         # Get the current style info
         original_style = content_data.get('style_name', 'unknown')
-        original_approach = content_data.get('style_approach', 'artistic')
+        original_approach = content_data.get('style_approach', 'painting_technique')
         
         # Get available styles
-        artistic_styles = list(parser.styles_data.get('abstract_artistic_styles', {}).keys())
-        scene_styles = list(parser.styles_data.get('animated_moment_styles', {}).keys())
+        painting_styles = list(parser.styles_data.get('painting_technique_styles', {}).keys())
+        storytelling_styles = list(parser.styles_data.get('visual_storytelling_techniques', {}).keys())
         
         for variation_num in range(1, num_variations + 1):
             print(f"\n  === Variation {variation_num}/{num_variations} ===")
@@ -341,22 +341,22 @@ class ImageGenerator:
                 variation_type = "original"
             elif variation_num == 2:
                 # Variation 2: Random style from same category
-                if original_approach == 'artistic':
-                    available = [s for s in artistic_styles if s != original_style]
+                if original_approach == 'painting_technique':
+                    available = [s for s in painting_styles if s != original_style]
                     style_name = random.choice(available) if available else original_style
                 else:
-                    available = [s for s in scene_styles if s != original_style]
+                    available = [s for s in storytelling_styles if s != original_style]
                     style_name = random.choice(available) if available else original_style
                 style_approach = original_approach
                 variation_type = "same_category"
             else:
                 # Variation 3+: Random style from opposite category
-                if original_approach == 'artistic':
-                    style_name = random.choice(scene_styles) if scene_styles else original_style
-                    style_approach = 'scene'
+                if original_approach == 'painting_technique':
+                    style_name = random.choice(storytelling_styles) if storytelling_styles else original_style
+                    style_approach = 'visual_storytelling'
                 else:
-                    style_name = random.choice(artistic_styles) if artistic_styles else original_style
-                    style_approach = 'artistic'
+                    style_name = random.choice(painting_styles) if painting_styles else original_style
+                    style_approach = 'painting_technique'
                 variation_type = "opposite_category"
             
             # Create modified content data with new style
@@ -374,22 +374,14 @@ class ImageGenerator:
                 prompt_parts = []
                 prompt_parts.append(style_data.get('base_prompt', ''))
                 
-                # Add personal context if available
-                if variation_content.get('what_i_see_in_it'):
-                    prompt_parts.append(f"Inspired by the feeling of: {variation_content['what_i_see_in_it']}")
-                
-                # Add mood and elements
-                if style_data.get('mood_elements'):
-                    prompt_parts.append(f"Capturing {', '.join(style_data['mood_elements'])}")
-                
-                # Add color palette
-                if style_data.get('color_palette'):
-                    colors = ', '.join(style_data['color_palette'])
-                    prompt_parts.append(f"Using a palette of {colors}")
-                
-                # Add composition guidance
-                if style_data.get('composition'):
-                    prompt_parts.append(style_data['composition'])
+                # Add vibe guidance if available
+                if variation_content.get('vibe'):
+                    vibes = variation_content['vibe']
+                    if isinstance(vibes, list):
+                        vibe_text = ', '.join(vibes)
+                    else:
+                        vibe_text = str(vibes)
+                    prompt_parts.append(f"Capturing the vibe of {vibe_text}")
                 
                 # Always add square format optimization
                 prompt_parts.append("square composition, centered focus, 1:1 aspect ratio")

@@ -977,15 +977,63 @@ class InspirationApp {
         const author = content.author;
         const context = content.metadata?.why_i_like_it || '';
         
+        // Calculate dynamic font size based on text length
+        const fontSize = this.calculateFontSize(text);
+        
         // Update desktop
-        if (quoteText) quoteText.textContent = text;
+        if (quoteText) {
+            quoteText.textContent = text;
+            quoteText.style.fontSize = fontSize.desktop;
+        }
         if (quoteAuthor) quoteAuthor.textContent = author;
         if (quoteContext) quoteContext.textContent = context;
         
         // Update mobile
-        if (mobileQuoteText) mobileQuoteText.textContent = text;
+        if (mobileQuoteText) {
+            mobileQuoteText.textContent = text;
+            mobileQuoteText.style.fontSize = fontSize.mobile;
+        }
         if (mobileQuoteAuthor) mobileQuoteAuthor.textContent = author;
         if (mobileQuoteContext) mobileQuoteContext.textContent = context;
+    }
+    
+    calculateFontSize(text) {
+        const length = text.length;
+        
+        // Define size tiers based on character count
+        // Short quotes (< 50 chars): Large font
+        // Medium quotes (50-150 chars): Medium font  
+        // Long quotes (150-300 chars): Small font
+        // Very long quotes (> 300 chars): Extra small font
+        
+        let desktopSize, mobileSize;
+        
+        if (length < 50) {
+            // Short quotes - largest size
+            desktopSize = '1.8rem';
+            mobileSize = '1.4rem';
+        } else if (length < 150) {
+            // Medium quotes - default size
+            desktopSize = '1.5rem';
+            mobileSize = '1.2rem';
+        } else if (length < 300) {
+            // Long quotes - smaller size
+            desktopSize = '1.2rem';
+            mobileSize = '1rem';
+        } else if (length < 500) {
+            // Very long quotes - small size
+            desktopSize = '1rem';
+            mobileSize = '0.9rem';
+        } else {
+            // Extremely long quotes - extra small
+            desktopSize = '0.9rem';
+            mobileSize = '0.8rem';
+        }
+        
+        return {
+            desktop: desktopSize,
+            mobile: mobileSize
+        };
     }
     
     async updateImageContent(content) {

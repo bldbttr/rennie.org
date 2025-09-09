@@ -46,10 +46,16 @@ class ContentParser:
             raise ValueError(f"No frontmatter found in {file_path}")
         
         # Validate required fields
-        required_fields = ['title', 'author', 'type', 'style_approach']
+        required_fields = ['title', 'author', 'type']
         for field in required_fields:
             if field not in frontmatter:
                 raise ValueError(f"Missing required field '{field}' in {file_path}")
+        
+        # Set defaults for style fields if not present
+        if 'style_category' not in frontmatter:
+            frontmatter['style_category'] = 'random'
+        if 'style_specific' not in frontmatter:
+            frontmatter['style_specific'] = 'random'
         
         # Parse markdown sections
         sections = self._parse_sections(markdown_content)
@@ -59,8 +65,6 @@ class ContentParser:
             'frontmatter': frontmatter,
             'content': sections.get('main', ''),
             'why_i_like_it': sections.get('why_i_like_it', ''),
-            'what_i_see_in_it': sections.get('what_i_see_in_it', ''),
-            'visual_notes': sections.get('visual_notes', ''),
             'all_sections': sections
         }
     
@@ -85,52 +89,81 @@ class ContentParser:
                 # Normalize section names
                 if 'why i like it' in header:
                     sections['why_i_like_it'] = content
-                elif 'what i see in it' in header:
-                    sections['what_i_see_in_it'] = content
-                elif 'visual notes' in header:
-                    sections['visual_notes'] = content
+                # Remove what_i_see_in_it handling
                 else:
                     sections[header.replace(' ', '_')] = content
         
         return sections
     
-    def select_style(self, style_approach: str, style_spec: Any) -> str:
-        """Select a style based on the specification."""
-        if isinstance(style_spec, list):
-            # If it's a list, use the first style (could randomize if multiple)
-            return style_spec[0] if style_spec else self._get_random_style(style_approach)
-        elif style_spec == "random":
-            # Random selection from the category
-            return self._get_random_style(style_approach)
-        elif isinstance(style_spec, str):
-            # Direct style name
-            return style_spec
+    def select_style(self, style_category: str, style_specific: str) -> tuple[str, str]:
+        """Select a style based on category and specific preferences.
+        Returns (style_name, actual_category)
+        """
+        # Handle true random - pick from all available styles
+        if style_category == "random":
+            all_styles = []
+            painting_styles = list(self.styles_data.get('painting_technique_styles', {}).keys())
+            storytelling_styles = list(self.styles_data.get('visual_storytelling_techniques', {}).keys())
+            
+            for style in painting_styles:
+                all_styles.append((style, 'painting_technique'))
+            for style in storytelling_styles:
+                all_styles.append((style, 'visual_storytelling'))
+            
+            if all_styles:
+                style_name, actual_category = random.choice(all_styles)
+                return style_name, actual_category
+            else:
+                return 'turner-atmospheric', 'painting_technique'
+        
+        # Handle specific category
+        elif style_category in ['painting_technique', 'visual_storytelling']:
+            if style_specific == "random":
+                # Random from the specified category
+                return self._get_random_style(style_category), style_category
+            else:
+                # Specific style requested - validate it exists in the category
+                if self._validate_style_in_category(style_specific, style_category):
+                    return style_specific, style_category
+                else:
+                    print(f"Warning: Style '{style_specific}' not found in '{style_category}', using random")
+                    return self._get_random_style(style_category), style_category
+        
+        # Fallback to random painting technique
         else:
-            # Fallback to random
-            return self._get_random_style(style_approach)
+            print(f"Warning: Unknown style_category '{style_category}', using random painting technique")
+            return self._get_random_style('painting_technique'), 'painting_technique'
     
-    def _get_random_style(self, style_approach: str) -> str:
+    def _get_random_style(self, style_category: str) -> str:
         """Get a random style from the specified category."""
-        categories = self.styles_data.get('style_categories', {})
+        if style_category == 'painting_technique':
+            styles = list(self.styles_data.get('painting_technique_styles', {}).keys())
+        elif style_category == 'visual_storytelling':
+            styles = list(self.styles_data.get('visual_storytelling_techniques', {}).keys())
+        else:
+            styles = []
         
-        if style_approach in categories:
-            styles = categories[style_approach].get('styles', [])
-            return random.choice(styles) if styles else 'essence-of-desire'
-        
-        # Default fallback
-        return 'essence-of-desire'
+        return random.choice(styles) if styles else 'turner-atmospheric'
     
-    def get_style_data(self, style_name: str, style_approach: str) -> Dict[str, Any]:
+    def _validate_style_in_category(self, style_name: str, style_category: str) -> bool:
+        """Check if a style name exists in the specified category."""
+        if style_category == 'painting_technique':
+            return style_name in self.styles_data.get('painting_technique_styles', {})
+        elif style_category == 'visual_storytelling':
+            return style_name in self.styles_data.get('visual_storytelling_techniques', {})
+        return False
+    
+    def get_style_data(self, style_name: str, style_category: str) -> Dict[str, Any]:
         """Get the complete style data for a given style name."""
-        # Check in the appropriate style collection based on approach
-        if style_approach == 'artistic':
-            styles = self.styles_data.get('abstract_artistic_styles', {})
-        elif style_approach == 'scene':
-            styles = self.styles_data.get('animated_moment_styles', {})
+        # Check in the appropriate style collection based on category
+        if style_category == 'painting_technique':
+            styles = self.styles_data.get('painting_technique_styles', {})
+        elif style_category == 'visual_storytelling':
+            styles = self.styles_data.get('visual_storytelling_techniques', {})
         else:
             # Try both
-            styles = {**self.styles_data.get('abstract_artistic_styles', {}),
-                     **self.styles_data.get('animated_moment_styles', {})}
+            styles = {**self.styles_data.get('painting_technique_styles', {}),
+                     **self.styles_data.get('visual_storytelling_techniques', {})}
         
         return styles.get(style_name, {})
     
@@ -138,10 +171,11 @@ class ContentParser:
         """Generate a structured prompt for Nano Banana API."""
         frontmatter = parsed_content['frontmatter']
         
-        # Select and get style
-        style_approach = frontmatter.get('style_approach', 'artistic')
-        style_name = self.select_style(style_approach, frontmatter.get('style'))
-        style_data = self.get_style_data(style_name, style_approach)
+        # Select and get style using new system
+        style_category = frontmatter.get('style_category', 'random')
+        style_specific = frontmatter.get('style_specific', 'random')
+        style_name, actual_category = self.select_style(style_category, style_specific)
+        style_data = self.get_style_data(style_name, actual_category)
         
         # Build the prompt components
         prompt_parts = []
@@ -150,27 +184,14 @@ class ContentParser:
         if 'base_prompt' in style_data:
             prompt_parts.append(style_data['base_prompt'])
         
-        # Add personal context if available
-        if parsed_content['what_i_see_in_it']:
-            prompt_parts.append(f"Inspired by the feeling of: {parsed_content['what_i_see_in_it']}")
-        
-        # Add mood elements
-        if 'mood_elements' in style_data:
-            moods = ', '.join(style_data['mood_elements'])
-            prompt_parts.append(f"Capturing the essence of {moods}")
-        
-        # Add color palette
-        if 'color_palette' in style_data:
-            colors = ', '.join(style_data['color_palette'])
-            prompt_parts.append(f"Using a palette of {colors}")
-        
-        # Add composition guidance
-        if 'composition' in style_data:
-            prompt_parts.append(style_data['composition'])
-        
-        # Add visual notes if provided
-        if parsed_content['visual_notes']:
-            prompt_parts.append(parsed_content['visual_notes'])
+        # Add vibe guidance if available
+        if frontmatter.get('vibe'):
+            vibes = frontmatter['vibe']
+            if isinstance(vibes, list):
+                vibe_text = ', '.join(vibes)
+            else:
+                vibe_text = str(vibes)
+            prompt_parts.append(f"Capturing the vibe of {vibe_text}")
         
         # Always add square format optimization
         prompt_parts.append("square composition, centered focus, 1:1 aspect ratio")
@@ -186,17 +207,15 @@ class ContentParser:
             'type': frontmatter.get('type'),
             'quote_text': parsed_content['content'],
             'style_name': style_name,
-            'style_approach': style_approach,
+            'style_category': actual_category,
             'style_data': style_data,
+            'vibe': frontmatter.get('vibe', []),
             'prompt': {
                 'text': full_prompt,
                 'components': {
                     'base': style_data.get('base_prompt', ''),
-                    'personal_context': parsed_content['what_i_see_in_it'],
-                    'mood': style_data.get('mood_elements', []),
-                    'colors': style_data.get('color_palette', []),
-                    'composition': style_data.get('composition', ''),
-                    'visual_notes': parsed_content['visual_notes']
+                    'vibe': frontmatter.get('vibe', []),
+                    'format': 'square composition, centered focus, 1:1 aspect ratio'
                 }
             },
             'metadata': {
@@ -246,7 +265,7 @@ def main():
         
         # Show summary
         for content in all_content:
-            print(f"  - {content['title']} by {content['author']} ({content['style_approach']}: {content['style_name']})")
+            print(f"  - {content['title']} by {content['author']} ({content['style_category']}: {content['style_name']})")
     else:
         print("No content files found or all files had errors.")
 

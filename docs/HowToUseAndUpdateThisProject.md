@@ -5,8 +5,8 @@
 ## 🚀 Quick Start Commands
 
 ```bash
-# Check what needs updating
-./bin/check-new-styles.sh
+# Check image status for all content
+./bin/check-images.sh
 
 # Generate images + preview locally
 ./bin/preview-and-check.sh
@@ -197,8 +197,8 @@ python scripts/build_site.py
 ### Check What Needs Updating
 
 ```bash
-# See detailed analysis without generating anything
-./bin/check-new-styles.sh
+# See image status inventory by content file
+./bin/check-images.sh
 ```
 
 ### Understanding the Output
@@ -229,7 +229,7 @@ Old images are automatically moved to `generated/archive/[timestamp]/` when styl
 ---|---
 Add new quote/content | Create `.md` file → `./bin/preview-and-check.sh` → `./bin/commit-and-deploy.sh`
 Change visual styles | Edit frontmatter → `./bin/preview-and-check.sh` → `./bin/commit-and-deploy.sh` 
-See what needs updating | `./bin/check-new-styles.sh`
+Check image status by file | `./bin/check-images.sh`
 Just rebuild site | `python scripts/build_site.py` → `./bin/commit-and-deploy.sh`
 Nuclear option (regenerate all) | `./bin/regenerate-all.sh` → `./bin/commit-and-deploy.sh`
 

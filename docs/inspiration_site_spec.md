@@ -40,7 +40,7 @@ rennie.org/
 ├── bin/                      # Bash automation scripts ✅
 │   ├── preview-and-check.sh  # Hybrid local-first workflow ✅
 │   ├── commit-and-deploy.sh  # Streamlined deployment ✅
-│   ├── check-new-styles.sh   # Change detection ✅
+│   ├── check-images.sh       # Image status inventory ✅
 │   ├── generate-new.sh       # Generate missing images ✅
 │   └── regenerate-all.sh     # Force regeneration ✅
 ├── content/
@@ -126,12 +126,12 @@ All development phases have been completed successfully. The project now feature
 - ✅ GitHub Actions trigger for production deployment
 - ✅ Deployment status monitoring guidance
 
-#### 3. Change Detection (`bin/check-new-styles.sh`) ✅
-**Purpose**: Analyze what images need generation without actually generating them
+#### 3. Image Status Inventory (`bin/check-images.sh`) ✅
+**Purpose**: Display inventory of image status by content file
 **Features**:
-- ✅ Uses enhanced Python intelligence for change detection
-- ✅ Separates new images from style updates
-- ✅ Cost-free analysis and planning tool
+- ✅ Shows status per content/inspiration/ file: needs new, needs update, or ✅ current
+- ✅ Clear indication of what action is needed for each file
+- ✅ Cost-free status check and planning tool
 - ✅ Integration with content parser for up-to-date analysis
 
 #### 4. Legacy Scripts (maintained for compatibility) ✅

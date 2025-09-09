@@ -4,30 +4,44 @@
     "title": "You can always feel product/market fit when it's happening",
     "author": "Marc Andreessen",
     "type": "quote",
-    "quote_text": "And you can always feel product/market fit when it’s happening. The customers are buying the product just as fast as you can make it—or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You’re hiring sales and customer support staff as fast as you can. Reporters are calling because they’ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck’s.",
-    "style_name": "impressionist-light",
-    "style_approach": "artistic",
-    "style_data": {},
+    "quote_text": "And you can always feel product/market fit when it’s happening. The customers are buying the product just as fast as you can make it—or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You’re hiring sales and customer support staff as fast as you can. Reporters are calling because they’ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck’s",
+    "style_name": "kline-gestural",
+    "style_category": "painting_technique",
+    "style_data": {
+      "description": "Franz Kline's bold gestural abstraction with confident black brushstrokes",
+      "base_prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+      "key_techniques": [
+        "bold black brushstrokes",
+        "gestural movement capture",
+        "high contrast composition",
+        "minimal color emphasis"
+      ],
+      "expression_method": "Raw gestural energy translated into confident brush movements",
+      "composition_flow": "Dynamic movement created through bold stroke direction and rhythm",
+      "abstraction_level": "Pure gesture and movement without representational content"
+    },
+    "vibe": [
+      "movement",
+      "flow",
+      "in-the-zone"
+    ],
     "prompt": {
-      "text": "Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+      "text": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "",
-        "personal_context": "While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\"",
-        "mood": [],
-        "colors": [],
-        "composition": "",
-        "visual_notes": ""
+        "base": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+        "vibe": [
+          "movement",
+          "flow",
+          "in-the-zone"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
       }
     },
     "metadata": {
       "source": "https://pmarchive.com/guide_to_startups_part4.html",
       "status": "active",
-      "tags": [
-        "startup",
-        "product-market-fit",
-        "entrepreneurship"
-      ],
-      "why_i_like_it": "Timeless insight.  First piece that describes the mission of building, and captures the feeling when it's working and when it's not, without listing a metric.  I re-read it a couple times a year."
+      "tags": [],
+      "why_i_like_it": "Timeless pieece.  Describes the mission of investing annd building, and captures the feeling when it's working and when it's not, without listing a metric. I re-read it a couple times a year."
     },
     "images": [
       {
@@ -144,28 +158,44 @@
     "author": "Steve Jobs",
     "type": "quote",
     "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
-    "style_name": "fortiche-blend",
-    "style_approach": "scene",
-    "style_data": {},
+    "style_name": "spiderverse-dimensional",
+    "style_category": "visual_storytelling",
+    "style_data": {
+      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
+      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+      "key_techniques": [
+        "mixed animation styles",
+        "halftone comic patterns",
+        "dimensional depth effects",
+        "graphic design integration"
+      ],
+      "composition_principles": [
+        "dynamic perspective shifts",
+        "multiple focal points",
+        "graphic element rhythm",
+        "dimensional layering"
+      ],
+      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
+    },
+    "vibe": [
+      "clarity",
+      "revelation"
+    ],
     "prompt": {
-      "text": "Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "",
-        "personal_context": "A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.",
-        "mood": [],
-        "colors": [],
-        "composition": "",
-        "visual_notes": ""
+        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "vibe": [
+          "clarity",
+          "revelation"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
       }
     },
     "metadata": {
       "source": "https://youtu.be/oeqPrUmVz-o?t=112",
       "status": "active",
-      "tags": [
-        "product",
-        "design",
-        "customer-experience"
-      ],
+      "tags": [],
       "why_i_like_it": "Masterful clarity, inspiration and motivation. This encapsulates the entire philosophy of great product development - understanding what people actually need and want."
     },
     "images": [
@@ -283,25 +313,43 @@
     "author": "Paul Graham",
     "type": "quote",
     "quote_text": "Make something people want.",
-    "style_name": "impressionist-light",
-    "style_approach": "artistic",
-    "style_data": {},
+    "style_name": "spiderverse-dimensional",
+    "style_category": "visual_storytelling",
+    "style_data": {
+      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
+      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+      "key_techniques": [
+        "mixed animation styles",
+        "halftone comic patterns",
+        "dimensional depth effects",
+        "graphic design integration"
+      ],
+      "composition_principles": [
+        "dynamic perspective shifts",
+        "multiple focal points",
+        "graphic element rhythm",
+        "dimensional layering"
+      ],
+      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
+    },
+    "vibe": [
+      "zen of purpose"
+    ],
     "prompt": {
-      "text": "Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "",
-        "personal_context": "A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.",
-        "mood": [],
-        "colors": [],
-        "composition": "",
-        "visual_notes": ""
+        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "vibe": [
+          "zen of purpose"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
       }
     },
     "metadata": {
       "source": "https://paulgraham.com/good.html",
       "status": "active",
       "tags": [],
-      "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this constantly."
+      "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this often."
     },
     "images": [
       {

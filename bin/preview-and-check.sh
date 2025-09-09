@@ -32,79 +32,88 @@ echo "====================================="
 echo "📝 Parsing content files..."
 python scripts/content_parser.py > /dev/null 2>&1
 
-# Use the existing sophisticated change detection system
-GENERATION_ANALYSIS=$(python scripts/generate_images.py --check-styles 2>/dev/null | tail -n +3)
+# Get structured analysis from Python
+echo "🔍 Analyzing generation requirements..."
+ANALYSIS_JSON=$(python scripts/generate_images.py --preview-analysis)
 
-# Extract information from the analysis
-CONTENT_COUNT=$(echo "$GENERATION_ANALYSIS" | grep "📊 Content pieces:" | sed 's/.*: //')
-EXISTING_IMAGES=$(echo "$GENERATION_ANALYSIS" | grep "🖼️  Existing images:" | sed 's/.*: //')
-
-if echo "$GENERATION_ANALYSIS" | grep -q "All content has generated images!"; then
-    NEEDS_GENERATION=0
-    echo "📊 Content pieces: $CONTENT_COUNT"
-    echo "🖼️  Existing images: $EXISTING_IMAGES"
-    echo "✅ All content already has images"
-    echo ""
-    echo "🔍 Checking for style changes that require regeneration..."
-    
-    # Check if any content has changed styles since generation
-    if echo "$GENERATION_ANALYSIS" | grep -q "Content needing image generation:"; then
-        echo "⚡ Style changes detected - some images need regeneration"
-        NEEDS_UPDATES=1
-    else
-        echo "✅ All images are current with content and styles"
-        NEEDS_UPDATES=0
-    fi
-else
-    # Extract list of content needing generation
-    NEEDS_LIST=$(echo "$GENERATION_ANALYSIS" | sed -n '/🎨 Content needing image generation:/,/^$/p' | grep "   •" | sed 's/   • //')
-    NEEDS_GENERATION=$(echo "$NEEDS_LIST" | wc -l | tr -d ' ')
-    NEEDS_UPDATES=0
-    
-    echo "📊 Analysis Results:"
-    echo "   Content pieces: $CONTENT_COUNT"
-    echo "   Existing images: $EXISTING_IMAGES"
-    echo "   Missing images: $NEEDS_GENERATION"
-    echo ""
-    echo "🎨 Content needing new images:"
-    echo "$NEEDS_LIST" | sed 's/^/   /'
+if [ $? -ne 0 ]; then
+    echo "❌ Error analyzing content requirements"
+    exit 1
 fi
 
-# Calculate total generation needed (new + updates)
-TOTAL_GENERATION=$((NEEDS_GENERATION + NEEDS_UPDATES * 3)) # 3 variations per update
+# Extract values using jq for reliable JSON parsing
+CONTENT_PIECES=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(data['content_pieces'])")
+EXISTING_IMAGES=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(data['existing_images'])")
+NEW_PIECES=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(data['new_pieces'])")
+UPDATE_PIECES=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(data['update_pieces'])")
+TOTAL_PIECES=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(data['total_pieces'])")
+TOTAL_IMAGES=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(data['total_images'])")
+TOTAL_COST=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(f\"{data['total_cost']:.2f}\")")
+NEEDS_GENERATION=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print('true' if data['needs_generation'] else 'false')")
 
-if [ $TOTAL_GENERATION -gt 0 ]; then
+echo "📊 Analysis Results:"
+echo "   Content pieces: $CONTENT_PIECES"
+echo "   Existing images: $EXISTING_IMAGES"
+
+if [ "$NEEDS_GENERATION" = "true" ]; then
+    if [ $NEW_PIECES -gt 0 ]; then
+        echo "   Missing images: $NEW_PIECES pieces"
+    fi
+    if [ $UPDATE_PIECES -gt 0 ]; then
+        echo "   Update needed: $UPDATE_PIECES pieces"
+    fi
+    
+    echo ""
+    if [ $NEW_PIECES -gt 0 ]; then
+        echo "🆕 Files needing new images:"
+        echo "$ANALYSIS_JSON" | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for item in data['new_images_list']:
+    print(f'   • {item[\"filename\"]}: 3 images')
+"
+    fi
+    
+    if [ $UPDATE_PIECES -gt 0 ]; then
+        echo "🔄 Files needing image updates:"
+        echo "$ANALYSIS_JSON" | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for item in data['updates_list']:
+    print(f'   • {item[\"filename\"]}: 3 images')
+"
+    fi
+    
     echo ""
     echo "💰 COST ANALYSIS"
     echo "================"
     
-    if [ $NEEDS_GENERATION -gt 0 ]; then
-        NEW_COST=$(python3 -c "print(f'{$NEEDS_GENERATION * 3 * 0.039:.2f}')")
-        echo "🆕 New images: $NEEDS_GENERATION content pieces × 3 variations = $(($NEEDS_GENERATION * 3)) images"
+    if [ $NEW_PIECES -gt 0 ]; then
+        NEW_COST=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(f\"{data['new_pieces'] * 3 * data['cost_per_image']:.2f}\")")
+        echo "🆕 New images: $NEW_PIECES content pieces × 3 variations = $((NEW_PIECES * 3)) images"
         echo "   Cost: \$$NEW_COST"
     fi
     
-    if [ $NEEDS_UPDATES -gt 0 ]; then
-        UPDATE_COST=$(python3 -c "print(f'{$NEEDS_UPDATES * 3 * 0.039:.2f}')")
-        echo "🔄 Updated images: $NEEDS_UPDATES content pieces × 3 variations = $(($NEEDS_UPDATES * 3)) images"
+    if [ $UPDATE_PIECES -gt 0 ]; then
+        UPDATE_COST=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(f\"{data['update_pieces'] * 3 * data['cost_per_image']:.2f}\")")
+        echo "🔄 Updated images: $UPDATE_PIECES content pieces × 3 variations = $((UPDATE_PIECES * 3)) images"
         echo "   Cost: \$$UPDATE_COST"
     fi
     
-    TOTAL_COST=$(python3 -c "print(f'{$TOTAL_GENERATION * 0.039:.2f}')")
-    echo "📊 TOTAL: $TOTAL_GENERATION images for \$$TOTAL_COST"
+    echo "📊 TOTAL: $TOTAL_IMAGES images ($TOTAL_PIECES pieces × 3 variations) for \$$TOTAL_COST"
     
     echo ""
     echo "🤔 APPROVAL REQUIRED"
     echo "==================="
-    echo "Generate $TOTAL_GENERATION images for approximately \$$TOTAL_COST?"
+    echo "Generate $TOTAL_IMAGES images ($TOTAL_PIECES content pieces × 3 variations each) for approximately \$$TOTAL_COST?"
     
-    if [ $NEEDS_GENERATION -gt 0 ] && [ $NEEDS_UPDATES -gt 0 ]; then
-        echo "   • $((NEEDS_GENERATION * 3)) new images for missing content"
-        echo "   • $((NEEDS_UPDATES * 3)) updated images for style changes"
-    elif [ $NEEDS_GENERATION -gt 0 ]; then
-        echo "   • $((NEEDS_GENERATION * 3)) new images for missing content"
+    if [ $NEW_PIECES -gt 0 ] && [ $UPDATE_PIECES -gt 0 ]; then
+        echo "   • $((NEW_PIECES * 3)) new images for missing content"
+        echo "   • $((UPDATE_PIECES * 3)) updated images for style changes"
+    elif [ $NEW_PIECES -gt 0 ]; then
+        echo "   • $((NEW_PIECES * 3)) new images for missing content"
     else
-        echo "   • $((NEEDS_UPDATES * 3)) updated images for style changes"
+        echo "   • $((UPDATE_PIECES * 3)) updated images for style changes"
     fi
     echo ""
     read -p "Proceed with generation? (yes/no): " approval
@@ -115,17 +124,16 @@ if [ $TOTAL_GENERATION -gt 0 ]; then
     fi
     echo "✅ Generation approved!"
 else
-    echo ""
-    echo "✅ No image generation needed"
+    echo "✅ All content already has current images"
 fi
 
 echo ""
 echo "🎨 GENERATING IMAGES"
 echo "==================="
 
-if [ $TOTAL_GENERATION -gt 0 ]; then
-    echo "🚀 Starting image generation for $TOTAL_GENERATION images..."
-    echo "⏱️  Expected time: ~$((TOTAL_GENERATION * 8)) seconds"
+if [ "$NEEDS_GENERATION" = "true" ]; then
+    echo "🚀 Starting image generation for $TOTAL_IMAGES images..."
+    echo "⏱️  Expected time: ~$((TOTAL_IMAGES * 8)) seconds"
     echo ""
     
     # Set API key and generate
@@ -136,7 +144,7 @@ if [ $TOTAL_GENERATION -gt 0 ]; then
     fi
     
     # Generate with progress output
-    if [ $NEEDS_UPDATES -gt 0 ]; then
+    if [ $UPDATE_PIECES -gt 0 ]; then
         # If we have updates, we need to archive and regenerate
         echo "🔄 Archiving old images and regenerating with new styles..."
         GEMINI_API_KEY="$GEMINI_API_KEY" python scripts/generate_images.py --archive-and-regenerate
@@ -178,11 +186,11 @@ open output/index.html
 echo ""
 echo "📋 DEPLOYMENT READINESS SUMMARY"
 echo "==============================="
-echo "✅ Content parsed: $CONTENT_COUNT files"
+echo "✅ Content parsed: $CONTENT_PIECES files"
 
-if [ $TOTAL_GENERATION -gt 0 ]; then
+if [ "$NEEDS_GENERATION" = "true" ]; then
     NEW_IMAGE_COUNT=$(find generated/images -name "*.png" | wc -l | tr -d ' ')
-    echo "✅ Images ready: $NEW_IMAGE_COUNT total ($TOTAL_GENERATION newly generated)"
+    echo "✅ Images ready: $NEW_IMAGE_COUNT total ($TOTAL_IMAGES newly generated)"
     echo "💵 Generation cost: ~\$$TOTAL_COST"
 else
     echo "✅ Images ready: $EXISTING_IMAGES total (all current)"
@@ -201,7 +209,7 @@ echo ""
 echo "💡 The images you see locally are identical to what will be deployed!"
 echo ""
 
-if [ $TOTAL_GENERATION -gt 0 ]; then
+if [ "$NEEDS_GENERATION" = "true" ]; then
     echo "📁 Generated images are now tracked in git (no longer gitignored)"
     echo "🏛️  Old images have been archived to generated/archive/ if any were replaced"
 fi

@@ -599,7 +599,7 @@ Successfully transformed the project from a problematic cloud-first CI/CD archit
 **✅ Hybrid Local-First Workflow Scripts**
 - `bin/preview-and-check.sh` - Main workflow with intelligent analysis, cost approval, generation, and preview
 - `bin/commit-and-deploy.sh` - Streamlined deployment of locally generated images
-- `bin/check-new-styles.sh` - Enhanced change detection using Python intelligence
+- `bin/check-images.sh` - Image status inventory by content file
 - Verbose progress reporting and transparent cost control
 
 **✅ Infrastructure Modifications**

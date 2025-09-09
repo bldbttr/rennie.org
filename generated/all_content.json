@@ -5,20 +5,20 @@
     "author": "Marc Andreessen",
     "type": "quote",
     "quote_text": "And you can always feel product/market fit when it\u2019s happening. The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You\u2019re hiring sales and customer support staff as fast as you can. Reporters are calling because they\u2019ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck\u2019s",
-    "style_name": "rothko-color-field",
+    "style_name": "turner-atmospheric",
     "style_category": "painting_technique",
     "style_data": {
-      "description": "Mark Rothko's transcendent color field approach with luminous color relationships",
-      "base_prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+      "description": "J.M.W. Turner's luminous atmospheric technique where light dissolves form",
+      "base_prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
       "key_techniques": [
-        "luminous color fields",
-        "breathing color transitions",
-        "soft edge boundaries",
-        "contemplative minimal composition"
+        "luminous atmospheric effects",
+        "soft focus rendering",
+        "light dissolving form",
+        "glowing paint passages"
       ],
-      "meditative_quality": "Colors that invite deep contemplation and emotional opening",
-      "transcendent_approach": "Visual experience designed to go beyond everyday perception",
-      "color_breathing": "Colors that appear alive and subtly changing even in stillness"
+      "color_philosophy": "Golden and warm light palette with forms emerging from luminous atmosphere",
+      "brush_approach": "Soft, blended brushwork where edges dissolve into light",
+      "light_focus": "Light as the primary subject with forms secondary to atmospheric effects"
     },
     "vibe": [
       "movement",
@@ -26,9 +26,9 @@
       "in-the-zone"
     ],
     "prompt": {
-      "text": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+      "text": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+        "base": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
         "vibe": [
           "movement",
           "flow",
@@ -50,33 +50,33 @@
     "author": "Steve Jobs",
     "type": "quote",
     "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
-    "style_name": "spiderverse-dimensional",
+    "style_name": "arcane-framing",
     "style_category": "visual_storytelling",
     "style_data": {
-      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
-      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+      "description": "Fortiche/Arcane's dramatic character-focused cinematography with mixed media aesthetics",
+      "base_prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios",
       "key_techniques": [
-        "mixed animation styles",
-        "halftone comic patterns",
-        "dimensional depth effects",
-        "graphic design integration"
+        "dramatic close-ups",
+        "dynamic camera angles",
+        "high contrast lighting",
+        "mixed media rendering"
       ],
       "composition_principles": [
-        "dynamic perspective shifts",
-        "multiple focal points",
-        "graphic element rhythm",
-        "dimensional layering"
+        "vertical emphasis",
+        "cinematic framing",
+        "character-focused foreground",
+        "textural background separation"
       ],
-      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
+      "lighting_approach": "High contrast dramatic lighting with strong directional shadows"
     },
     "vibe": [
       "clarity",
       "revelation"
     ],
     "prompt": {
-      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "base": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios",
         "vibe": [
           "clarity",
           "revelation"
@@ -97,28 +97,32 @@
     "author": "Paul Graham",
     "type": "quote",
     "quote_text": "Make something people want.",
-    "style_name": "monet-impressionist",
-    "style_category": "painting_technique",
+    "style_name": "spiderverse-dimensional",
+    "style_category": "visual_storytelling",
     "style_data": {
-      "description": "Claude Monet's broken brushwork technique capturing fleeting light effects",
-      "base_prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
+      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
       "key_techniques": [
-        "broken visible brushstrokes",
-        "optical color interaction",
-        "atmospheric light capture",
-        "temporal moment specificity"
+        "mixed animation styles",
+        "halftone comic patterns",
+        "dimensional depth effects",
+        "graphic design integration"
       ],
-      "color_philosophy": "Colors that interact optically to create new emotional temperatures and atmospheric effects",
-      "brush_approach": "Quick confident strokes that capture essence and light rather than precise form",
-      "light_focus": "Fleeting effects of light and atmosphere as primary subject matter"
+      "composition_principles": [
+        "dynamic perspective shifts",
+        "multiple focal points",
+        "graphic element rhythm",
+        "dimensional layering"
+      ],
+      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
     },
     "vibe": [
       "zen of purpose"
     ],
     "prompt": {
-      "text": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
         "vibe": [
           "zen of purpose"
         ],

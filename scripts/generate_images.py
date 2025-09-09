@@ -125,9 +125,14 @@ class ImageGenerator:
             
             # Determine if generation is needed
             if not variations_exist:
+                # Get filename from content_file
+                content_file = content.get('content_file', 'unknown')
+                filename = content_file.replace('content/inspiration/', '').replace('.md', '') if content_file.startswith('content/inspiration/') else content_file
+                
                 needs_generation.append({
                     'title': content['title'],
                     'author': content['author'],
+                    'filename': filename,
                     'reason': 'no_images',
                     'expected_style': current_style,
                     'type': 'new'
@@ -139,9 +144,14 @@ class ImageGenerator:
                 if first_existing in existing_metadata:
                     existing_style = existing_metadata[first_existing]['style_name']
                 
+                # Get filename from content_file
+                content_file = content.get('content_file', 'unknown')
+                filename = content_file.replace('content/inspiration/', '').replace('.md', '') if content_file.startswith('content/inspiration/') else content_file
+                
                 needs_generation.append({
                     'title': content['title'],
                     'author': content['author'],
+                    'filename': filename,
                     'reason': f'style_change',
                     'expected_style': current_style,
                     'existing_style': existing_style,
@@ -153,6 +163,118 @@ class ImageGenerator:
             'content_pieces': len(content_list),
             'needs_generation': needs_generation
         }
+    
+    def preview_analysis(self, parsed_content_file: str = "generated/all_content.json") -> Dict[str, Any]:
+        """Detailed analysis for preview including cost calculations and approval logic."""
+        check_result = self.check_new_styles(parsed_content_file)
+        
+        if "error" in check_result:
+            return check_result
+        
+        # Separate new vs updates
+        needs_generation = check_result.get('needs_generation', [])
+        new_images = [item for item in needs_generation if item.get('type') == 'new']
+        updates = [item for item in needs_generation if item.get('type') == 'update']
+        
+        # Calculate costs
+        new_pieces = len(new_images)
+        update_pieces = len(updates)
+        total_pieces = new_pieces + update_pieces
+        total_images = total_pieces * 3  # 3 variations per piece
+        total_cost = total_images * self.cost_per_image
+        
+        return {
+            'content_pieces': check_result['content_pieces'],
+            'existing_images': check_result['existing_images'],
+            'new_pieces': new_pieces,
+            'update_pieces': update_pieces,
+            'total_pieces': total_pieces,
+            'total_images': total_images,
+            'total_cost': total_cost,
+            'cost_per_image': self.cost_per_image,
+            'new_images_list': new_images,
+            'updates_list': updates,
+            'needs_generation': total_pieces > 0
+        }
+    
+    def check_images_inventory(self, parsed_content_file: str = "generated/all_content.json") -> None:
+        """Display inventory of image status by content file."""
+        # Load content data
+        if not Path(parsed_content_file).exists():
+            print(f"❌ Content file not found: {parsed_content_file}")
+            return
+        
+        with open(parsed_content_file, 'r') as f:
+            content_list = json.load(f)
+        
+        if not content_list:
+            print("📭 No content found")
+            return
+        
+        # Get existing images and their metadata
+        existing_images = list(self.images_dir.glob('*.png'))
+        existing_metadata = {}
+        
+        for img_file in existing_images:
+            metadata_file = self.metadata_dir / img_file.name.replace('.png', '_metadata.json')
+            if metadata_file.exists():
+                with open(metadata_file, 'r') as f:
+                    metadata = json.load(f)
+                    existing_metadata[img_file.name] = {
+                        'style_name': metadata.get('style', {}).get('name', 'unknown'),
+                        'style_approach': metadata.get('style', {}).get('approach', 'artistic')
+                    }
+        
+        # Check each content piece
+        for content in content_list:
+            # Get the filename (remove path and extension)
+            content_file = content.get('content_file', 'unknown')
+            if content_file.startswith('content/inspiration/'):
+                filename = content_file.replace('content/inspiration/', '').replace('.md', '')
+            else:
+                filename = content_file
+            
+            title = content['title']
+            author = content['author']
+            current_style = content.get('style_name', 'unknown')
+            
+            # Generate expected filenames for all variations
+            base_filename = self.generate_image_filename(content, 1).replace('_v1.png', '')
+            
+            # Check if any variation exists and compare styles
+            variations_exist = []
+            style_mismatch = False
+            existing_style = 'unknown'
+            
+            for v in range(1, 4):  # Check for 3 variations
+                var_filename = f"{base_filename}_v{v}.png"
+                if var_filename in [img.name for img in existing_images]:
+                    variations_exist.append(v)
+                    
+                    # Compare style from metadata with current content style
+                    if var_filename in existing_metadata:
+                        metadata_style = existing_metadata[var_filename]['style_name']
+                        if v == 1:  # Use first variation's style as reference
+                            existing_style = metadata_style
+                        if metadata_style != current_style:
+                            style_mismatch = True
+            
+            # Determine status
+            if not variations_exist:
+                status = "🆕 NEEDS NEW IMAGES"
+                detail = f"no images exist (style: {current_style})"
+            elif style_mismatch:
+                status = "🔄 NEEDS UPDATE"
+                detail = f"style change: {existing_style} → {current_style}"
+            else:
+                status = "✅ CURRENT"
+                detail = f"3 variations with {current_style} style"
+            
+            # Display the inventory line
+            print(f"{filename:<25} │ {status:<20} │ \"{title}\" by {author}")
+            if status != "✅ CURRENT":
+                print(f"{'':<25} │ {'':<20} │ {detail}")
+                print()
         
     def generate_image_filename(self, content_data: Dict[str, Any], variation: int = 1) -> str:
         """Generate a consistent filename for an image."""
@@ -541,6 +663,10 @@ def main():
                        help='Archive existing images then regenerate all')
     parser.add_argument('--check-styles', action='store_true',
                        help='Check which content needs images generated')
+    parser.add_argument('--preview-analysis', action='store_true',
+                       help='Detailed analysis with cost calculations for preview script')
+    parser.add_argument('--check-images', action='store_true',
+                       help='Inventory image status by content file')
     parser.add_argument('--content-file', default='generated/all_content.json',
                        help='Path to parsed content JSON file')
     parser.add_argument('--variations', type=int, default=3,
@@ -548,9 +674,9 @@ def main():
     
     args = parser.parse_args()
     
-    # Check for API key (not needed for style checking)
+    # Check for API key (not needed for analysis-only operations)
     api_key = os.environ.get('GEMINI_API_KEY')
-    if not api_key and not args.check_styles:
+    if not api_key and not args.check_styles and not args.preview_analysis and not args.check_images:
         print("❌ Error: GEMINI_API_KEY environment variable not set")
         print("Please set your Gemini API key before running image generation")
         return 1
@@ -596,6 +722,25 @@ def main():
             else:
                 print("\n✅ All content has generated images with current styles!")
             
+            return 0
+        
+        # Handle preview analysis option
+        if args.preview_analysis:
+            generator = ImageGenerator(check_only=True)
+            analysis = generator.preview_analysis(args.content_file)
+            
+            if "error" in analysis:
+                print(f"❌ {analysis['error']}")
+                return 1
+            
+            # Output structured data for bash script consumption
+            print(json.dumps(analysis, indent=2))
+            return 0
+        
+        # Handle check images inventory option
+        if args.check_images:
+            generator = ImageGenerator(check_only=True)
+            generator.check_images_inventory(args.content_file)
             return 0
         
         # For all other operations, create generator normally

@@ -30,7 +30,11 @@
       "Bash(curl:*)",
       "Bash(git rm:*)",
       "Bash(./bin/generate-new.sh:*)",
-      "Bash(./bin/check-new-styles.sh:*)"
+      "Bash(./bin/check-new-styles.sh:*)",
+      "Bash(open:*)",
+      "Bash(./bin/regenerate-all.sh:*)",
+      "Bash(./bin/preview-and-check.sh:*)",
+      "Bash(./bin/check-images.sh:*)"
     ],
     "deny": [],
     "ask": []

@@ -39,6 +39,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-09T12:50:51.589283",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 468,
+          "cost": 0.039,
+          "image_filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png",
+          "image_path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "impressionist-light",
+          "approach": "artistic",
+          "variation": {
+            "type": "original"
+          }
         }
       },
       {
@@ -50,6 +72,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-09T12:51:00.024072",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 468,
+          "cost": 0.039,
+          "image_filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2.png",
+          "image_path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "impressionist-light",
+          "approach": "artistic",
+          "variation": {
+            "type": "original"
+          }
         }
       },
       {
@@ -61,6 +105,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-09T12:51:08.395465",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 468,
+          "cost": 0.039,
+          "image_filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
+          "image_path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "impressionist-light",
+          "approach": "scene",
+          "variation": {
+            "type": "original"
+          }
         }
       }
     ],
@@ -112,6 +178,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-09T12:51:17.249676",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 253,
+          "cost": 0.039,
+          "image_filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
+          "image_path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "fortiche-blend",
+          "approach": "scene",
+          "variation": {
+            "type": "original"
+          }
         }
       },
       {
@@ -123,6 +211,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-09T12:51:26.465398",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 253,
+          "cost": 0.039,
+          "image_filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
+          "image_path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "fortiche-blend",
+          "approach": "scene",
+          "variation": {
+            "type": "original"
+          }
         }
       },
       {
@@ -134,6 +244,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-09T12:51:34.768729",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 253,
+          "cost": 0.039,
+          "image_filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
+          "image_path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "fortiche-blend",
+          "approach": "artistic",
+          "variation": {
+            "type": "original"
+          }
         }
       }
     ],
@@ -181,6 +313,28 @@
           "text_color": "#2c3e50",
           "background_color": "#f8f9fa",
           "accent_color": "#3498db"
+        },
+        "generation": {
+          "timestamp": "2025-09-08T18:21:11.293439",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 336,
+          "cost": 0.039,
+          "image_filename": "paul_graham_make_something_people_want_v1.png",
+          "image_path": "generated/images/paul_graham_make_something_people_want_v1.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 2,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "random",
+          "approach": "artistic",
+          "variation": {
+            "type": "original"
+          }
         }
       },
       {
@@ -192,6 +346,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-08T18:21:20.398857",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 336,
+          "cost": 0.039,
+          "image_filename": "paul_graham_make_something_people_want_v2.png",
+          "image_path": "generated/images/paul_graham_make_something_people_want_v2.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 2,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "random",
+          "approach": "artistic",
+          "variation": {
+            "type": "original"
+          }
         }
       },
       {
@@ -203,6 +379,28 @@
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
+        },
+        "generation": {
+          "timestamp": "2025-09-08T18:21:29.720469",
+          "model": "gemini-2.5-flash-image-preview",
+          "prompt": "Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 336,
+          "cost": 0.039,
+          "image_filename": "paul_graham_make_something_people_want_v3.png",
+          "image_path": "generated/images/paul_graham_make_something_people_want_v3.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 2,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "random",
+          "approach": "scene",
+          "variation": {
+            "type": "original"
+          }
         }
       }
     ],

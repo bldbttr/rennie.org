@@ -80,6 +80,62 @@ class InspirationApp {
         window.addEventListener('blur', () => {
             this.pauseBreathing();
         });
+        
+        // Generation details modal
+        const contentInfo = document.getElementById('content-info');
+        const modal = document.getElementById('generation-modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalBody = document.getElementById('modal-body');
+        
+        if (contentInfo && modal) {
+            contentInfo.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const content = JSON.parse(contentInfo.dataset.content || '{}');
+                
+                if (content.images && content.images[0]) {
+                    const image = content.images[0];
+                    const generation = image.generation || {};
+                    const style = image.style || {};
+                    
+                    // Format prompt (summarize if too long)
+                    let promptDisplay = generation.prompt || 'Not available';
+                    const promptLength = promptDisplay.length;
+                    if (promptLength > 300) {
+                        promptDisplay = promptDisplay.substring(0, 150) + '...' + promptDisplay.substring(promptLength - 100);
+                    }
+                    
+                    const modalContent = `
+                        <div class="generation-details">
+                            <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'} (${style.approach || 'artistic'})</p>
+                            <p><strong>Model:</strong> ${generation.model || 'Unknown'}</p>
+                            <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
+                            <p><strong>Dimensions:</strong> ${generation.dimensions || '1024x1024'}</p>
+                            <div class="prompt-section">
+                                <p><strong>Prompt (${promptLength} chars):</strong></p>
+                                <div class="prompt-text">${promptDisplay}</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    modalBody.innerHTML = modalContent;
+                    modal.classList.remove('hidden');
+                }
+            });
+        }
+        
+        if (modalClose && modal) {
+            modalClose.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        }
+        
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        }
     }
     
     hideLoading() {
@@ -202,6 +258,7 @@ class InspirationApp {
     updateFooterContent(content) {
         const sourceLink = document.getElementById('source-link');
         const contentInfo = document.getElementById('content-info');
+        const modelBadge = document.getElementById('model-badge');
         
         if (sourceLink && content.metadata?.source) {
             sourceLink.href = content.metadata.source;
@@ -210,9 +267,21 @@ class InspirationApp {
             sourceLink.style.display = 'none';
         }
         
+        // Update style info
         if (contentInfo) {
             const style = content.style_name || 'unknown';
             contentInfo.textContent = `Style: ${style}`;
+            
+            // Store current content metadata for modal
+            contentInfo.dataset.content = JSON.stringify(content);
+        }
+        
+        // Update model badge if we have generation metadata
+        if (modelBadge && content.images && content.images[0]) {
+            const generation = content.images[0].generation;
+            if (generation && generation.model_display) {
+                modelBadge.textContent = generation.model_display;
+            }
         }
     }
     

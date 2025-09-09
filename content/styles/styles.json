@@ -1,94 +1,84 @@
 {
   "style_categories": {
-    "scene": {
-      "description": "Visual storytelling approaches - how master animators and artists compose scenes",
-      "styles": ["ghibli-moment", "fortiche-blend", "kibuishi-depth"]
+    "visual_storytelling": {
+      "description": "Cinematic and graphic novel composition techniques - how master directors and artists frame scenes",
+      "styles": ["ghibli-composition", "arcane-framing", "kibuishi-world", "spiderverse-dimensional"]
     },
-    "artistic": {
-      "description": "Pure art movement techniques - capturing essence through artistic tradition",
-      "styles": ["impressionist-light", "abstract-expression", "color-field-meditation", "gestural-energy"]
+    "painting_technique": {
+      "description": "Pure painting approaches from master artists - focused on technique and visual treatment",
+      "styles": ["turner-atmospheric", "kline-gestural", "rothko-color-field", "monet-impressionist"]
     }
   },
   
-  "scene_storytelling_styles": {
-    "ghibli-moment": {
-      "description": "Miyazaki's approach to emotional moments through space and stillness",
-      "approach": "Use 'ma' (negative space) and atmospheric composition to create emotional resonance",
-      "base_prompt": "A moment of contemplative stillness rendered in Studio Ghibli watercolor style, with careful attention to negative space and atmospheric perspective, soft natural lighting filtering through the scene, characters or elements positioned to create emotional breathing room, gentle color transitions that support the mood rather than overwhelm it",
-      "key_techniques": ["atmospheric perspective", "emotional negative space", "soft natural lighting", "watercolor-like color transitions"],
-      "composition_principles": ["breathing room around subjects", "horizontal emphasis for calm", "depth through layered elements", "subtle environmental storytelling"],
-      "mood_approach": "Capture the feeling between actions rather than the action itself"
+  "visual_storytelling_techniques": {
+    "ghibli-composition": {
+      "description": "Studio Ghibli's cinematic landscape approach with humans small in vast environments",
+      "base_prompt": "Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room",
+      "key_techniques": ["wide establishing shots", "layered depth planes", "watercolor rendering", "soft natural lighting"],
+      "composition_principles": ["horizontal emphasis", "characters small in landscape", "negative space utilization", "atmospheric perspective"],
+      "lighting_approach": "Soft, diffused natural light creating gentle atmospheric mood"
     },
     
-    "fortiche-blend": {
-      "description": "Arcane's hybrid approach mixing painterly backgrounds with dynamic character focus",
-      "approach": "Combine hand-painted environmental textures with crisp character definition",
-      "base_prompt": "A scene combining hand-painted background textures with sharp character focus, dramatic lighting that creates strong contrast between foreground and background, painterly brushstrokes in environmental elements while maintaining clarity on main subjects, rich color palette with both muted and vibrant areas working in harmony",
-      "key_techniques": ["painted texture backgrounds", "sharp character definition", "dramatic contrast lighting", "mixed media aesthetic"],
-      "composition_principles": ["foreground clarity with textural depth", "strong directional lighting", "color temperature contrasts", "dynamic camera angles"],
-      "mood_approach": "Create tension between intimate character moments and grand environmental scale"
+    "arcane-framing": {
+      "description": "Fortiche/Arcane's dramatic character-focused cinematography with mixed media aesthetics",
+      "base_prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios",
+      "key_techniques": ["dramatic close-ups", "dynamic camera angles", "high contrast lighting", "mixed media rendering"],
+      "composition_principles": ["vertical emphasis", "cinematic framing", "character-focused foreground", "textural background separation"],
+      "lighting_approach": "High contrast dramatic lighting with strong directional shadows"
     },
     
-    "kibuishi-depth": {
-      "description": "Amulet's approach to world-building through detailed environmental storytelling",
-      "approach": "Build narrative through rich environmental details and mechanical/architectural elements",
-      "base_prompt": "A scene with rich environmental storytelling through detailed architectural and mechanical elements, warm lighting that suggests both wonder and subtle danger, intricate background details that reward close examination, steampunk-influenced technology integrated naturally into fantasy settings, composition that guides the eye through multiple layers of narrative information",
-      "key_techniques": ["environmental narrative details", "mechanical/architectural integration", "warm atmospheric lighting", "layered visual information"],
-      "composition_principles": ["multiple focal points for exploration", "architectural depth", "technology-nature integration", "guided eye movement"],
-      "mood_approach": "Build anticipation and wonder through richly detailed world-building"
+    "kibuishi-world": {
+      "description": "Kazu Kibuishi's detailed architectural world-building with isometric clarity",
+      "base_prompt": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration",
+      "key_techniques": ["isometric perspective", "architectural detail density", "warm enclosed lighting", "system visualization"],
+      "composition_principles": ["multiple focal points", "elevated perspective", "architectural emphasis", "detailed environment storytelling"],
+      "lighting_approach": "Warm, diffused interior lighting creating cozy enclosed atmosphere"
+    },
+    
+    "spiderverse-dimensional": {
+      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
+      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+      "key_techniques": ["mixed animation styles", "halftone comic patterns", "dimensional depth effects", "graphic design integration"],
+      "composition_principles": ["dynamic perspective shifts", "multiple focal points", "graphic element rhythm", "dimensional layering"],
+      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
     }
   },
   
-  "artistic_movement_styles": {
-    "impressionist-light": {
-      "description": "Monet/Renoir's technique of capturing light and emotional atmosphere",
-      "approach": "Focus on the interplay of light and color to create emotional resonance",
-      "base_prompt": "An impressionist composition emphasizing the quality and mood of light rather than precise details, loose visible brushstrokes that suggest form and movement, colors that interact and influence each other to create new emotional tones, atmospheric effects that capture a specific moment in time, emphasis on the sensation of being present in the scene",
-      "key_techniques": ["visible brushwork suggesting movement", "color interaction effects", "atmospheric light capture", "temporal specificity"],
-      "color_philosophy": "Colors that breathe and change based on their neighbors, creating emotional temperature",
-      "brush_approach": "Quick, confident strokes that capture essence rather than exact form",
-      "light_focus": "The way light transforms subjects rather than the subjects themselves"
+  "painting_technique_styles": {
+    "turner-atmospheric": {
+      "description": "J.M.W. Turner's luminous atmospheric technique where light dissolves form",
+      "base_prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
+      "key_techniques": ["luminous atmospheric effects", "soft focus rendering", "light dissolving form", "glowing paint passages"],
+      "color_philosophy": "Golden and warm light palette with forms emerging from luminous atmosphere",
+      "brush_approach": "Soft, blended brushwork where edges dissolve into light",
+      "light_focus": "Light as the primary subject with forms secondary to atmospheric effects"
     },
     
-    "abstract-expression": {
-      "description": "Abstract expressionist approach to pure emotional content",
-      "approach": "Convey feeling through gestural marks and color relationships without literal representation",
-      "base_prompt": "Abstract expressionist composition that communicates emotion through pure visual elements, bold gestural brushwork that captures the energy and rhythm of feeling, colors chosen for their emotional resonance rather than representational accuracy, composition that flows and builds tension like music, forms that suggest rather than depict",
-      "key_techniques": ["gestural brushwork conveying energy", "non-representational emotional communication", "musical rhythm in composition", "color as pure emotion"],
-      "expression_method": "Raw emotional energy translated directly into visual form",
-      "composition_flow": "Visual rhythm that builds and releases tension",
-      "abstraction_level": "Essence of feeling without literal imagery"
+    "kline-gestural": {
+      "description": "Franz Kline's bold gestural abstraction with confident black brushstrokes",
+      "base_prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+      "key_techniques": ["bold black brushstrokes", "gestural movement capture", "high contrast composition", "minimal color emphasis"],
+      "expression_method": "Raw gestural energy translated into confident brush movements",
+      "composition_flow": "Dynamic movement created through bold stroke direction and rhythm",
+      "abstraction_level": "Pure gesture and movement without representational content"
     },
     
-    "color-field-meditation": {
-      "description": "Rothko's approach to transcendent experience through color relationships",
-      "approach": "Create meditative experience through large areas of luminous, breathing color",
-      "base_prompt": "Color field composition with large luminous areas of color that seem to glow and breathe, soft edges between color zones that create gentle transitions, colors chosen for their spiritual and emotional resonance, composition that invites contemplation and inner reflection, atmospheric quality that transcends literal representation",
-      "key_techniques": ["luminous color areas", "breathing color transitions", "contemplative composition", "spiritual color resonance"],
+    "rothko-color-field": {
+      "description": "Mark Rothko's transcendent color field approach with luminous color relationships",
+      "base_prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+      "key_techniques": ["luminous color fields", "breathing color transitions", "soft edge boundaries", "contemplative minimal composition"],
       "meditative_quality": "Colors that invite deep contemplation and emotional opening",
-      "transcendent_approach": "Visual experience that goes beyond the everyday",
-      "color_breathing": "Colors that seem alive and changing even while static"
+      "transcendent_approach": "Visual experience designed to go beyond everyday perception",
+      "color_breathing": "Colors that appear alive and subtly changing even in stillness"
     },
     
-    "expressionist-emotion": {
-      "description": "Edvard Munch/Ernst Ludwig Kirchner's approach to visual emotional intensity",
-      "approach": "Use distorted forms and intense colors to express psychological and emotional states",
-      "base_prompt": "Expressionist composition with distorted forms and intense, non-naturalistic colors that convey deep emotional or psychological states, bold outlines that emphasize feeling over realism, compositions that create emotional tension through visual discord, colors chosen for psychological impact rather than natural appearance",
-      "key_techniques": ["emotional color distortion", "psychological form manipulation", "expressive line quality", "symbolic visual elements"],
-      "emotional_intensity": "Visual elements pushed beyond reality to express inner experience",
-      "psychological_approach": "Art as emotional communication rather than representation",
-      "color_psychology": "Colors that directly impact emotional state",
-      "master_artists": ["Edvard Munch (psychological symbolism)", "Ernst Ludwig Kirchner (emotional rawness)", "Wassily Kandinsky (color emotion theory)"]
-    },
-    
-    "moebius-duality": {
-      "description": "Moebius's approach to blending hyper-realistic detail with surreal imagination",
-      "approach": "Combine clean, precise linework with otherworldly atmospheric elements",
-      "base_prompt": "Clean, fluid line art with intricate details reminiscent of Moebius, combining realistic precision with surreal, otherworldly landscapes, organic forms flowing into mechanical elements, atmospheric depth that suggests infinite space, philosophical undertones expressed through visual metaphor rather than literal representation",
-      "key_techniques": ["clean ligne claire linework", "realistic-surreal fusion", "organic-mechanical integration", "atmospheric infinite depth"],
-      "visual_philosophy": "Dreams and reality intertwined through precise draftsmanship",
-      "dual_nature": "Meticulous detail serving fantastical imagination",
-      "space_treatment": "Landscapes that feel both familiar and completely alien"
+    "monet-impressionist": {
+      "description": "Claude Monet's broken brushwork technique capturing fleeting light effects",
+      "base_prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+      "key_techniques": ["broken visible brushstrokes", "optical color interaction", "atmospheric light capture", "temporal moment specificity"],
+      "color_philosophy": "Colors that interact optically to create new emotional temperatures and atmospheric effects",
+      "brush_approach": "Quick confident strokes that capture essence and light rather than precise form",
+      "light_focus": "Fleeting effects of light and atmosphere as primary subject matter"
     }
   }
 }

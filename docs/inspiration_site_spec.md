@@ -1,7 +1,8 @@
 # Inspiration Site Development Specification
 **Project**: rennie.org Inspiration Site with AI-Generated Artwork  
 **Repository**: https://github.com/hoggfather/rennie.org  
-**Tech Stack**: Nano Banana (Gemini 2.5 Flash Image) + Static Site + GitHub Actions
+**Tech Stack**: Nano Banana (Gemini 2.5 Flash Image) + Static Site + GitHub Actions  
+**IMPORTANT**: Always use `gemini-2.5-flash` model (latest Nano Banana), NOT preview versions
 
 ## Project Intent
 
@@ -67,7 +68,7 @@ rennie.org/
 #### 2. Image Generator (`scripts/generate_images.py`)
 **Purpose**: Generate missing images using Nano Banana API
 **Requirements**:
-- Use Google Gemini 2.5 Flash Image API (model: "gemini-2.5-flash-image-preview")
+- Use Google Gemini 2.5 Flash Image API (model: "gemini-2.5-flash") - Latest Nano Banana
 - Check which content pieces need images (compare content vs generated/images/)
 - Generate only missing images (incremental generation)
 - Build prompts using content + style library
@@ -204,7 +205,7 @@ Background information...
 5. Final prompt format: `"{base_prompt}, {elements}, {mood}, square composition, centered focus"`
 
 ### API Integration
-- **Model**: `gemini-2.5-flash-image-preview`
+- **Model**: `gemini-2.5-flash` (Latest Nano Banana - NOT preview version)
 - **Cost**: ~$0.039 per 1024x1024 image
 - **Output**: PNG format, base64 encoded, 1024x1024 square
 - **Rate Limiting**: Respect API limits with 2-3 second delays between requests

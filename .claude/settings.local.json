@@ -25,7 +25,12 @@
       "Bash(gh run list:*)",
       "Bash(gh run view:*)",
       "Bash(gh workflow run:*)",
-      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py --new-only)"
+      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py --new-only)",
+      "Bash(gh run watch:*)",
+      "Bash(curl:*)",
+      "Bash(git rm:*)",
+      "Bash(./bin/generate-new.sh:*)",
+      "Bash(./bin/check-new-styles.sh:*)"
     ],
     "deny": [],
     "ask": []

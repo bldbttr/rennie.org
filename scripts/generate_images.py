@@ -174,9 +174,11 @@ class ImageGenerator:
             },
             'generation': {
                 'timestamp': datetime.now().isoformat(),
-                'model': 'gemini-2.5-flash-image-preview',
+                'model': 'gemini-2.5-flash',
+                'model_display': 'Nano Banana',
                 'prompt': content_data['prompt']['text'],
                 'prompt_length': len(content_data['prompt']['text']),
+                'dimensions': '1024x1024',
                 'cost': self.cost_per_image,
                 'image_filename': filename,
                 'image_path': str(self.images_dir / filename),
@@ -219,7 +221,7 @@ class ImageGenerator:
             
             # Generate the image using the new API
             response = self.client.models.generate_content(
-                model="gemini-2.5-flash-image-preview",
+                model="gemini-2.5-flash",
                 contents=full_prompt
             )
             
@@ -567,7 +569,7 @@ def main():
         print("Nano Banana Image Generator")
         print("=" * 60)
         print(f"API Key: {api_key[:10]}...")
-        print(f"Model: gemini-2.5-flash-image-preview")
+        print(f"Model: gemini-2.5-flash")
         print(f"Cost per image: ${generator.cost_per_image}")
         print(f"Variations: {args.variations}")
         print(f"Content file: {args.content_file}")

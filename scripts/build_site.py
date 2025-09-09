@@ -77,6 +77,17 @@ def get_image_path(content_item: Dict[str, Any]) -> str:
     return f"generated/{paths[0]}" if paths else ""
 
 
+def load_image_metadata(image_filename: str) -> Dict[str, Any]:
+    """Load metadata for a generated image"""
+    metadata_path = Path("generated/metadata") / image_filename.replace('.png', '_metadata.json')
+    
+    if metadata_path.exists():
+        with open(metadata_path, 'r') as f:
+            return json.load(f)
+    
+    return None
+
+
 def analyze_image_brightness(image_path: str) -> Dict[str, Any]:
     """Analyze image brightness to determine optimal text panel colors"""
     try:
@@ -200,8 +211,20 @@ def create_html_template() -> str:
                     <a id="source-link" href="#" target="_blank" class="source-link">Source</a>
                 </div>
                 <div class="footer-right">
+                    <span id="model-badge" class="model-badge">Gemini Flash</span>
                     <span id="breathing-indicator" class="breathing-indicator">●</span>
-                    <span id="content-info" class="content-info">Style: essence-of-desire</span>
+                    <span id="content-info" class="content-info" title="Click for generation details">Style: essence-of-desire</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Generation Details Modal -->
+        <div id="generation-modal" class="generation-modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <h3>Generation Details</h3>
+                <div id="modal-body" class="modal-body">
+                    <!-- Content loaded dynamically -->
                 </div>
             </div>
         </div>
@@ -577,6 +600,112 @@ body {
     transform: translateY(0) !important;
 }
 
+/* Attribution Elements */
+.model-badge {
+    color: #ffffff;
+    opacity: 0.6;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.content-info {
+    color: #ffffff;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    position: relative;
+}
+
+.content-info:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Generation Details Modal */
+.generation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.generation-modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--background-color);
+    color: var(--text-color);
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.modal-close:hover {
+    opacity: 1;
+}
+
+.modal-body h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+}
+
+.generation-details p {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+}
+
+.generation-details strong {
+    color: var(--accent-color);
+    margin-right: 0.5rem;
+}
+
+.prompt-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.prompt-text {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .desktop-layout {
@@ -726,6 +855,62 @@ class InspirationApp {
         window.addEventListener('blur', () => {
             this.pauseBreathing();
         });
+        
+        // Generation details modal
+        const contentInfo = document.getElementById('content-info');
+        const modal = document.getElementById('generation-modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalBody = document.getElementById('modal-body');
+        
+        if (contentInfo && modal) {
+            contentInfo.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const content = JSON.parse(contentInfo.dataset.content || '{}');
+                
+                if (content.images && content.images[0]) {
+                    const image = content.images[0];
+                    const generation = image.generation || {};
+                    const style = image.style || {};
+                    
+                    // Format prompt (summarize if too long)
+                    let promptDisplay = generation.prompt || 'Not available';
+                    const promptLength = promptDisplay.length;
+                    if (promptLength > 300) {
+                        promptDisplay = promptDisplay.substring(0, 150) + '...' + promptDisplay.substring(promptLength - 100);
+                    }
+                    
+                    const modalContent = `
+                        <div class="generation-details">
+                            <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'} (${style.approach || 'artistic'})</p>
+                            <p><strong>Model:</strong> ${generation.model || 'Unknown'}</p>
+                            <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
+                            <p><strong>Dimensions:</strong> ${generation.dimensions || '1024x1024'}</p>
+                            <div class="prompt-section">
+                                <p><strong>Prompt (${promptLength} chars):</strong></p>
+                                <div class="prompt-text">${promptDisplay}</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    modalBody.innerHTML = modalContent;
+                    modal.classList.remove('hidden');
+                }
+            });
+        }
+        
+        if (modalClose && modal) {
+            modalClose.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        }
+        
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        }
     }
     
     hideLoading() {
@@ -848,6 +1033,7 @@ class InspirationApp {
     updateFooterContent(content) {
         const sourceLink = document.getElementById('source-link');
         const contentInfo = document.getElementById('content-info');
+        const modelBadge = document.getElementById('model-badge');
         
         if (sourceLink && content.metadata?.source) {
             sourceLink.href = content.metadata.source;
@@ -856,9 +1042,21 @@ class InspirationApp {
             sourceLink.style.display = 'none';
         }
         
+        // Update style info
         if (contentInfo) {
             const style = content.style_name || 'unknown';
             contentInfo.textContent = `Style: ${style}`;
+            
+            // Store current content metadata for modal
+            contentInfo.dataset.content = JSON.stringify(content);
+        }
+        
+        // Update model badge if we have generation metadata
+        if (modelBadge && content.images && content.images[0]) {
+            const generation = content.images[0].generation;
+            if (generation && generation.model_display) {
+                modelBadge.textContent = generation.model_display;
+            }
         }
     }
     
@@ -1089,12 +1287,22 @@ def build_site():
                     # Analyze image brightness
                     brightness_data = analyze_image_brightness(str(full_path))
                     
+                    # Load metadata for the image
+                    metadata = load_image_metadata(image_filename)
+                    
                     # Add to images array
-                    content['images'].append({
+                    image_data = {
                         "path": img_path,
                         "filename": image_filename,
                         "brightness_analysis": brightness_data
-                    })
+                    }
+                    
+                    # Include generation metadata if available
+                    if metadata:
+                        image_data["generation"] = metadata.get("generation", {})
+                        image_data["style"] = metadata.get("style", {})
+                    
+                    content['images'].append(image_data)
                     
                     print(f"   🖼️  Image: {image_filename} (brightness: {brightness_data['brightness']})")
             

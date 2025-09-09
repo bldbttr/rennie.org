@@ -88,37 +88,25 @@ class InspirationApp {
         const modalBody = document.getElementById('modal-body');
         
         if (contentInfo && modal) {
+            // Desktop hover behavior
+            contentInfo.addEventListener('mouseenter', (e) => {
+                if (window.innerWidth > 768) { // Desktop only
+                    this.showTooltip();
+                }
+            });
+            
+            contentInfo.addEventListener('mouseleave', (e) => {
+                if (window.innerWidth > 768) { // Desktop only
+                    this.hideTooltip();
+                }
+            });
+            
+            // Mobile click behavior
             contentInfo.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const content = JSON.parse(contentInfo.dataset.content || '{}');
                 
-                if (content.images && content.images[0]) {
-                    const image = content.images[0];
-                    const generation = image.generation || {};
-                    const style = image.style || {};
-                    
-                    // Format prompt (summarize if too long)
-                    let promptDisplay = generation.prompt || 'Not available';
-                    const promptLength = promptDisplay.length;
-                    if (promptLength > 300) {
-                        promptDisplay = promptDisplay.substring(0, 150) + '...' + promptDisplay.substring(promptLength - 100);
-                    }
-                    
-                    const modalContent = `
-                        <div class="generation-details">
-                            <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'} (${style.approach || 'artistic'})</p>
-                            <p><strong>Model:</strong> ${generation.model || 'Unknown'}</p>
-                            <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
-                            <p><strong>Dimensions:</strong> ${generation.dimensions || '1024x1024'}</p>
-                            <div class="prompt-section">
-                                <p><strong>Prompt (${promptLength} chars):</strong></p>
-                                <div class="prompt-text">${promptDisplay}</div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    modalBody.innerHTML = modalContent;
-                    modal.classList.remove('hidden');
+                if (window.innerWidth <= 768) { // Mobile only
+                    this.showGenerationModal();
                 }
             });
         }
@@ -202,15 +190,63 @@ class InspirationApp {
         const author = content.author;
         const context = content.metadata?.why_i_like_it || '';
         
+        // Calculate dynamic font size based on text length
+        const fontSize = this.calculateFontSize(text);
+        
         // Update desktop
-        if (quoteText) quoteText.textContent = text;
+        if (quoteText) {
+            quoteText.textContent = text;
+            quoteText.style.fontSize = fontSize.desktop;
+        }
         if (quoteAuthor) quoteAuthor.textContent = author;
         if (quoteContext) quoteContext.textContent = context;
         
         // Update mobile
-        if (mobileQuoteText) mobileQuoteText.textContent = text;
+        if (mobileQuoteText) {
+            mobileQuoteText.textContent = text;
+            mobileQuoteText.style.fontSize = fontSize.mobile;
+        }
         if (mobileQuoteAuthor) mobileQuoteAuthor.textContent = author;
         if (mobileQuoteContext) mobileQuoteContext.textContent = context;
+    }
+    
+    calculateFontSize(text) {
+        const length = text.length;
+        
+        // Define size tiers based on character count
+        // Short quotes (< 50 chars): Large font
+        // Medium quotes (50-150 chars): Medium font  
+        // Long quotes (150-300 chars): Small font
+        // Very long quotes (> 300 chars): Extra small font
+        
+        let desktopSize, mobileSize;
+        
+        if (length < 50) {
+            // Short quotes - largest size
+            desktopSize = '1.8rem';
+            mobileSize = '1.4rem';
+        } else if (length < 150) {
+            // Medium quotes - default size
+            desktopSize = '1.5rem';
+            mobileSize = '1.2rem';
+        } else if (length < 300) {
+            // Long quotes - smaller size
+            desktopSize = '1.2rem';
+            mobileSize = '1rem';
+        } else if (length < 500) {
+            // Very long quotes - small size
+            desktopSize = '1rem';
+            mobileSize = '0.9rem';
+        } else {
+            // Extremely long quotes - extra small
+            desktopSize = '0.9rem';
+            mobileSize = '0.8rem';
+        }
+        
+        return {
+            desktop: desktopSize,
+            mobile: mobileSize
+        };
     }
     
     async updateImageContent(content) {
@@ -450,6 +486,95 @@ class InspirationApp {
     resetBreathing() {
         this.pauseBreathing();
         this.startBreathing();
+    }
+    
+    showTooltip() {
+        const contentInfo = document.getElementById('content-info');
+        const tooltip = document.getElementById('generation-tooltip');
+        const tooltipContent = tooltip?.querySelector('.tooltip-content');
+        
+        if (!contentInfo || !tooltip || !tooltipContent) return;
+        
+        const content = JSON.parse(contentInfo.dataset.content || '{}');
+        
+        if (content.images && content.images[0]) {
+            const image = content.images[0];
+            const generation = image.generation || {};
+            const style = image.style || {};
+            
+            // Format prompt (summarize if too long)
+            let promptDisplay = generation.prompt || 'Not available';
+            const promptLength = promptDisplay.length;
+            if (promptLength > 300) {
+                promptDisplay = promptDisplay.substring(0, 150) + '...' + promptDisplay.substring(promptLength - 100);
+            }
+            
+            const tooltipHTML = `
+                <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'} (${style.approach || 'artistic'})</p>
+                <p><strong>Model:</strong> ${generation.model || 'Unknown'}</p>
+                <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
+                <p><strong>Dimensions:</strong> ${generation.dimensions || '1024x1024'}</p>
+                <div class="tooltip-prompt">
+                    <strong>Prompt (${promptLength} chars):</strong><br>
+                    ${promptDisplay}
+                </div>
+            `;
+            
+            tooltipContent.innerHTML = tooltipHTML;
+            tooltip.classList.remove('hidden');
+        } else {
+            tooltipContent.innerHTML = '<p>Generation details not available for this image.</p>';
+            tooltip.classList.remove('hidden');
+        }
+    }
+    
+    hideTooltip() {
+        const tooltip = document.getElementById('generation-tooltip');
+        if (tooltip) {
+            tooltip.classList.add('hidden');
+        }
+    }
+    
+    showGenerationModal() {
+        const contentInfo = document.getElementById('content-info');
+        const modal = document.getElementById('generation-modal');
+        const modalBody = document.getElementById('modal-body');
+        
+        if (!contentInfo || !modal || !modalBody) return;
+        
+        const content = JSON.parse(contentInfo.dataset.content || '{}');
+        
+        if (content.images && content.images[0]) {
+            const image = content.images[0];
+            const generation = image.generation || {};
+            const style = image.style || {};
+            
+            // Format prompt (summarize if too long)
+            let promptDisplay = generation.prompt || 'Not available';
+            const promptLength = promptDisplay.length;
+            if (promptLength > 300) {
+                promptDisplay = promptDisplay.substring(0, 150) + '...' + promptDisplay.substring(promptLength - 100);
+            }
+            
+            const modalContent = `
+                <div class="generation-details">
+                    <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'} (${style.approach || 'artistic'})</p>
+                    <p><strong>Model:</strong> ${generation.model || 'Unknown'}</p>
+                    <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
+                    <p><strong>Dimensions:</strong> ${generation.dimensions || '1024x1024'}</p>
+                    <div class="prompt-section">
+                        <p><strong>Prompt (${promptLength} chars):</strong></p>
+                        <div class="prompt-text">${promptDisplay}</div>
+                    </div>
+                </div>
+            `;
+            
+            modalBody.innerHTML = modalContent;
+            modal.classList.remove('hidden');
+        } else {
+            modalBody.innerHTML = '<p>Generation details not available for this image.</p>';
+            modal.classList.remove('hidden');
+        }
     }
 }
 

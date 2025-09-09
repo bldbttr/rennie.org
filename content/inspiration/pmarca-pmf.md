@@ -1,10 +1,12 @@
 ---
-title: "you can always feel product/market fit when it’s happening"
+title: "You can always feel product/market fit when it's happening"
 author: "Marc Andreessen"
 type: "quote"
 source: "https://pmarchive.com/guide_to_startups_part4.html"
+year: 2007
+tags: ["startup", "product-market-fit", "entrepreneurship"]
 style_approach: "artistic"
-style: ["random"]
+style: "random"
 status: "active"
 ---
 

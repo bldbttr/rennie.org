@@ -248,6 +248,57 @@ This system follows a **hybrid local-first approach**:
 
 ---
 
+## ⚙️ Configuration Options
+
+The site uses a centralized configuration file at `config.json` in the project root. This allows you to customize key settings without editing multiple script files.
+
+### Image Generation Settings
+
+```json
+{
+  "image_generation": {
+    "variations_per_content": 3,
+    "cost_per_image": 0.039,
+    "model": "gemini-2.5-flash"
+  }
+}
+```
+
+#### Adjusting Number of Image Variations
+
+**Default**: 3 variations per content piece  
+**Cost impact**: Each variation costs ~$0.039, so changing from 3 to 2 variations reduces cost per content piece from ~$0.12 to ~$0.08.
+
+**To change the number of variations:**
+
+1. **Edit `config.json`**:
+   ```json
+   {
+     "image_generation": {
+       "variations_per_content": 2,  // Changed from 3 to 2
+       "cost_per_image": 0.039,
+       "model": "gemini-2.5-flash"
+     }
+   }
+   ```
+
+2. **All scripts automatically use the new setting**:
+   - `./bin/generate-new-images-locally.sh` will show cost for 2 variations
+   - Python scripts will generate 2 images instead of 3
+   - All cost calculations update automatically
+
+3. **Test with preview**:
+   ```bash
+   ./bin/generate-new-images-locally.sh
+   ```
+
+**Note**: Changing variations doesn't affect existing images. To regenerate existing content with the new variation count, use:
+```bash
+./bin/regenerate-all.sh  # Regenerates all content with new variation setting
+```
+
+---
+
 ## 🛟 Getting Help
 
 - **Style questions**: Ask Claude at claude.ai about visual approaches

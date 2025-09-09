@@ -17,6 +17,23 @@ import google.genai as genai
 from content_parser import ContentParser
 
 
+def load_config() -> Dict[str, Any]:
+    """Load configuration from config.json"""
+    config_path = Path(__file__).parent.parent / "config.json"
+    try:
+        with open(config_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # Fallback to defaults if config file doesn't exist
+        return {
+            "image_generation": {
+                "variations_per_content": 3,
+                "cost_per_image": 0.039,
+                "model": "gemini-2.5-flash"
+            }
+        }
+
+
 class ImageGenerator:
     # Single source of truth for the model name
     MODEL_NAME = "gemini-2.5-flash-image-preview"
@@ -24,6 +41,11 @@ class ImageGenerator:
     
     def __init__(self, api_key: Optional[str] = None, check_only: bool = False):
         """Initialize the image generator with API credentials."""
+        # Load configuration
+        self.config = load_config()
+        self.variations_per_content = self.config["image_generation"]["variations_per_content"]
+        self.cost_per_image = self.config["image_generation"]["cost_per_image"]
+        
         self.api_key = api_key or os.environ.get('GEMINI_API_KEY')
         
         if not check_only and not self.api_key:
@@ -116,7 +138,7 @@ class ImageGenerator:
             style_mismatch = False
             current_style = content.get('style_name', 'unknown')
             
-            for v in range(1, variations_per_content + 1):  # Check for configured variations
+            for v in range(1, self.variations_per_content + 1):  # Check for configured variations
                 var_filename = f"{base_filename}_v{v}.png"
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
@@ -182,7 +204,7 @@ class ImageGenerator:
         new_pieces = len(new_images)
         update_pieces = len(updates)
         total_pieces = new_pieces + update_pieces
-        total_images = total_pieces * 3  # 3 variations per piece
+        total_images = total_pieces * self.variations_per_content  # variations per piece
         total_cost = total_images * self.cost_per_image
         
         return {
@@ -194,13 +216,14 @@ class ImageGenerator:
             'total_images': total_images,
             'total_cost': total_cost,
             'cost_per_image': self.cost_per_image,
+            'variations_per_content': self.variations_per_content,
             'new_images_list': new_images,
             'updates_list': updates,
             'needs_generation': total_pieces > 0
         }
     
     def check_images_inventory(self, parsed_content_file: str = "generated/all_content.json", 
-                             variations_per_content: int = 3) -> None:
+                             ) -> None:
         """Display inventory of image status by content file."""
         # Load content data
         if not Path(parsed_content_file).exists():
@@ -245,7 +268,7 @@ class ImageGenerator:
             style_mismatch = False
             existing_style = 'unknown'
             
-            for v in range(1, variations_per_content + 1):  # Check for configured variations
+            for v in range(1, self.variations_per_content + 1):  # Check for configured variations
                 var_filename = f"{base_filename}_v{v}.png"
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
@@ -267,7 +290,7 @@ class ImageGenerator:
                 detail = f"style change: {existing_style} → {current_style}"
             else:
                 status = "✅ CURRENT"
-                detail = f"{variations_per_content} variations with {current_style} style"
+                detail = f"{self.variations_per_content} variations with {current_style} style"
             
             # Display the inventory line
             print(f"{filename:<25} │ {status:<20} │ \"{title}\" by {author}")
@@ -295,7 +318,7 @@ class ImageGenerator:
         return image_path.exists()
     
     def identify_orphaned_images(self, parsed_content_file: str = "generated/all_content.json", 
-                               variations_per_content: int = 3) -> Dict[str, Any]:
+                               ) -> Dict[str, Any]:
         """Identify images that should be removed (orphaned images)."""
         # Load current content data
         if not Path(parsed_content_file).exists():
@@ -312,7 +335,7 @@ class ImageGenerator:
         expected_files = set()
         for content in content_list:
             base_filename = self.get_base_filename_from_content(content)
-            for v in range(1, variations_per_content + 1):
+            for v in range(1, self.variations_per_content + 1):
                 expected_files.add(f"{base_filename}_v{v}.png")
                 expected_files.add(f"{base_filename}_v{v}_metadata.json")
         
@@ -333,7 +356,7 @@ class ImageGenerator:
                     if base_name == content_base:
                         excess_variations.append({
                             "filename": img_file.name,
-                            "reason": f"excess variation (need only {variations_per_content})"
+                            "reason": f"excess variation (need only {self.variations_per_content})"
                         })
                         variation_match = True
                         break
@@ -371,16 +394,16 @@ class ImageGenerator:
             "total_orphaned": len(missing_content) + len(excess_variations),
             "total_metadata_orphaned": len(orphaned_metadata),
             "estimated_space_saved": size_str,
-            "variations_per_content": variations_per_content
+            "variations_per_content": self.variations_per_content
         }
     
     def cleanup_orphaned_images(self, dry_run: bool = True, archive_before_delete: bool = True,
-                              variations_per_content: int = 3) -> Dict[str, Any]:
+                              ) -> Dict[str, Any]:
         """Remove orphaned images with safety measures."""
         import shutil
         
         # First identify what needs to be cleaned up
-        orphaned_result = self.identify_orphaned_images(variations_per_content=variations_per_content)
+        orphaned_result = self.identify_orphaned_images()
         
         if "error" in orphaned_result:
             return orphaned_result
@@ -933,7 +956,7 @@ def main():
         # Handle check images inventory option
         if args.check_images:
             generator = ImageGenerator(check_only=True)
-            generator.check_images_inventory(args.content_file, variations_per_content=args.variations)
+            generator.check_images_inventory(args.content_file)
             return 0
         
         # Handle orphaned image check
@@ -944,8 +967,7 @@ def main():
             
             orphaned_result = generator.identify_orphaned_images(
                 parsed_content_file=args.content_file,
-                variations_per_content=args.variations
-            )
+                            )
             
             if "error" in orphaned_result:
                 print(f"❌ {orphaned_result['error']}")
@@ -997,8 +1019,7 @@ def main():
             cleanup_result = generator.cleanup_orphaned_images(
                 dry_run=args.dry_run,
                 archive_before_delete=True,
-                variations_per_content=args.variations
-            )
+                            )
             
             if "error" in cleanup_result:
                 print(f"❌ {cleanup_result['error']}")

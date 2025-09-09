@@ -53,7 +53,8 @@ rennie.org/
 ├── scripts/                 # Python automation ✅
 │   ├── content_parser.py ✅  # Markdown + YAML processing
 │   ├── generate_images.py ✅ # Nano Banana integration
-│   └── build_site.py ✅      # Static site generator
+│   ├── build_site.py ✅      # Static site generator
+│   └── read_config.py ✅     # Configuration utility for bash scripts
 ├── generated/               # AI-generated content (now tracked in git) ✅
 │   ├── images/             # 3 variations per content piece ✅
 │   ├── metadata/           # Generation tracking ✅
@@ -63,6 +64,7 @@ rennie.org/
 │   ├── style.css ✅         # Modern styling
 │   ├── script.js ✅         # Dynamic functionality
 │   └── content.json ✅      # API endpoint
+├── config.json ✅            # Centralized configuration ✅
 └── docs/                    # Documentation ✅
     ├── HowToUseAndUpdateThisProject.md ✅  # User guide
     ├── inspiration_site_spec.md ✅         # Technical spec
@@ -239,6 +241,38 @@ Background information...
 - **Change detection intelligence** comparing metadata vs current content
 - **Cost control** with user approval for all image generation
 - **Archive system** preserving old images when styles change
+- **Centralized configuration** eliminating hardcoded parameters throughout codebase
+
+## Configuration Management ✅ IMPLEMENTED
+
+The system uses a centralized `config.json` file to manage all system settings, eliminating hardcoded parameters and enabling easy customization.
+
+### Configuration Structure
+```json
+{
+  "image_generation": {
+    "variations_per_content": 3,
+    "cost_per_image": 0.039,
+    "model": "gemini-2.5-flash"
+  },
+  "project": {
+    "name": "rennie.org inspiration site",
+    "version": "1.0"
+  }
+}
+```
+
+### Integration Architecture
+- **Python Scripts**: `load_config()` utility with fallback defaults
+- **Bash Scripts**: `scripts/read_config.py` utility for config value access
+- **Cost Calculations**: All financial displays use actual configured values
+- **Variations Management**: Easily change from 3 to any number of variations per content piece
+
+### User Benefits
+- **Single Edit Point**: Change variations system-wide by editing one file
+- **Cost Transparency**: Accurate cost calculations based on current configuration
+- **Easy Customization**: Well-documented configuration options with examples
+- **Professional Maintainability**: Eliminates hardcoded parameter scattered throughout codebase
 
 ## Key Design Decisions Made ✅ VALIDATED
 
@@ -252,6 +286,7 @@ Background information...
 8. **Metadata-based change detection** over simple file existence checks (intelligent updates) ✅
 9. **Multi-variation generation** over single images (visual variety and user engagement) ✅
 10. **Cost transparency with user approval** over automatic spending (budget control) ✅
+11. **Centralized configuration system** over hardcoded parameters (professional maintainability) ✅
 
 ## Testing Strategy
 

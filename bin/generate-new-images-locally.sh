@@ -8,6 +8,9 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+# Load configuration
+VARIATIONS_PER_CONTENT=$(python scripts/read_config.py image_generation.variations_per_content)
+
 echo "🔍 ANALYZING CONTENT AND IMAGE REQUIREMENTS"
 echo "============================================="
 
@@ -69,8 +72,9 @@ if [ "$NEEDS_GENERATION" = "true" ]; then
         echo "$ANALYSIS_JSON" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
+variations = data.get('variations_per_content', 3)
 for item in data['new_images_list']:
-    print(f'   • {item[\"filename\"]}: 3 images')
+    print(f'   • {item[\"filename\"]}: {variations} images')
 "
     fi
     
@@ -79,8 +83,9 @@ for item in data['new_images_list']:
         echo "$ANALYSIS_JSON" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
+variations = data.get('variations_per_content', 3)
 for item in data['updates_list']:
-    print(f'   • {item[\"filename\"]}: 3 images')
+    print(f'   • {item[\"filename\"]}: {variations} images')
 "
     fi
     
@@ -90,30 +95,30 @@ for item in data['updates_list']:
     
     if [ $NEW_PIECES -gt 0 ]; then
         NEW_COST=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(f\"{data['new_pieces'] * 3 * data['cost_per_image']:.2f}\")")
-        echo "🆕 New images: $NEW_PIECES content pieces × 3 variations = $((NEW_PIECES * 3)) images"
+        echo "🆕 New images: $NEW_PIECES content pieces × $VARIATIONS_PER_CONTENT variations = $((NEW_PIECES * VARIATIONS_PER_CONTENT)) images"
         echo "   Cost: \$$NEW_COST"
     fi
     
     if [ $UPDATE_PIECES -gt 0 ]; then
         UPDATE_COST=$(echo "$ANALYSIS_JSON" | python3 -c "import json, sys; data=json.load(sys.stdin); print(f\"{data['update_pieces'] * 3 * data['cost_per_image']:.2f}\")")
-        echo "🔄 Updated images: $UPDATE_PIECES content pieces × 3 variations = $((UPDATE_PIECES * 3)) images"
+        echo "🔄 Updated images: $UPDATE_PIECES content pieces × $VARIATIONS_PER_CONTENT variations = $((UPDATE_PIECES * VARIATIONS_PER_CONTENT)) images"
         echo "   Cost: \$$UPDATE_COST"
     fi
     
-    echo "📊 TOTAL: $TOTAL_IMAGES images ($TOTAL_PIECES pieces × 3 variations) for \$$TOTAL_COST"
+    echo "📊 TOTAL: $TOTAL_IMAGES images ($TOTAL_PIECES pieces × $VARIATIONS_PER_CONTENT variations) for \$$TOTAL_COST"
     
     echo ""
     echo "🤔 APPROVAL REQUIRED"
     echo "==================="
-    echo "Generate $TOTAL_IMAGES images ($TOTAL_PIECES content pieces × 3 variations each) for approximately \$$TOTAL_COST?"
+    echo "Generate $TOTAL_IMAGES images ($TOTAL_PIECES content pieces × $VARIATIONS_PER_CONTENT variations each) for approximately \$$TOTAL_COST?"
     
     if [ $NEW_PIECES -gt 0 ] && [ $UPDATE_PIECES -gt 0 ]; then
-        echo "   • $((NEW_PIECES * 3)) new images for missing content"
-        echo "   • $((UPDATE_PIECES * 3)) updated images for style changes"
+        echo "   • $((NEW_PIECES * VARIATIONS_PER_CONTENT)) new images for missing content"
+        echo "   • $((UPDATE_PIECES * VARIATIONS_PER_CONTENT)) updated images for style changes"
     elif [ $NEW_PIECES -gt 0 ]; then
-        echo "   • $((NEW_PIECES * 3)) new images for missing content"
+        echo "   • $((NEW_PIECES * VARIATIONS_PER_CONTENT)) new images for missing content"
     else
-        echo "   • $((UPDATE_PIECES * 3)) updated images for style changes"
+        echo "   • $((UPDATE_PIECES * VARIATIONS_PER_CONTENT)) updated images for style changes"
     fi
     echo ""
     read -p "Proceed with generation? (yes/no): " approval

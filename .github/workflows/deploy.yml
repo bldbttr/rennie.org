@@ -48,18 +48,58 @@ jobs:
             exit 1
           fi
       
+      - name: Test script imports
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "🔍 Testing script imports and basic functionality..."
+          echo "Python version: $(python --version)"
+          echo "Working directory: $(pwd)"
+          echo "Environment variables:"
+          echo "  GEMINI_API_KEY set: $([ -n "$GEMINI_API_KEY" ] && echo "yes" || echo "no")"
+          echo "Installed packages:"
+          pip list | grep -E "(google|pillow|numpy|pyyaml)"
+          echo "Testing Python imports..."
+          python -c "
+          import sys
+          print('Python path:', sys.path)
+          try:
+              import google.genai
+              print('✅ google.genai imported successfully')
+          except Exception as e:
+              print('❌ google.genai import failed:', e)
+          try:
+              import PIL
+              print('✅ PIL imported successfully')
+          except Exception as e:
+              print('❌ PIL import failed:', e)
+          try:
+              sys.path.append('scripts')
+              from content_parser import ContentParser
+              print('✅ content_parser imported successfully')
+          except Exception as e:
+              print('❌ content_parser import failed:', e)
+          "
+          echo "Testing basic script execution..."
+          python -c "
+          import os
+          os.environ['GEMINI_API_KEY'] = os.environ.get('GEMINI_API_KEY', 'test')
+          try:
+              import sys
+              sys.path.append('scripts')
+              from generate_images import ImageGenerator
+              print('✅ ImageGenerator class imported successfully')
+          except Exception as e:
+              print('❌ ImageGenerator import failed:', e)
+              import traceback
+              traceback.print_exc()
+          "
+          
       - name: Generate new images
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           echo "🎨 Generating images for new content..."
-          echo "Python version: $(python --version)"
-          echo "Working directory: $(pwd)"
-          echo "Environment variables:"
-          echo "  GEMINI_API_KEY set: $([ -n "$GEMINI_API_KEY" ] && echo "yes" || echo "no")"
-          echo "Files in scripts directory:"
-          ls -la scripts/
-          echo "Running image generation with verbose output..."
           python scripts/generate_images.py --new-only --variations 1
           exit_code=$?
           echo "Image generation exit code: $exit_code"

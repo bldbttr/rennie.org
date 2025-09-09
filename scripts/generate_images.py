@@ -129,9 +129,8 @@ class ImageGenerator:
             
             # Determine if generation is needed
             if not variations_exist:
-                # Get filename from content_file
-                content_file = content.get('content_file', 'unknown')
-                filename = content_file.replace('content/inspiration/', '').replace('.md', '') if content_file.startswith('content/inspiration/') else content_file
+                # Get filename using utility function
+                filename = self.get_base_filename_from_content(content)
                 
                 needs_generation.append({
                     'title': content['title'],
@@ -148,9 +147,8 @@ class ImageGenerator:
                 if first_existing in existing_metadata:
                     existing_style = existing_metadata[first_existing]['style_name']
                 
-                # Get filename from content_file
-                content_file = content.get('content_file', 'unknown')
-                filename = content_file.replace('content/inspiration/', '').replace('.md', '') if content_file.startswith('content/inspiration/') else content_file
+                # Get filename using utility function
+                filename = self.get_base_filename_from_content(content)
                 
                 needs_generation.append({
                     'title': content['title'],
@@ -231,12 +229,8 @@ class ImageGenerator:
         
         # Check each content piece
         for content in content_list:
-            # Get the filename (remove path and extension)
-            content_file = content.get('content_file', 'unknown')
-            if content_file.startswith('content/inspiration/'):
-                filename = content_file.replace('content/inspiration/', '').replace('.md', '')
-            else:
-                filename = content_file
+            # Get the filename using utility function
+            filename = self.get_base_filename_from_content(content)
             
             title = content['title']
             author = content['author']
@@ -280,16 +274,19 @@ class ImageGenerator:
                 print(f"{'':<25} │ {'':<20} │ {detail}")
                 print()
         
+    def get_base_filename_from_content(self, content_data: Dict[str, Any]) -> str:
+        """Extract base filename from content_file field"""
+        content_file = content_data.get('content_file', '')
+        if content_file.startswith('content/inspiration/'):
+            return content_file.replace('content/inspiration/', '').replace('.md', '')
+        else:
+            # Fallback for unexpected paths
+            return Path(content_file).stem if content_file else 'unknown'
+    
     def generate_image_filename(self, content_data: Dict[str, Any], variation: int = 1) -> str:
-        """Generate a consistent filename for an image."""
-        # Create filename from author and title
-        author = content_data['author'].lower().replace(' ', '_')
-        title = content_data['title'].lower()
-        # Clean title for filename
-        title_clean = ''.join(c if c.isalnum() or c in [' ', '-'] else '' for c in title)
-        title_clean = title_clean.replace(' ', '_')[:50]  # Limit length
-        
-        return f"{author}_{title_clean}_v{variation}.png"
+        """Generate a consistent filename based on content file name."""
+        base_filename = self.get_base_filename_from_content(content_data)
+        return f"{base_filename}_v{variation}.png"
     
     def check_existing_image(self, filename: str) -> bool:
         """Check if an image already exists."""

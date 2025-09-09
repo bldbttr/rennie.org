@@ -1,0 +1,30 @@
+{
+  "content": {
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
+  },
+  "style": {
+    "name": "monet-impressionist",
+    "approach": "painting_technique",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-09T16:00:13.232835",
+    "model": "gemini-2.5-flash",
+    "model_display": "Nano Banana",
+    "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 420,
+    "dimensions": "1024x1024",
+    "cost": 0.039,
+    "image_filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
+    "image_path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
+    "attempts": 1,
+    "success": false,
+    "error": "'NoneType' object is not iterable"
+  }
+}

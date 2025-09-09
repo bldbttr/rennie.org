@@ -50,53 +50,6 @@
     "author": "Steve Jobs",
     "type": "quote",
     "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
-    "style_name": "arcane-framing",
-    "style_category": "visual_storytelling",
-    "style_data": {
-      "description": "Fortiche/Arcane's dramatic character-focused cinematography with mixed media aesthetics",
-      "base_prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios",
-      "key_techniques": [
-        "dramatic close-ups",
-        "dynamic camera angles",
-        "high contrast lighting",
-        "mixed media rendering"
-      ],
-      "composition_principles": [
-        "vertical emphasis",
-        "cinematic framing",
-        "character-focused foreground",
-        "textural background separation"
-      ],
-      "lighting_approach": "High contrast dramatic lighting with strong directional shadows"
-    },
-    "vibe": [
-      "clarity",
-      "revelation"
-    ],
-    "prompt": {
-      "text": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
-      "components": {
-        "base": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios",
-        "vibe": [
-          "clarity",
-          "revelation"
-        ],
-        "format": "square composition, centered focus, 1:1 aspect ratio"
-      }
-    },
-    "metadata": {
-      "source": "https://youtu.be/oeqPrUmVz-o?t=112",
-      "status": "active",
-      "tags": [],
-      "why_i_like_it": "Masterful clarity, inspiration and motivation. This encapsulates the entire philosophy of great product development - understanding what people actually need and want."
-    }
-  },
-  {
-    "content_file": "content/inspiration/paul-graham-make-something.md",
-    "title": "Make something people want",
-    "author": "Paul Graham",
-    "type": "quote",
-    "quote_text": "Make something people want.",
     "style_name": "spiderverse-dimensional",
     "style_category": "visual_storytelling",
     "style_data": {
@@ -117,12 +70,59 @@
       "lighting_approach": "Bold graphic lighting with comic book color separation effects"
     },
     "vibe": [
+      "clarity",
+      "revelation"
+    ],
+    "prompt": {
+      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "vibe": [
+          "clarity",
+          "revelation"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
+      }
+    },
+    "metadata": {
+      "source": "https://youtu.be/oeqPrUmVz-o?t=112",
+      "status": "active",
+      "tags": [],
+      "why_i_like_it": "Masterful clarity, inspiration and motivation. This encapsulates the entire philosophy of great product development - understanding what people actually need and want."
+    }
+  },
+  {
+    "content_file": "content/inspiration/paul-graham-make-something.md",
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "style_name": "kibuishi-world",
+    "style_category": "visual_storytelling",
+    "style_data": {
+      "description": "Kazu Kibuishi's detailed architectural world-building with isometric clarity",
+      "base_prompt": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration",
+      "key_techniques": [
+        "isometric perspective",
+        "architectural detail density",
+        "warm enclosed lighting",
+        "system visualization"
+      ],
+      "composition_principles": [
+        "multiple focal points",
+        "elevated perspective",
+        "architectural emphasis",
+        "detailed environment storytelling"
+      ],
+      "lighting_approach": "Warm, diffused interior lighting creating cozy enclosed atmosphere"
+    },
+    "vibe": [
       "zen of purpose"
     ],
     "prompt": {
-      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "base": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration",
         "vibe": [
           "zen of purpose"
         ],

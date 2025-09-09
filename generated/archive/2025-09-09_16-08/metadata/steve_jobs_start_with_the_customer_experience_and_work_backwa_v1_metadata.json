@@ -1,0 +1,32 @@
+{
+  "content": {
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
+  },
+  "style": {
+    "name": "kibuishi-world",
+    "approach": "painting_technique",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-09T16:00:05.777626",
+    "model": "gemini-2.5-flash",
+    "model_display": "Nano Banana",
+    "prompt": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 396,
+    "dimensions": "1024x1024",
+    "cost": 0.039,
+    "image_filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
+    "image_path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
+    "attempts": 1,
+    "success": false,
+    "note": "No image found in response",
+    "response_candidates": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio"
+  }
+}

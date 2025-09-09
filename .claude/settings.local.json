@@ -34,7 +34,14 @@
       "Bash(open:*)",
       "Bash(./bin/regenerate-all.sh:*)",
       "Bash(./bin/preview-and-check.sh:*)",
-      "Bash(./bin/check-images.sh:*)"
+      "Bash(./bin/check-images.sh:*)",
+      "Bash(if [ -z \"$GEMINI_API_KEY\" ])",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(echo:*)",
+      "Bash(fi)",
+      "Bash(./bin/generate-new-images-locally.sh:*)",
+      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py --preview-analysis)"
     ],
     "deny": [],
     "ask": []

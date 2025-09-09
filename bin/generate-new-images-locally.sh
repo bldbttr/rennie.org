@@ -177,11 +177,10 @@ else
 fi
 
 echo ""
-echo "👀 LAUNCHING LOCAL PREVIEW"
-echo "========================="
+echo "👀 LOCAL PREVIEW READY"
+echo "======================"
 
-echo "🌐 Opening site preview in your default browser..."
-open output/index.html
+echo "🌐 Site preview available at: file://$(pwd)/output/index.html"
 
 echo ""
 echo "📋 DEPLOYMENT READINESS SUMMARY"
@@ -197,10 +196,11 @@ else
 fi
 
 echo "✅ Site built: output/index.html ready"
-echo "✅ Preview opened: Check your browser"
+echo "✅ Preview ready: file://$(pwd)/output/index.html"
 echo ""
 echo "🚀 NEXT STEPS:"
-echo "  1. Review the site preview that just opened"
+echo "  1. Open the site preview in your browser:"
+echo "     file://$(pwd)/output/index.html"
 echo "  2. If satisfied, commit and push:"
 echo "     ./bin/commit-and-deploy.sh"
 echo "     (or: git add . && git commit -m 'Update with new images' && git push)"

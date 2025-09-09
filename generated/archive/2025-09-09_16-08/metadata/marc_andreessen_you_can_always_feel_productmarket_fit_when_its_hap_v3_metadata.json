@@ -1,0 +1,32 @@
+{
+  "content": {
+    "title": "You can always feel product/market fit when it's happening",
+    "author": "Marc Andreessen",
+    "type": "quote",
+    "quote_text": "And you can always feel product/market fit when it\u2019s happening. The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You\u2019re hiring sales and customer support staff as fast as you can. Reporters are calling because they\u2019ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck\u2019s",
+    "source_file": "content/inspiration/pmarca-pmf.md"
+  },
+  "style": {
+    "name": "ghibli-composition",
+    "approach": "visual_storytelling",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-09T15:59:54.832958",
+    "model": "gemini-2.5-flash",
+    "model_display": "Nano Banana",
+    "prompt": "Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 392,
+    "dimensions": "1024x1024",
+    "cost": 0.039,
+    "image_filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
+    "image_path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
+    "attempts": 1,
+    "success": false,
+    "note": "No image found in response",
+    "response_candidates": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio"
+  }
+}

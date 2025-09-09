@@ -1,0 +1,32 @@
+{
+  "content": {
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "source_file": "content/inspiration/paul-graham-make-something.md"
+  },
+  "style": {
+    "name": "rothko-color-field",
+    "approach": "painting_technique",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-09T16:00:51.587819",
+    "model": "gemini-2.5-flash",
+    "model_display": "Nano Banana",
+    "prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 382,
+    "dimensions": "1024x1024",
+    "cost": 0.039,
+    "image_filename": "paul_graham_make_something_people_want_v2.png",
+    "image_path": "generated/images/paul_graham_make_something_people_want_v2.png",
+    "attempts": 1,
+    "success": false,
+    "note": "No image found in response",
+    "response_candidates": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio"
+  }
+}

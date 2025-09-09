@@ -1,61 +1,79 @@
 {
-  "timestamp": "2025-09-09T15:08:56.361596",
+  "timestamp": "2025-09-09T16:09:46.945743",
   "total_content": 3,
   "results": [
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png",
       "path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1_metadata.json",
+      "cost": 0.039,
+      "variation": 1
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2.png",
       "path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2_metadata.json",
+      "cost": 0.039,
+      "variation": 2
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
       "path": "generated/images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3_metadata.json",
+      "cost": 0.039,
+      "variation": 3
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
       "path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/steve_jobs_start_with_the_customer_experience_and_work_backwa_v1_metadata.json",
+      "cost": 0.039,
+      "variation": 1
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
       "path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/steve_jobs_start_with_the_customer_experience_and_work_backwa_v2_metadata.json",
+      "cost": 0.039,
+      "variation": 2
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
       "path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/steve_jobs_start_with_the_customer_experience_and_work_backwa_v3_metadata.json",
+      "cost": 0.039,
+      "variation": 3
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "paul_graham_make_something_people_want_v1.png",
       "path": "generated/images/paul_graham_make_something_people_want_v1.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/paul_graham_make_something_people_want_v1_metadata.json",
+      "cost": 0.039,
+      "variation": 1
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "paul_graham_make_something_people_want_v2.png",
       "path": "generated/images/paul_graham_make_something_people_want_v2.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/paul_graham_make_something_people_want_v2_metadata.json",
+      "cost": 0.039,
+      "variation": 2
     },
     {
-      "status": "skipped",
+      "status": "success",
       "filename": "paul_graham_make_something_people_want_v3.png",
       "path": "generated/images/paul_graham_make_something_people_want_v3.png",
-      "reason": "already_exists"
+      "metadata_path": "generated/metadata/paul_graham_make_something_people_want_v3_metadata.json",
+      "cost": 0.039,
+      "variation": 3
     }
   ],
-  "total_cost": 0
+  "total_cost": 0.351
 }

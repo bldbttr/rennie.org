@@ -134,9 +134,10 @@ All development phases have been completed successfully. The project now feature
 - ✅ Cost-free status check and planning tool
 - ✅ Integration with content parser for up-to-date analysis
 
-#### 4. Legacy Scripts (maintained for compatibility) ✅
+#### 4. Image Management Scripts ✅
 - `bin/generate-new.sh` - Simple new image generation
 - `bin/regenerate-all.sh` - Force regenerate all images  
+- `bin/cleanup-images.sh` - Remove orphaned images (for deleted content or reduced variations) ✅
 - `bin/archive-and-regenerate.sh` - Archive old and generate new
 
 ### Phase 3: Static Website (web/)

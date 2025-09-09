@@ -45,3 +45,30 @@ else
         echo "  $file: 3 images"
     done
 fi
+
+echo ""
+echo "ORPHANED IMAGES CHECK:"
+echo "====================="
+
+# Check for orphaned images using the new Python functionality
+orphaned_output=$(python scripts/generate_images.py --check-orphaned 2>/dev/null)
+orphaned_exit_code=$?
+
+if [ $orphaned_exit_code -eq 0 ]; then
+    if echo "$orphaned_output" | grep -q "No orphaned images found"; then
+        echo "✅ No orphaned images found"
+    else
+        echo "🗑️  Found orphaned images that can be cleaned up:"
+        echo ""
+        # Extract and display just the file listings from the orphaned output
+        echo "$orphaned_output" | sed -n '/📂 Images for deleted content:/,/^$/p' | grep "  •" | sed 's/^  •/  /'
+        echo "$orphaned_output" | sed -n '/🔢 Excess variation images:/,/^$/p' | grep "  •" | sed 's/^  •/  /'
+        echo ""
+        # Extract the summary line
+        echo "$orphaned_output" | grep "💾 Estimated space to reclaim:" | sed 's/^💾 //'
+        echo ""
+        echo "💡 Run './bin/cleanup-images.sh' to remove orphaned images"
+    fi
+else
+    echo "⚠️  Could not check for orphaned images (run 'python scripts/content_parser.py' first)"
+fi

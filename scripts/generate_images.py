@@ -116,7 +116,7 @@ class ImageGenerator:
             style_mismatch = False
             current_style = content.get('style_name', 'unknown')
             
-            for v in range(1, 4):  # Check for 3 variations
+            for v in range(1, variations_per_content + 1):  # Check for configured variations
                 var_filename = f"{base_filename}_v{v}.png"
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
@@ -199,7 +199,8 @@ class ImageGenerator:
             'needs_generation': total_pieces > 0
         }
     
-    def check_images_inventory(self, parsed_content_file: str = "generated/all_content.json") -> None:
+    def check_images_inventory(self, parsed_content_file: str = "generated/all_content.json", 
+                             variations_per_content: int = 3) -> None:
         """Display inventory of image status by content file."""
         # Load content data
         if not Path(parsed_content_file).exists():
@@ -244,7 +245,7 @@ class ImageGenerator:
             style_mismatch = False
             existing_style = 'unknown'
             
-            for v in range(1, 4):  # Check for 3 variations
+            for v in range(1, variations_per_content + 1):  # Check for configured variations
                 var_filename = f"{base_filename}_v{v}.png"
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
@@ -266,7 +267,7 @@ class ImageGenerator:
                 detail = f"style change: {existing_style} → {current_style}"
             else:
                 status = "✅ CURRENT"
-                detail = f"3 variations with {current_style} style"
+                detail = f"{variations_per_content} variations with {current_style} style"
             
             # Display the inventory line
             print(f"{filename:<25} │ {status:<20} │ \"{title}\" by {author}")
@@ -292,6 +293,189 @@ class ImageGenerator:
         """Check if an image already exists."""
         image_path = self.images_dir / filename
         return image_path.exists()
+    
+    def identify_orphaned_images(self, parsed_content_file: str = "generated/all_content.json", 
+                               variations_per_content: int = 3) -> Dict[str, Any]:
+        """Identify images that should be removed (orphaned images)."""
+        # Load current content data
+        if not Path(parsed_content_file).exists():
+            return {"error": f"Content file not found: {parsed_content_file}"}
+        
+        with open(parsed_content_file, 'r') as f:
+            content_list = json.load(f)
+        
+        # Get all existing images
+        existing_images = list(self.images_dir.glob('*.png'))
+        existing_metadata = list(self.metadata_dir.glob('*_metadata.json'))
+        
+        # Build set of expected filenames from current content
+        expected_files = set()
+        for content in content_list:
+            base_filename = self.get_base_filename_from_content(content)
+            for v in range(1, variations_per_content + 1):
+                expected_files.add(f"{base_filename}_v{v}.png")
+                expected_files.add(f"{base_filename}_v{v}_metadata.json")
+        
+        # Find orphaned images (exist but not expected)
+        missing_content = []
+        excess_variations = []
+        total_size = 0
+        
+        for img_file in existing_images:
+            if img_file.name not in expected_files:
+                # Determine if it's missing content or excess variation
+                base_name = img_file.stem.rsplit('_v', 1)[0] if '_v' in img_file.stem else img_file.stem
+                variation_match = False
+                
+                # Check if base content exists but this is an excess variation
+                for content in content_list:
+                    content_base = self.get_base_filename_from_content(content)
+                    if base_name == content_base:
+                        excess_variations.append({
+                            "filename": img_file.name,
+                            "reason": f"excess variation (need only {variations_per_content})"
+                        })
+                        variation_match = True
+                        break
+                
+                if not variation_match:
+                    missing_content.append({
+                        "filename": img_file.name,
+                        "reason": "content file missing"
+                    })
+                
+                # Calculate file size
+                try:
+                    total_size += img_file.stat().st_size
+                except:
+                    pass
+        
+        # Find orphaned metadata files
+        orphaned_metadata = []
+        for meta_file in existing_metadata:
+            if meta_file.name not in expected_files:
+                orphaned_metadata.append(meta_file.name)
+        
+        # Format size for display
+        if total_size < 1024:
+            size_str = f"{total_size} bytes"
+        elif total_size < 1024 * 1024:
+            size_str = f"{total_size / 1024:.1f} KB"
+        else:
+            size_str = f"{total_size / (1024 * 1024):.1f} MB"
+        
+        return {
+            "missing_content": missing_content,
+            "excess_variations": excess_variations,
+            "orphaned_metadata": orphaned_metadata,
+            "total_orphaned": len(missing_content) + len(excess_variations),
+            "total_metadata_orphaned": len(orphaned_metadata),
+            "estimated_space_saved": size_str,
+            "variations_per_content": variations_per_content
+        }
+    
+    def cleanup_orphaned_images(self, dry_run: bool = True, archive_before_delete: bool = True,
+                              variations_per_content: int = 3) -> Dict[str, Any]:
+        """Remove orphaned images with safety measures."""
+        import shutil
+        
+        # First identify what needs to be cleaned up
+        orphaned_result = self.identify_orphaned_images(variations_per_content=variations_per_content)
+        
+        if "error" in orphaned_result:
+            return orphaned_result
+        
+        if orphaned_result["total_orphaned"] == 0 and orphaned_result["total_metadata_orphaned"] == 0:
+            return {
+                "status": "no_action_needed",
+                "message": "No orphaned images found",
+                "removed_images": [],
+                "removed_metadata": [],
+                "archive_location": None
+            }
+        
+        # Collect all files to remove
+        files_to_remove = []
+        
+        # Add orphaned image files
+        for item in orphaned_result["missing_content"] + orphaned_result["excess_variations"]:
+            img_path = self.images_dir / item["filename"]
+            if img_path.exists():
+                files_to_remove.append({"path": img_path, "type": "image", "reason": item["reason"]})
+        
+        # Add orphaned metadata files
+        for meta_filename in orphaned_result["orphaned_metadata"]:
+            meta_path = self.metadata_dir / meta_filename
+            if meta_path.exists():
+                files_to_remove.append({"path": meta_path, "type": "metadata", "reason": "orphaned metadata"})
+        
+        archive_location = None
+        
+        if dry_run:
+            return {
+                "status": "dry_run",
+                "message": f"Would remove {len(files_to_remove)} files",
+                "files_to_remove": [{"filename": f["path"].name, "type": f["type"], "reason": f["reason"]} for f in files_to_remove],
+                "estimated_space_saved": orphaned_result["estimated_space_saved"],
+                "archive_location": "would create archive" if archive_before_delete else None
+            }
+        
+        # Archive before deletion if requested
+        if archive_before_delete and files_to_remove:
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+            archive_folder = self.archive_dir / f"cleanup_{timestamp}"
+            archive_folder.mkdir(exist_ok=True)
+            
+            # Create subfolders
+            archive_images = archive_folder / "images"
+            archive_metadata = archive_folder / "metadata"
+            archive_images.mkdir(exist_ok=True)
+            archive_metadata.mkdir(exist_ok=True)
+            
+            # Archive files before deletion
+            for file_info in files_to_remove:
+                if file_info["type"] == "image":
+                    dest = archive_images / file_info["path"].name
+                else:
+                    dest = archive_metadata / file_info["path"].name
+                
+                try:
+                    shutil.copy2(str(file_info["path"]), str(dest))
+                except Exception as e:
+                    print(f"Warning: Could not archive {file_info['path'].name}: {e}")
+            
+            archive_location = str(archive_folder)
+            print(f"✓ Archived {len(files_to_remove)} files to {archive_folder}")
+        
+        # Actually remove the files
+        removed_images = []
+        removed_metadata = []
+        errors = []
+        
+        for file_info in files_to_remove:
+            try:
+                file_info["path"].unlink()
+                if file_info["type"] == "image":
+                    removed_images.append(file_info["path"].name)
+                else:
+                    removed_metadata.append(file_info["path"].name)
+            except Exception as e:
+                errors.append(f"Failed to remove {file_info['path'].name}: {e}")
+        
+        result = {
+            "status": "completed",
+            "message": f"Removed {len(removed_images)} images and {len(removed_metadata)} metadata files",
+            "removed_images": removed_images,
+            "removed_metadata": removed_metadata,
+            "archive_location": archive_location,
+            "estimated_space_saved": orphaned_result["estimated_space_saved"]
+        }
+        
+        if errors:
+            result["errors"] = errors
+            result["status"] = "completed_with_errors"
+        
+        return result
     
     def save_image(self, image_data: bytes, filename: str) -> Path:
         """Save image data to file."""
@@ -668,6 +852,12 @@ def main():
                        help='Detailed analysis with cost calculations for preview script')
     parser.add_argument('--check-images', action='store_true',
                        help='Inventory image status by content file')
+    parser.add_argument('--check-orphaned', action='store_true',
+                       help='Check for orphaned images that should be removed')
+    parser.add_argument('--cleanup-orphaned', action='store_true',
+                       help='Remove orphaned images (with confirmation)')
+    parser.add_argument('--dry-run', action='store_true',
+                       help='Show what would be removed without acting (for cleanup operations)')
     parser.add_argument('--content-file', default='generated/all_content.json',
                        help='Path to parsed content JSON file')
     parser.add_argument('--variations', type=int, default=3,
@@ -677,7 +867,9 @@ def main():
     
     # Check for API key (not needed for analysis-only operations)
     api_key = os.environ.get('GEMINI_API_KEY')
-    if not api_key and not args.check_styles and not args.preview_analysis and not args.check_images:
+    analysis_only_ops = [args.check_styles, args.preview_analysis, args.check_images, 
+                        args.check_orphaned, (args.cleanup_orphaned and args.dry_run)]
+    if not api_key and not any(analysis_only_ops):
         print("❌ Error: GEMINI_API_KEY environment variable not set")
         print("Please set your Gemini API key before running image generation")
         return 1
@@ -741,8 +933,105 @@ def main():
         # Handle check images inventory option
         if args.check_images:
             generator = ImageGenerator(check_only=True)
-            generator.check_images_inventory(args.content_file)
+            generator.check_images_inventory(args.content_file, variations_per_content=args.variations)
             return 0
+        
+        # Handle orphaned image check
+        if args.check_orphaned:
+            generator = ImageGenerator(check_only=True)
+            print("Orphaned Images Check")
+            print("=" * 40)
+            
+            orphaned_result = generator.identify_orphaned_images(
+                parsed_content_file=args.content_file,
+                variations_per_content=args.variations
+            )
+            
+            if "error" in orphaned_result:
+                print(f"❌ {orphaned_result['error']}")
+                return 1
+            
+            total_orphaned = orphaned_result["total_orphaned"]
+            total_metadata = orphaned_result["total_metadata_orphaned"]
+            
+            if total_orphaned == 0 and total_metadata == 0:
+                print("✅ No orphaned images found")
+                return 0
+            
+            print(f"🗑️  Found {total_orphaned} orphaned images and {total_metadata} orphaned metadata files")
+            print(f"💾 Estimated space to reclaim: {orphaned_result['estimated_space_saved']}")
+            print()
+            
+            if orphaned_result["missing_content"]:
+                print("📂 Images for deleted content:")
+                for item in orphaned_result["missing_content"]:
+                    print(f"  • {item['filename']} ({item['reason']})")
+                print()
+            
+            if orphaned_result["excess_variations"]:
+                print("🔢 Excess variation images:")
+                for item in orphaned_result["excess_variations"]:
+                    print(f"  • {item['filename']} ({item['reason']})")
+                print()
+            
+            if orphaned_result["orphaned_metadata"]:
+                print("📄 Orphaned metadata files:")
+                for filename in orphaned_result["orphaned_metadata"]:
+                    print(f"  • {filename}")
+            
+            print(f"💡 Run with --cleanup-orphaned to remove these files")
+            print(f"💡 Use --dry-run to preview what would be removed")
+            return 0
+        
+        # Handle orphaned image cleanup
+        if args.cleanup_orphaned:
+            generator = ImageGenerator(check_only=args.dry_run)
+            
+            if args.dry_run:
+                print("Orphaned Images Cleanup (DRY RUN)")
+                print("=" * 40)
+            else:
+                print("Orphaned Images Cleanup")
+                print("=" * 40)
+            
+            cleanup_result = generator.cleanup_orphaned_images(
+                dry_run=args.dry_run,
+                archive_before_delete=True,
+                variations_per_content=args.variations
+            )
+            
+            if "error" in cleanup_result:
+                print(f"❌ {cleanup_result['error']}")
+                return 1
+            
+            if cleanup_result["status"] == "no_action_needed":
+                print("✅ No orphaned images found")
+                return 0
+            
+            if cleanup_result["status"] == "dry_run":
+                print(f"🔍 Would remove {len(cleanup_result['files_to_remove'])} files:")
+                for file_info in cleanup_result["files_to_remove"]:
+                    print(f"  • {file_info['filename']} ({file_info['type']}) - {file_info['reason']}")
+                print()
+                print(f"💾 Estimated space to reclaim: {cleanup_result['estimated_space_saved']}")
+                if cleanup_result["archive_location"]:
+                    print(f"📁 Would archive to: generated/archive/cleanup_TIMESTAMP/")
+                print()
+                print("💡 Run without --dry-run to actually remove files")
+                return 0
+            else:
+                # Actual cleanup performed
+                print(f"✅ {cleanup_result['message']}")
+                if cleanup_result["archive_location"]:
+                    print(f"📁 Files archived to: {cleanup_result['archive_location']}")
+                print(f"💾 Space reclaimed: {cleanup_result['estimated_space_saved']}")
+                
+                if "errors" in cleanup_result:
+                    print("\n⚠️  Some errors occurred:")
+                    for error in cleanup_result["errors"]:
+                        print(f"  • {error}")
+                
+                return 0
         
         # For all other operations, create generator normally
         generator = ImageGenerator()

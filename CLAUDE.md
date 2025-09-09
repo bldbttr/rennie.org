@@ -49,20 +49,23 @@ pip install -r scripts/requirements.txt
 # Activate virtual environment first
 source ~/dev/.venv/bin/activate
 
-# Generate images for new content
+# Check image status (shows what needs generation or cleanup)
+./bin/check-images.sh
+
+# Generate images for new content (hybrid local-first workflow)
+./bin/generate-new-images-locally.sh
+
+# Clean up orphaned images (for deleted content or reduced variations)
+./bin/cleanup-images.sh
+
+# Commit and deploy locally generated images
+./bin/commit-and-deploy.sh
+
+# Legacy: Generate missing images only
 ./bin/generate-new.sh
 
-# Regenerate all images
+# Legacy: Regenerate all images
 ./bin/regenerate-all.sh
-
-# Build static site
-python scripts/build_site.py
-
-# Deploy to DreamHost
-./bin/deploy.sh
-
-# Full workflow (generate + build + deploy)
-./bin/generate-new.sh && python scripts/build_site.py && ./bin/deploy.sh
 ```
 
 ## Content File Format
@@ -100,6 +103,17 @@ Styles are defined in `/content/styles/styles.json`:
 4. **Preview locally:** Open `/output/index.html`
 5. **Deploy:** Run `./bin/deploy.sh` or push to trigger GitHub Actions
 
+## Project Philosophy
+
+**Personal Project Scale** - This is a personal inspiration site, not an enterprise application. We've learned to avoid over-engineering:
+
+- **Right-sized solutions**: Prefer simple, maintainable code over enterprise patterns
+- **Local-first workflow**: Immediate feedback over complex CI/CD when possible  
+- **Stable, predictable naming**: Simple filename schemes over complex generation logic
+- **Manual processes are OK**: Don't automate everything - some things are fine to do by hand
+
+See `docs/workflow_architecture_analysis.md` and `docs/filename_refactoring_plan.md` for lessons learned about avoiding over-engineering.
+
 ## Session Management
 - Keep it simple - this is a right-sized project
 - Focus on content quality over complex features
@@ -107,10 +121,10 @@ Styles are defined in `/content/styles/styles.json`:
 - Use print statements for debugging (no complex logging needed)
 
 ## Current Status (September 2025)
-- 🚧 **Project:** Initial setup phase
-- 📁 **Structure:** Core directories created
-- ⏳ **Scripts:** To be implemented
-- ⏳ **Content:** Ready for first pieces
-- ⏳ **Deployment:** GitHub Actions to be configured
+- ✅ **Project:** Fully operational with hybrid local-first workflow  
+- ✅ **Structure:** Complete directory structure and automation
+- ✅ **Scripts:** All Python and bash scripts implemented
+- ✅ **Content:** 3+ inspirational pieces with AI-generated artwork
+- ✅ **Deployment:** Live at https://rennie.org via GitHub Actions
 
 Focus: Beautiful, inspiring content with minimal complexity. 80% of the value with 40% of the effort.

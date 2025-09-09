@@ -13,7 +13,7 @@ echo "============================="
 # Check if there are any changes to commit
 if git diff --quiet && git diff --cached --quiet && [ -z "$(git status --porcelain)" ]; then
     echo "⚠️ No changes to commit"
-    echo "   Did you run './bin/preview-and-check.sh' first?"
+    echo "   Did you run './bin/generate-new-images-locally.sh' first?"
     exit 1
 fi
 
@@ -26,7 +26,7 @@ if [ -d "generated/images" ] && [ -n "$(find generated/images -name "*.png" -typ
     echo "✅ Found $image_count generated images ready for commit"
 else
     echo "⚠️ No generated images found"
-    echo "   Please run './bin/preview-and-check.sh' first to generate images"
+    echo "   Please run './bin/generate-new-images-locally.sh' first to generate images"
     exit 1
 fi
 
@@ -38,7 +38,7 @@ read -r commit_message
 if [ -z "$commit_message" ]; then
     commit_message="Add content with locally generated images
 
-🎨 Images generated locally using preview-and-check.sh
+🎨 Images generated locally using generate-new-images-locally.sh
 ✅ Previewed and approved before deployment
 🚀 Ready for automatic deployment to rennie.org"
 fi

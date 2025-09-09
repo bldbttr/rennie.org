@@ -173,6 +173,35 @@ Since local testing works perfectly but GitHub Actions consistently fails:
 
 ---
 
+## ✅ FINAL RESOLUTION - SSH Key Mismatch
+
+### Problem Identified
+The SSH private key stored in GitHub secrets (`DREAMHOST_SSH_KEY`) does not match the working local key at `~/.ssh/id_ed25519_dreamhost`.
+
+### Working Configuration
+- **Local SSH key**: `~/.ssh/id_ed25519_dreamhost` (256 SHA256:M+EpkHV8mwcmrCRuNfVpOjBzMrbfKNKFOXNQiekGoUg)
+- **Manual deployment**: ✅ Working perfectly with `./bin/deploy.sh`
+- **Site status**: ✅ Live and updated at https://rennie.org
+
+### Action Required
+To fix GitHub Actions deployment, the repository owner needs to:
+1. Update the `DREAMHOST_SSH_KEY` secret in GitHub repository settings
+2. Copy the content of the working private key: `cat ~/.ssh/id_ed25519_dreamhost`
+3. Paste it into the GitHub secret value field
+
+### Current Workaround
+Until GitHub secret is updated, use manual deployment:
+```bash
+source ~/dev/.venv/bin/activate
+./bin/generate-new.sh  # Generate images for new content
+python scripts/build_site.py  # Build the site
+./bin/deploy.sh  # Deploy to DreamHost
+```
+
+All components are working correctly - only the GitHub secret needs updating.
+
+---
+
 ## MAJOR BREAKTHROUGH - Current Session (September 9, 2025) ✅
 
 ### 🎉 **PRIMARY ISSUE SOLVED: API Key Configuration**

@@ -137,12 +137,18 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.DREAMHOST_SSH_KEY }}
         run: |
           echo "🔐 Setting up SSH key..."
+          echo "SSH key environment variable set: $([ -n "$SSH_PRIVATE_KEY" ] && echo "yes" || echo "no")"
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          echo "SSH key file size: $(wc -c < ~/.ssh/deploy_key) bytes"
+          echo "SSH key first line: $(head -1 ~/.ssh/deploy_key)"
+          echo "SSH key last line: $(tail -1 ~/.ssh/deploy_key)"
+          # Validate SSH key format
+          ssh-keygen -l -f ~/.ssh/deploy_key || echo "⚠️ SSH key validation failed"
           # Add DreamHost to known hosts to prevent interactive prompt
           ssh-keyscan -H iad1-shared-e1-05.dreamhost.com >> ~/.ssh/known_hosts 2>/dev/null
-          echo "✅ SSH key configured"
+          echo "✅ SSH key setup completed"
       
       - name: Deploy to DreamHost
         run: |

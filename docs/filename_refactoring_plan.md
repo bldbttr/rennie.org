@@ -1,0 +1,164 @@
+# Filename Refactoring Plan
+**Date:** September 2025  
+**Issue:** Complex, fragile filename generation based on title/author content  
+**Solution:** Simple, stable filename generation based on markdown filenames  
+
+## Problem Analysis
+
+### Current Fragile Pattern
+The `generate_image_filename()` method in `scripts/generate_images.py` creates filenames by processing title and author content:
+
+```python
+def generate_image_filename(self, content_data: Dict[str, Any], variation: int = 1) -> str:
+    author = content_data['author'].lower().replace(' ', '_')
+    title = content_data['title'].lower()
+    title_clean = ''.join(c if c.isalnum() or c in [' ', '-'] else '' for c in title)
+    title_clean = title_clean.replace(' ', '_')[:50]  # Limit length
+    return f"{author}_{title_clean}_v{variation}.png"
+```
+
+### Problems with Current Approach
+1. **Long, unwieldy filenames**: `marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png`
+2. **Fragile**: Changes to title/author break image associations
+3. **Truncation issues**: 50-character limit causes inconsistent naming
+4. **Complex debugging**: Hard to map files to generated assets
+5. **Multiple implementations**: Different parts of code extract filenames differently
+
+### Current Content Files
+- `content/inspiration/pmarca-pmf.md` 
+- `content/inspiration/steve-jobs-customer-experience-back-to-technology.md`
+- `content/inspiration/paul-graham-make-something.md`
+
+### Desired Naming Pattern
+- `pmarca-pmf_v1.png`, `pmarca-pmf_v2.png`, `pmarca-pmf_v3.png`
+- `steve-jobs-customer-experience-back-to-technology_v1.png`, etc.
+- `paul-graham-make-something_v1.png`, etc.
+
+## Implementation Plan
+
+### Phase 1: Create Filename Utility Function
+**File:** `scripts/generate_images.py`
+**New method:**
+
+```python
+def get_base_filename_from_content(self, content_data: Dict[str, Any]) -> str:
+    """Extract base filename from content_file field"""
+    content_file = content_data.get('content_file', '')
+    if content_file.startswith('content/inspiration/'):
+        return content_file.replace('content/inspiration/', '').replace('.md', '')
+    else:
+        # Fallback for unexpected paths
+        return Path(content_file).stem if content_file else 'unknown'
+```
+
+### Phase 2: Replace Core Filename Generation
+**File:** `scripts/generate_images.py`
+**Replace method:**
+
+```python  
+def generate_image_filename(self, content_data: Dict[str, Any], variation: int = 1) -> str:
+    """Generate a consistent filename based on content file name."""
+    base_filename = self.get_base_filename_from_content(content_data)
+    return f"{base_filename}_v{variation}.png"
+```
+
+### Phase 3: Update All References Throughout Codebase
+
+#### `scripts/generate_images.py` Updates:
+1. **`check_new_styles()` method (lines 132-134, 151-153)**:
+   - Replace manual `content_file.replace()` logic with utility function
+   
+2. **`check_images_inventory()` method (lines 235-239)**:
+   - Replace manual filename extraction with utility function
+
+3. **All metadata filename generation**:
+   - Ensure consistency with new naming scheme
+
+#### `scripts/build_site.py` Updates:
+1. **Image path resolution logic**:
+   - Update any hardcoded expectations about filename format
+   
+2. **Metadata loading**:
+   - Ensure `load_image_metadata()` works with new naming scheme
+
+#### `bin/generate-new-images-locally.sh` Updates:
+1. **Display messages**:
+   - Update to show simple filenames instead of complex generated names
+
+### Phase 4: Clean Break Migration
+
+#### Step 1: Remove Old Files
+```bash
+# Remove all existing generated images and metadata
+rm -rf generated/images/*.png
+rm -rf generated/metadata/*.json
+# Keep archive folder for reference
+```
+
+#### Step 2: Test New System
+```bash
+# Parse content to ensure content_file fields are correct
+python scripts/content_parser.py
+
+# Test filename generation without API calls
+python scripts/generate_images.py --check-images
+
+# Verify expected filenames match simple pattern
+```
+
+## Files Requiring Changes
+
+### Primary Changes
+- **`scripts/generate_images.py`**: Major refactoring of filename logic
+- **`scripts/build_site.py`**: Minor updates to image path handling
+
+### Secondary Updates  
+- **`bin/generate-new-images-locally.sh`**: Display message updates
+- **Documentation**: Update any references to filename patterns
+
+### No Changes Required
+- **`scripts/content_parser.py`**: Already correctly populates `content_file` field
+- **Content files**: No changes to markdown structure needed
+
+## Expected Outcomes
+
+### Before Refactoring
+```
+📝 Processing: You can always feel product/market fit when it's happening by Marc Andreessen
+🖼️ Image: marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png (brightness: 0.563)
+✓ Metadata saved: generated/metadata/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2_metadata.json
+```
+
+### After Refactoring
+```
+📝 Processing: pmarca-pmf.md
+🖼️ Image: pmarca-pmf_v1.png (brightness: 0.563)  
+✓ Metadata saved: generated/metadata/pmarca-pmf_v2_metadata.json
+```
+
+## Benefits
+
+1. **Predictable**: Clear 1:1 mapping between markdown files and generated assets
+2. **Stable**: Editing title/author content doesn't break image associations  
+3. **Debuggable**: Easy to trace issues between content and generated files
+4. **Maintainable**: Single source of truth for filename generation
+5. **Human-readable**: Short, meaningful filenames
+
+## Risk Mitigation
+
+- **Clean break approach**: No backward compatibility complexity
+- **Archive preservation**: Keep existing generated files in archive folder
+- **Incremental testing**: Test filename generation before full regeneration
+- **Validation**: Verify all content files have proper `content_file` fields
+
+## Implementation Timeline
+
+1. **Write plan**: ✅ Complete
+2. **Git cleanup**: Commit any pending changes
+3. **Remove old files**: Clean slate for new naming scheme  
+4. **Core refactoring**: 30 minutes (utility function + core method)
+5. **Update references**: 45 minutes (all filename logic throughout codebase)
+6. **Testing**: 15 minutes (validate new naming scheme)
+7. **Regeneration**: Ready for full image generation with new scheme
+
+**Total estimated time:** 90 minutes for robust, maintainable filename system.

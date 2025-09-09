@@ -1,0 +1,28 @@
+{
+  "content": {
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "source_file": "content/inspiration/paul-graham-make-something.md"
+  },
+  "style": {
+    "name": "essence-of-desire",
+    "approach": "artistic"
+  },
+  "generation": {
+    "timestamp": "2025-09-08T11:46:06.334283",
+    "model": "gemini-2.5-flash-image-preview",
+    "prompt": "Abstract expressionist composition conveying the essence of human desire and fulfillment, flowing organic forms suggesting connection between need and satisfaction, warm resonant colors that evoke joy and utility, emotional landscape rather than literal representation. Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. Capturing the essence of fulfillment, connection, joy of utility, essence of satisfaction. Using a palette of warm golden energy, deep satisfying blues, vibrant life-affirming oranges, gentle connecting greens. Flowing, organic forms that suggest connection and fulfillment without being literal. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 903,
+    "cost": 0.039,
+    "image_filename": "paul_graham_make_something_people_want.png",
+    "image_path": "generated/images/paul_graham_make_something_people_want.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 1,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Abstract expressionist composition conveying the essence of human desire and fulfillment, flowing organic forms suggesting connection between need and satisfaction, warm resonant colors that evoke joy and utility, emotional landscape rather than literal representation. Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. Capturing the essence of fulfillment, connection, joy of utility, essence of satisfaction. Using a palette of warm golden energy, deep satisfying blues, vibrant life-affirming oranges, gentle connecting greens. Flowing, organic forms that suggest connection and fulfillment without being literal. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

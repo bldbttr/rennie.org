@@ -3,9 +3,14 @@
 .env.local
 *.key
 
-# Generated content (created by GitHub Actions)
-generated/
+# Generated content - MODIFIED for local-first workflow
+# Allow images and metadata to be committed for consistency
+# generated/  # COMMENTED OUT - we now commit locally generated images
 public/images/*.png
+
+# Ignore temporary generated files only
+generated/*.tmp
+generated/debug/
 
 # Python
 __pycache__/

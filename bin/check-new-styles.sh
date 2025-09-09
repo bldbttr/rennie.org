@@ -1,20 +1,22 @@
 #!/bin/bash
-# Check if any content needs image generation
-# Useful for seeing what content is missing images
 
-echo "🎨 Checking Content Style Status"
-echo "================================"
+# Check what images need generation due to content or style changes
+# Uses existing change detection from generate_images.py
 
-# Navigate to project root
+set -e
+
 cd "$(dirname "$0")/.."
 
-# Activate virtual environment
-source ~/dev/.venv/bin/activate
+echo "🔍 ANALYZING CONTENT FOR IMAGE GENERATION NEEDS"
+echo "=============================================="
 
-# Parse content first to get latest data
+# First parse content to ensure we have latest data
 echo "📝 Parsing content files..."
 python scripts/content_parser.py
 
-# Check styles status
 echo ""
+echo "🎨 CHECKING FOR IMAGE GENERATION NEEDS"
+echo "====================================="
+
+# Use the existing check-styles functionality
 python scripts/generate_images.py --check-styles

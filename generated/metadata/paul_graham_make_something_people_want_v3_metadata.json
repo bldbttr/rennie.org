@@ -1,0 +1,31 @@
+{
+  "content": {
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "source_file": "content/inspiration/paul-graham-make-something.md"
+  },
+  "style": {
+    "name": "random",
+    "approach": "scene",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-08T18:21:29.720469",
+    "model": "gemini-2.5-flash-image-preview",
+    "prompt": "Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 336,
+    "cost": 0.039,
+    "image_filename": "paul_graham_make_something_people_want_v3.png",
+    "image_path": "generated/images/paul_graham_make_something_people_want_v3.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 2,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

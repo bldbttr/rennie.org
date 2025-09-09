@@ -107,19 +107,45 @@ class ImageGenerator:
             # Generate expected filenames for all variations
             base_filename = self.generate_image_filename(content, 1).replace('_v1.png', '')
             
-            # Check if any variation exists
+            # Check if any variation exists and compare styles
             variations_exist = []
+            style_mismatch = False
+            current_style = content.get('style_name', 'unknown')
+            
             for v in range(1, 4):  # Check for 3 variations
                 var_filename = f"{base_filename}_v{v}.png"
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
+                    
+                    # Compare style from metadata with current content style
+                    if var_filename in existing_metadata:
+                        metadata_style = existing_metadata[var_filename]['style_name']
+                        if metadata_style != current_style:
+                            style_mismatch = True
             
+            # Determine if generation is needed
             if not variations_exist:
                 needs_generation.append({
                     'title': content['title'],
                     'author': content['author'],
                     'reason': 'no_images',
-                    'expected_style': content['style_name']
+                    'expected_style': current_style,
+                    'type': 'new'
+                })
+            elif style_mismatch:
+                # Find what style the existing images have
+                existing_style = 'unknown'
+                first_existing = f"{base_filename}_v1.png"
+                if first_existing in existing_metadata:
+                    existing_style = existing_metadata[first_existing]['style_name']
+                
+                needs_generation.append({
+                    'title': content['title'],
+                    'author': content['author'],
+                    'reason': f'style_change',
+                    'expected_style': current_style,
+                    'existing_style': existing_style,
+                    'type': 'update'
                 })
         
         return {
@@ -546,12 +572,29 @@ def main():
             print(f"🖼️  Existing images: {check_result['existing_images']}")
             
             if check_result['needs_generation']:
-                print(f"\n🎨 Content needing image generation:")
-                for item in check_result['needs_generation']:
-                    print(f"   • \"{item['title']}\" by {item['author']} ({item['reason']})")
-                print(f"\nRun './bin/generate-new.sh' to generate missing images")
+                # Separate new images from updates
+                new_images = [item for item in check_result['needs_generation'] if item.get('type') == 'new']
+                updates = [item for item in check_result['needs_generation'] if item.get('type') == 'update']
+                
+                if new_images:
+                    print(f"\n🆕 Content needing new images:")
+                    for item in new_images:
+                        print(f"   • \"{item['title']}\" by {item['author']} ({item['reason']})")
+                
+                if updates:
+                    print(f"\n🔄 Content needing image updates:")
+                    for item in updates:
+                        reason_detail = f"{item['existing_style']} → {item['expected_style']}"
+                        print(f"   • \"{item['title']}\" by {item['author']} ({reason_detail})")
+                
+                if new_images and updates:
+                    print(f"\nRun './bin/preview-and-check.sh' to generate {len(new_images)} new + {len(updates)} updated images")
+                elif new_images:
+                    print(f"\nRun './bin/generate-new.sh' to generate {len(new_images)} missing images")
+                else:
+                    print(f"\nRun './bin/preview-and-check.sh' to update {len(updates)} images with new styles")
             else:
-                print("\n✅ All content has generated images!")
+                print("\n✅ All content has generated images with current styles!")
             
             return 0
         

@@ -1,0 +1,31 @@
+{
+  "content": {
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
+  },
+  "style": {
+    "name": "fortiche-blend",
+    "approach": "artistic",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-09T12:51:34.768729",
+    "model": "gemini-2.5-flash-image-preview",
+    "prompt": "Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 253,
+    "cost": 0.039,
+    "image_filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
+    "image_path": "generated/images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 1,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

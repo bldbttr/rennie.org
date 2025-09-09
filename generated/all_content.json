@@ -1,0 +1,135 @@
+[
+  {
+    "content_file": "content/inspiration/pmarca-pmf.md",
+    "title": "You can always feel product/market fit when it's happening",
+    "author": "Marc Andreessen",
+    "type": "quote",
+    "quote_text": "And you can always feel product/market fit when it\u2019s happening. The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You\u2019re hiring sales and customer support staff as fast as you can. Reporters are calling because they\u2019ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck\u2019s",
+    "style_name": "rothko-color-field",
+    "style_category": "painting_technique",
+    "style_data": {
+      "description": "Mark Rothko's transcendent color field approach with luminous color relationships",
+      "base_prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+      "key_techniques": [
+        "luminous color fields",
+        "breathing color transitions",
+        "soft edge boundaries",
+        "contemplative minimal composition"
+      ],
+      "meditative_quality": "Colors that invite deep contemplation and emotional opening",
+      "transcendent_approach": "Visual experience designed to go beyond everyday perception",
+      "color_breathing": "Colors that appear alive and subtly changing even in stillness"
+    },
+    "vibe": [
+      "movement",
+      "flow",
+      "in-the-zone"
+    ],
+    "prompt": {
+      "text": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+        "vibe": [
+          "movement",
+          "flow",
+          "in-the-zone"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
+      }
+    },
+    "metadata": {
+      "source": "https://pmarchive.com/guide_to_startups_part4.html",
+      "status": "active",
+      "tags": [],
+      "why_i_like_it": "Timeless pieece.  Describes the mission of investing annd building, and captures the feeling when it's working and when it's not, without listing a metric. I re-read it a couple times a year."
+    }
+  },
+  {
+    "content_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md",
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "style_name": "spiderverse-dimensional",
+    "style_category": "visual_storytelling",
+    "style_data": {
+      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
+      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+      "key_techniques": [
+        "mixed animation styles",
+        "halftone comic patterns",
+        "dimensional depth effects",
+        "graphic design integration"
+      ],
+      "composition_principles": [
+        "dynamic perspective shifts",
+        "multiple focal points",
+        "graphic element rhythm",
+        "dimensional layering"
+      ],
+      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
+    },
+    "vibe": [
+      "clarity",
+      "revelation"
+    ],
+    "prompt": {
+      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "vibe": [
+          "clarity",
+          "revelation"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
+      }
+    },
+    "metadata": {
+      "source": "https://youtu.be/oeqPrUmVz-o?t=112",
+      "status": "active",
+      "tags": [],
+      "why_i_like_it": "Masterful clarity, inspiration and motivation. This encapsulates the entire philosophy of great product development - understanding what people actually need and want."
+    }
+  },
+  {
+    "content_file": "content/inspiration/paul-graham-make-something.md",
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "style_name": "monet-impressionist",
+    "style_category": "painting_technique",
+    "style_data": {
+      "description": "Claude Monet's broken brushwork technique capturing fleeting light effects",
+      "base_prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+      "key_techniques": [
+        "broken visible brushstrokes",
+        "optical color interaction",
+        "atmospheric light capture",
+        "temporal moment specificity"
+      ],
+      "color_philosophy": "Colors that interact optically to create new emotional temperatures and atmospheric effects",
+      "brush_approach": "Quick confident strokes that capture essence and light rather than precise form",
+      "light_focus": "Fleeting effects of light and atmosphere as primary subject matter"
+    },
+    "vibe": [
+      "zen of purpose"
+    ],
+    "prompt": {
+      "text": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+        "vibe": [
+          "zen of purpose"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
+      }
+    },
+    "metadata": {
+      "source": "https://paulgraham.com/good.html",
+      "status": "active",
+      "tags": [],
+      "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this often."
+    }
+  }
+]

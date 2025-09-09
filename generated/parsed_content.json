@@ -1,0 +1,27 @@
+{
+  "content_file": "content/inspiration/paul-graham-make-something.md",
+  "title": "Make something people want",
+  "author": "Paul Graham",
+  "type": "quote",
+  "quote_text": "Make something people want.",
+  "style_name": "random",
+  "style_approach": "artistic",
+  "style_data": {},
+  "prompt": {
+    "text": "Inspired by the feeling of: A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.\n\n<!-- Test deployment with SSH key verification -->. square composition, centered focus, 1:1 aspect ratio",
+    "components": {
+      "base": "",
+      "personal_context": "A person getting utility or joy from the experience the product brings to their life. While it's an instruction to the builder, it's an instruction to capture the essence of someone's desires, to be inside their values and express that through a product.\n\n<!-- Test deployment with SSH key verification -->",
+      "mood": [],
+      "colors": [],
+      "composition": "",
+      "visual_notes": ""
+    }
+  },
+  "metadata": {
+    "source": "https://paulgraham.com/good.html",
+    "status": "active",
+    "tags": [],
+    "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this constantly."
+  }
+}

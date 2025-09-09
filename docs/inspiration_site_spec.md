@@ -1,6 +1,6 @@
 # Inspiration Site Development Specification
 **Project**: rennie.org Inspiration Site with AI-Generated Artwork  
-**Repository**: https://github.com/hoggfather/rennie.org  
+**Repository**: https://github.com/bldbttr/rennie.org  
 **Tech Stack**: Nano Banana (Gemini 2.5 Flash Image) + Static Site + GitHub Actions  
 **IMPORTANT**: Always use `gemini-2.5-flash` model (latest Nano Banana), NOT preview versions
 
@@ -18,7 +18,7 @@ Create a personal homepage that displays inspiring quotes, poems, and stories al
 ## Current Status
 
 ✅ **Repository Structure**: Right-sized directory structure created  
-✅ **Git Setup**: Repository live at github.com/hoggfather/rennie.org  
+✅ **Git Setup**: Repository live at github.com/bldbttr/rennie.org  
 ✅ **Nano Banana API**: Tested and working (API key: AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE)  
 ✅ **Initial Content**: Paul Graham "Make something people want" quote ready  
 ✅ **Style Library**: Basic reusable prompt templates defined  

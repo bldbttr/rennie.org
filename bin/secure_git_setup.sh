@@ -8,7 +8,7 @@ git config --global --unset credential.helper 2>/dev/null || true
 git config --unset credential.helper 2>/dev/null || true
 
 # Step 2: Set up proper user configuration
-git config --global user.name "hoggfather"
+git config --global user.name "bldbttr"
 git config --global user.email "krennie@users.noreply.github.com"
 
 # Step 3: Use HTTPS with credential manager for security
@@ -17,7 +17,7 @@ git config --global credential.helper osxkeychain
 echo "✅ Git configured securely"
 echo ""
 echo "When you push to GitHub, you'll be prompted for:"
-echo "  Username: hoggfather"
+echo "  Username: bldbttr"
 echo "  Password: [use a Personal Access Token, not your GitHub password]"
 echo ""
 echo "📝 To create a Personal Access Token:"
@@ -150,7 +150,7 @@ echo "5. DON'T check any initialization boxes"
 echo "6. Click 'Create repository'"
 echo ""
 echo "7. Then run these commands:"
-echo "   git remote add origin https://github.com/hoggfather/rennie.org.git"
+echo "   git remote add origin https://github.com/bldbttr/rennie.org.git"
 echo "   git branch -M main"
 echo "   git push -u origin main"
 echo ""

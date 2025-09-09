@@ -18,23 +18,115 @@ from content_parser import ContentParser
 
 
 class ImageGenerator:
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, check_only: bool = False):
         """Initialize the image generator with API credentials."""
         self.api_key = api_key or os.environ.get('GEMINI_API_KEY')
-        if not self.api_key:
+        
+        if not check_only and not self.api_key:
             raise ValueError("GEMINI_API_KEY not found in environment variables")
         
-        # Initialize the client for image generation
-        self.client = genai.Client(api_key=self.api_key)
+        # Initialize the client for image generation (only if not check-only mode)
+        self.client = genai.Client(api_key=self.api_key) if self.api_key else None
         
         # Set up directories
         self.images_dir = Path("generated/images")
         self.metadata_dir = Path("generated/metadata")
+        self.archive_dir = Path("generated/archive")
         self.images_dir.mkdir(parents=True, exist_ok=True)
         self.metadata_dir.mkdir(parents=True, exist_ok=True)
+        self.archive_dir.mkdir(parents=True, exist_ok=True)
         
         # Cost tracking
         self.cost_per_image = 0.039  # $0.039 per 1024x1024 image
+
+    def archive_existing_images(self) -> Optional[str]:
+        """Move existing images to timestamped archive folder."""
+        import shutil
+        
+        # Check if there are any images to archive
+        existing_images = list(self.images_dir.glob('*.png'))
+        existing_metadata = list(self.metadata_dir.glob('*_metadata.json'))
+        
+        if not existing_images and not existing_metadata:
+            print("No existing images to archive.")
+            return None
+        
+        # Create timestamped archive folder
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+        archive_folder = self.archive_dir / timestamp
+        archive_folder.mkdir(exist_ok=True)
+        
+        # Create subfolders
+        archive_images = archive_folder / "images"
+        archive_metadata = archive_folder / "metadata"
+        archive_images.mkdir(exist_ok=True)
+        archive_metadata.mkdir(exist_ok=True)
+        
+        # Move images
+        moved_count = 0
+        for image_file in existing_images:
+            dest = archive_images / image_file.name
+            shutil.move(str(image_file), str(dest))
+            moved_count += 1
+        
+        # Move metadata
+        for metadata_file in existing_metadata:
+            dest = archive_metadata / metadata_file.name
+            shutil.move(str(metadata_file), str(dest))
+        
+        print(f"✓ Archived {moved_count} images to {archive_folder}")
+        return str(archive_folder)
+
+    def check_new_styles(self, parsed_content_file: str = "generated/all_content.json") -> Dict[str, Any]:
+        """Check if content uses styles that don't have existing images."""
+        # Load content data
+        if not Path(parsed_content_file).exists():
+            return {"error": f"Content file not found: {parsed_content_file}"}
+        
+        with open(parsed_content_file, 'r') as f:
+            content_list = json.load(f)
+        
+        # Get existing images and their metadata
+        existing_images = list(self.images_dir.glob('*.png'))
+        existing_metadata = {}
+        
+        for img_file in existing_images:
+            metadata_file = self.metadata_dir / img_file.name.replace('.png', '_metadata.json')
+            if metadata_file.exists():
+                with open(metadata_file, 'r') as f:
+                    metadata = json.load(f)
+                    existing_metadata[img_file.name] = {
+                        'style_name': metadata.get('style', {}).get('name', 'unknown'),
+                        'style_approach': metadata.get('style', {}).get('approach', 'artistic')
+                    }
+        
+        # Check for content without matching images or with different styles
+        needs_generation = []
+        
+        for content in content_list:
+            # Generate expected filenames for all variations
+            base_filename = self.generate_image_filename(content, 1).replace('_v1.png', '')
+            
+            # Check if any variation exists
+            variations_exist = []
+            for v in range(1, 4):  # Check for 3 variations
+                var_filename = f"{base_filename}_v{v}.png"
+                if var_filename in [img.name for img in existing_images]:
+                    variations_exist.append(v)
+            
+            if not variations_exist:
+                needs_generation.append({
+                    'title': content['title'],
+                    'author': content['author'],
+                    'reason': 'no_images',
+                    'expected_style': content['style_name']
+                })
+        
+        return {
+            'existing_images': len(existing_images),
+            'content_pieces': len(content_list),
+            'needs_generation': needs_generation
+        }
         
     def generate_image_filename(self, content_data: Dict[str, Any], variation: int = 1) -> str:
         """Generate a consistent filename for an image."""
@@ -425,21 +517,51 @@ def main():
                        help='Force regenerate all images')
     parser.add_argument('--new-only', action='store_true',
                        help='Generate only missing images (default)')
-    parser.add_argument('--content-file', default='generated/parsed_content.json',
+    parser.add_argument('--archive-and-regenerate', action='store_true',
+                       help='Archive existing images then regenerate all')
+    parser.add_argument('--check-styles', action='store_true',
+                       help='Check which content needs images generated')
+    parser.add_argument('--content-file', default='generated/all_content.json',
                        help='Path to parsed content JSON file')
     parser.add_argument('--variations', type=int, default=3,
                        help='Number of variations to generate per content piece (default: 3)')
     
     args = parser.parse_args()
     
-    # Check for API key in environment
+    # Check for API key (not needed for style checking)
     api_key = os.environ.get('GEMINI_API_KEY')
-    if not api_key:
+    if not api_key and not args.check_styles:
         print("❌ Error: GEMINI_API_KEY environment variable not set")
         print("Please set your Gemini API key before running image generation")
         return 1
     
     try:
+        # Handle style check option
+        if args.check_styles:
+            generator = ImageGenerator(check_only=True)
+            print("Style Check Report")
+            print("=" * 40)
+            
+            check_result = generator.check_new_styles(args.content_file)
+            
+            if "error" in check_result:
+                print(f"❌ {check_result['error']}")
+                return 1
+            
+            print(f"📊 Content pieces: {check_result['content_pieces']}")
+            print(f"🖼️  Existing images: {check_result['existing_images']}")
+            
+            if check_result['needs_generation']:
+                print(f"\n🎨 Content needing image generation:")
+                for item in check_result['needs_generation']:
+                    print(f"   • \"{item['title']}\" by {item['author']} ({item['reason']})")
+                print(f"\nRun './bin/generate-new.sh' to generate missing images")
+            else:
+                print("\n✅ All content has generated images!")
+            
+            return 0
+        
+        # For all other operations, create generator normally
         generator = ImageGenerator()
         
         print("Nano Banana Image Generator")
@@ -449,12 +571,23 @@ def main():
         print(f"Cost per image: ${generator.cost_per_image}")
         print(f"Variations: {args.variations}")
         print(f"Content file: {args.content_file}")
+        
+        # Handle archive option
+        if args.archive_and_regenerate:
+            print("Mode: Archive existing images and regenerate all")
+            generator.archive_existing_images()
+            force_mode = True
+        else:
+            force_mode = args.force_all
+            mode_desc = "Force regenerate all" if force_mode else "Generate only missing images"
+            print(f"Mode: {mode_desc}")
+        
         print()
         
         # Generate images
         results = generator.generate_from_parsed_content(
             parsed_content_file=args.content_file,
-            force=args.force_all,
+            force=force_mode,
             variations=args.variations
         )
         

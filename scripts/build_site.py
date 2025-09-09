@@ -25,8 +25,8 @@ import numpy as np
 
 
 def load_parsed_content() -> List[Dict[str, Any]]:
-    """Load parsed content data from generated/parsed_content.json"""
-    content_file = Path("generated/parsed_content.json")
+    """Load parsed content data from generated/all_content.json"""
+    content_file = Path("generated/all_content.json")
     
     if not content_file.exists():
         raise FileNotFoundError(f"Parsed content not found at {content_file}")
@@ -34,7 +34,7 @@ def load_parsed_content() -> List[Dict[str, Any]]:
     with open(content_file, 'r') as f:
         content = json.load(f)
     
-    # Convert single content item to list format
+    # Convert single content item to list format (for backward compatibility)
     if isinstance(content, dict):
         return [content]
     return content

@@ -228,56 +228,27 @@ class ContentParser:
 
 
 def main():
-    """Main function for testing the parser."""
+    """Main function - always parse all content files."""
     parser = ContentParser()
     
-    # Test with Paul Graham content
-    test_file = Path("content/inspiration/paul-graham-make-something.md")
+    print("Parsing all content files...\n")
     
-    if test_file.exists():
-        print("Testing content parser with Paul Graham quote...\n")
-        
-        # Parse the file
-        parsed = parser.parse_markdown(test_file)
-        print("Parsed content structure:")
-        print(f"  Title: {parsed['frontmatter'].get('title')}")
-        print(f"  Author: {parsed['frontmatter'].get('author')}")
-        print(f"  Content: {parsed['content'][:50]}...")
-        print(f"  Why I Like It: {parsed['why_i_like_it'][:50]}...")
-        print(f"  What I See: {parsed['what_i_see_in_it'][:50]}...")
-        print()
-        
-        # Generate prompt
-        prompt_data = parser.generate_prompt(parsed)
-        print("Generated prompt data:")
-        print(f"  Style: {prompt_data['style_name']}")
-        print(f"  Approach: {prompt_data['style_approach']}")
-        print(f"\nFull prompt ({len(prompt_data['prompt']['text'])} chars):")
-        print(f"  {prompt_data['prompt']['text'][:200]}...")
-        print()
-        
-        # Save structured output
-        output_file = Path("generated/parsed_content.json")
+    all_content = parser.parse_all_content()
+    if all_content:
+        output_file = Path("generated/all_content.json")
         output_file.parent.mkdir(exist_ok=True)
         
         with open(output_file, 'w') as f:
-            json.dump(prompt_data, f, indent=2)
+            json.dump(all_content, f, indent=2)
         
-        print(f"✓ Saved structured output to {output_file}")
+        print(f"\n✓ Parsed {len(all_content)} content files")
+        print(f"✓ Saved to {output_file}")
+        
+        # Show summary
+        for content in all_content:
+            print(f"  - {content['title']} by {content['author']} ({content['style_approach']}: {content['style_name']})")
     else:
-        print(f"Test file not found: {test_file}")
-        print("Parsing all available content...")
-        
-        all_content = parser.parse_all_content()
-        if all_content:
-            output_file = Path("generated/all_content.json")
-            output_file.parent.mkdir(exist_ok=True)
-            
-            with open(output_file, 'w') as f:
-                json.dump(all_content, f, indent=2)
-            
-            print(f"\n✓ Parsed {len(all_content)} content files")
-            print(f"✓ Saved to {output_file}")
+        print("No content files found or all files had errors.")
 
 
 if __name__ == "__main__":

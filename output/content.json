@@ -1,11 +1,157 @@
 [
   {
+    "content_file": "content/inspiration/pmarca-pmf.md",
+    "title": "You can always feel product/market fit when it's happening",
+    "author": "Marc Andreessen",
+    "type": "quote",
+    "quote_text": "And you can always feel product/market fit when it’s happening. The customers are buying the product just as fast as you can make it—or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You’re hiring sales and customer support staff as fast as you can. Reporters are calling because they’ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck’s.",
+    "style_name": "impressionist-light",
+    "style_approach": "artistic",
+    "style_data": {},
+    "prompt": {
+      "text": "Inspired by the feeling of: While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\". square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "",
+        "personal_context": "While the paragraph is literal, there's a sensation everyone has felt, that pmarca captures well.  Maybe it was winning a board game, or building a product or seeing it happen in a movie, it's not a spreadsheet it's a movement.  And he describes with clarity: \"I'm not suggesting that you do ignore everything else—just that judging from what I've seen in successful startups, you can.\"",
+        "mood": [],
+        "colors": [],
+        "composition": "",
+        "visual_notes": ""
+      }
+    },
+    "metadata": {
+      "source": "https://pmarchive.com/guide_to_startups_part4.html",
+      "status": "active",
+      "tags": [
+        "startup",
+        "product-market-fit",
+        "entrepreneurship"
+      ],
+      "why_i_like_it": "Timeless insight.  First piece that describes the mission of building, and captures the feeling when it's working and when it's not, without listing a metric.  I re-read it a couple times a year."
+    },
+    "images": [
+      {
+        "path": "images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png",
+        "filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png",
+        "brightness_analysis": {
+          "brightness": 0.333,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
+        }
+      },
+      {
+        "path": "images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2.png",
+        "filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v2.png",
+        "brightness_analysis": {
+          "brightness": 0.377,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
+        }
+      },
+      {
+        "path": "images/marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
+        "filename": "marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v3.png",
+        "brightness_analysis": {
+          "brightness": 0.332,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
+        }
+      }
+    ],
+    "brightness_analysis": {
+      "brightness": 0.333,
+      "is_light": false,
+      "text_color": "#ecf0f1",
+      "background_color": "#34495e",
+      "accent_color": "#e74c3c"
+    }
+  },
+  {
+    "content_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md",
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "style_name": "fortiche-blend",
+    "style_approach": "scene",
+    "style_data": {},
+    "prompt": {
+      "text": "Inspired by the feeling of: A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "",
+        "personal_context": "A leader who understands that technology is just a tool to solve human problems, not the end goal itself. The magic happens when you truly understand the customer's world.",
+        "mood": [],
+        "colors": [],
+        "composition": "",
+        "visual_notes": ""
+      }
+    },
+    "metadata": {
+      "source": "https://youtu.be/oeqPrUmVz-o?t=112",
+      "status": "active",
+      "tags": [
+        "product",
+        "design",
+        "customer-experience"
+      ],
+      "why_i_like_it": "Masterful clarity, inspiration and motivation. This encapsulates the entire philosophy of great product development - understanding what people actually need and want."
+    },
+    "images": [
+      {
+        "path": "images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
+        "filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v1.png",
+        "brightness_analysis": {
+          "brightness": 0.373,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
+        }
+      },
+      {
+        "path": "images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
+        "filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v2.png",
+        "brightness_analysis": {
+          "brightness": 0.405,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
+        }
+      },
+      {
+        "path": "images/steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
+        "filename": "steve_jobs_start_with_the_customer_experience_and_work_backwa_v3.png",
+        "brightness_analysis": {
+          "brightness": 0.393,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
+        }
+      }
+    ],
+    "brightness_analysis": {
+      "brightness": 0.373,
+      "is_light": false,
+      "text_color": "#ecf0f1",
+      "background_color": "#34495e",
+      "accent_color": "#e74c3c"
+    }
+  },
+  {
     "content_file": "content/inspiration/paul-graham-make-something.md",
     "title": "Make something people want",
     "author": "Paul Graham",
     "type": "quote",
     "quote_text": "Make something people want.",
-    "style_name": "random",
+    "style_name": "impressionist-light",
     "style_approach": "artistic",
     "style_data": {},
     "prompt": {
@@ -23,7 +169,7 @@
       "source": "https://paulgraham.com/good.html",
       "status": "active",
       "tags": [],
-      "why_i_like_it": "PG's wisdom resonates with me.  This specifically is the best single encapsulation of a startup or product mission I have come across.  I try to challenge myself with this constantly."
+      "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this constantly."
     },
     "images": [
       {

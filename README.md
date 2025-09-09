@@ -1,10 +1,10 @@
-# Poetry & Art - rennie.org
+# rennie.org landing page
 
-Personal homepage displaying inspiring quotes and poems with AI-generated artwork using Google's Nano Banana.
+Personal homepage displaying inpiration with AI-generated artwork using Google's Nano Banana.
 
 ## Features
 - 🎨 AI-generated artwork using Nano Banana (Gemini 2.5 Flash Image)
-- 📝 Curated quotes and poetry
+- 📝 Curated quotes, poems, images, stories
 - 🔄 Random selection on page load
 - 📱 Responsive design
 - 🚀 Automated GitHub Actions deployment

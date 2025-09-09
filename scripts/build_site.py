@@ -98,7 +98,7 @@ def create_html_template() -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspiration | rennie.org</title>
+    <title>rennie.org</title>
     <meta name="description" content="A breathing collection of inspiring quotes with AI-generated artwork">
     
     <!-- Preload critical CSS -->
@@ -123,12 +123,14 @@ def create_html_template() -> str:
                 <!-- Quote Panel (25% left) -->
                 <div class="quote-panel" id="quote-panel">
                     <div class="quote-content">
-                        <blockquote id="quote-text" class="quote-text">
-                            <!-- Quote content loaded here -->
-                        </blockquote>
-                        <cite id="quote-author" class="quote-author">
-                            <!-- Author loaded here -->
-                        </cite>
+                        <div class="quote-main">
+                            <blockquote id="quote-text" class="quote-text">
+                                <!-- Quote content loaded here -->
+                            </blockquote>
+                            <cite id="quote-author" class="quote-author">
+                                <!-- Author loaded here -->
+                            </cite>
+                        </div>
                         <div id="quote-context" class="quote-context">
                             <!-- Personal context loaded here -->
                         </div>
@@ -170,8 +172,6 @@ def create_html_template() -> str:
             <div class="footer-content">
                 <div class="footer-left">
                     <a id="source-link" href="#" target="_blank" class="source-link">Source</a>
-                    <span class="separator">•</span>
-                    <button id="new-inspiration-btn" class="new-inspiration-btn">New Inspiration</button>
                 </div>
                 <div class="footer-right">
                     <span id="breathing-indicator" class="breathing-indicator">●</span>
@@ -182,7 +182,7 @@ def create_html_template() -> str:
         
         <!-- Controls Hint -->
         <div id="controls-hint" class="controls-hint">
-            Press <kbd>Space</kbd> or click for new inspiration
+            Press <kbd>Space</kbd> or click for new thought
         </div>
     </div>
     
@@ -274,7 +274,7 @@ body {
     background: var(--background-color);
     padding: 3rem 2rem;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     transition: background-color var(--transition-duration) ease,
                 color var(--transition-duration) ease;
     position: relative;
@@ -283,7 +283,19 @@ body {
 
 .quote-content {
     max-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     animation: breathe var(--breathing-duration) ease-in-out infinite;
+}
+
+.quote-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .quote-text {
@@ -311,9 +323,12 @@ body {
 .quote-context {
     font-size: 0.95rem;
     line-height: 1.5;
-    opacity: 0.8;
-    font-style: normal;
+    margin-top: auto;
+    padding-top: 2rem;
+    opacity: 0.75;
+    font-style: italic;
     color: var(--text-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     transition: color var(--transition-duration) ease;
 }
 

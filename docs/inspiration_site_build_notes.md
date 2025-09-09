@@ -597,7 +597,7 @@ Successfully transformed the project from a problematic cloud-first CI/CD archit
 - Reusable Python intelligence instead of bash script logic
 
 **✅ Hybrid Local-First Workflow Scripts**
-- `bin/preview-and-check.sh` - Main workflow with intelligent analysis, cost approval, generation, and preview
+- `bin/generate-new-images-locally.sh` - Main workflow with intelligent analysis, cost approval, generation, and preview
 - `bin/commit-and-deploy.sh` - Streamlined deployment of locally generated images
 - `bin/check-images.sh` - Image status inventory by content file
 - Verbose progress reporting and transparent cost control
@@ -654,7 +654,7 @@ Proceed with generation? (yes/no):
 - Same images used in production deployment (consistency guaranteed)
 
 ### Files Created/Modified
-- `bin/preview-and-check.sh` - Main hybrid workflow script (200+ lines)
+- `bin/generate-new-images-locally.sh` - Main hybrid workflow script (200+ lines)
 - `bin/commit-and-deploy.sh` - Deployment script (80+ lines)
 - Enhanced `scripts/generate_images.py` - Smart change detection (30+ lines added)
 - Modified `.github/workflows/deploy.yml` - Uses locally committed images

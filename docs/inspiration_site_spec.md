@@ -38,7 +38,7 @@ rennie.org/
 ├── .github/workflows/         # GitHub Actions ✅
 │   └── deploy.yml            # Automated deployment pipeline ✅
 ├── bin/                      # Bash automation scripts ✅
-│   ├── preview-and-check.sh  # Hybrid local-first workflow ✅
+│   ├── generate-new-images-locally.sh  # Hybrid local-first workflow ✅
 │   ├── commit-and-deploy.sh  # Streamlined deployment ✅
 │   ├── check-images.sh       # Image status inventory ✅
 │   ├── generate-new.sh       # Generate missing images ✅
@@ -108,7 +108,7 @@ All development phases have been completed successfully. The project now feature
 
 ### Bash Automation Scripts ✅ COMPLETED
 
-#### 1. Hybrid Local-First Workflow (`bin/preview-and-check.sh`) ✅
+#### 1. Hybrid Local-First Workflow (`bin/generate-new-images-locally.sh`) ✅
 **Purpose**: Main workflow script with intelligent change detection and cost control
 **Features**:
 - ✅ Sophisticated change detection using existing metadata comparison

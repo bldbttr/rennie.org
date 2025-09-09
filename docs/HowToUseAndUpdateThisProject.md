@@ -9,7 +9,7 @@
 ./bin/check-images.sh
 
 # Generate images + preview locally
-./bin/preview-and-check.sh
+./bin/generate-new-images-locally.sh
 
 # Deploy to production
 ./bin/commit-and-deploy.sh
@@ -52,7 +52,7 @@ This quote captures the essence of creative thinking...
 # - Generate images locally
 # - Build the site
 # - Open preview in your browser
-./bin/preview-and-check.sh
+./bin/generate-new-images-locally.sh
 ```
 
 **Expected output:**
@@ -137,7 +137,7 @@ If you want a completely new style, add it to `content/styles/styles.json`:
 ### Step 4: Preview Changes
 
 ```bash
-./bin/preview-and-check.sh
+./bin/generate-new-images-locally.sh
 ```
 
 **Expected output for style changes:**
@@ -227,8 +227,8 @@ Old images are automatically moved to `generated/archive/[timestamp]/` when styl
 
 **I want to...** | **Command**
 ---|---
-Add new quote/content | Create `.md` file → `./bin/preview-and-check.sh` → `./bin/commit-and-deploy.sh`
-Change visual styles | Edit frontmatter → `./bin/preview-and-check.sh` → `./bin/commit-and-deploy.sh` 
+Add new quote/content | Create `.md` file → `./bin/generate-new-images-locally.sh` → `./bin/commit-and-deploy.sh`
+Change visual styles | Edit frontmatter → `./bin/generate-new-images-locally.sh` → `./bin/commit-and-deploy.sh` 
 Check image status by file | `./bin/check-images.sh`
 Just rebuild site | `python scripts/build_site.py` → `./bin/commit-and-deploy.sh`
 Nuclear option (regenerate all) | `./bin/regenerate-all.sh` → `./bin/commit-and-deploy.sh`

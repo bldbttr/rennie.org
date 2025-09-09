@@ -338,6 +338,8 @@ class ImageGenerator:
         """Generate images from parsed content data."""
         # Load parsed content
         parsed_file = Path(parsed_content_file)
+        print(f"Looking for parsed content file: {parsed_file}")
+        
         if not parsed_file.exists():
             print(f"Parsed content file not found: {parsed_file}")
             print("Running content parser first...")
@@ -353,11 +355,14 @@ class ImageGenerator:
             all_content = parser.parse_all_content()
             if not all_content:
                 raise ValueError("No content found to generate images from")
+            print(f"Generated {len(all_content)} content items from parser")
         else:
+            print(f"Loading content from existing file: {parsed_file}")
             with open(parsed_file, 'r') as f:
                 content = json.load(f)
                 # Handle both single content and list of content
                 all_content = [content] if isinstance(content, dict) else content
+                print(f"Loaded {len(all_content)} content items from file")
         
         results = []
         total_cost = 0
@@ -427,9 +432,12 @@ def main():
     
     args = parser.parse_args()
     
-    # Set API key if provided
-    api_key = os.environ.get('GEMINI_API_KEY', 'AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE')
-    os.environ['GEMINI_API_KEY'] = api_key
+    # Check for API key in environment
+    api_key = os.environ.get('GEMINI_API_KEY')
+    if not api_key:
+        print("❌ Error: GEMINI_API_KEY environment variable not set")
+        print("Please set your Gemini API key before running image generation")
+        return 1
     
     try:
         generator = ImageGenerator()
@@ -439,6 +447,8 @@ def main():
         print(f"API Key: {api_key[:10]}...")
         print(f"Model: gemini-2.5-flash-image-preview")
         print(f"Cost per image: ${generator.cost_per_image}")
+        print(f"Variations: {args.variations}")
+        print(f"Content file: {args.content_file}")
         print()
         
         # Generate images

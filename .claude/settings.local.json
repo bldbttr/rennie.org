@@ -18,7 +18,10 @@
       "Bash(find:*)",
       "Bash(open output/index.html)",
       "Bash(chmod:*)",
-      "Bash(./bin/build-site.sh:*)"
+      "Bash(./bin/build-site.sh:*)",
+      "Bash(/dev/null)",
+      "Bash(yamllint:*)",
+      "Bash(./bin/deploy.sh:*)"
     ],
     "deny": [],
     "ask": []

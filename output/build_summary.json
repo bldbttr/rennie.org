@@ -2,14 +2,14 @@
   "build_timestamp": "2025-09-08T00:00:00Z",
   "content_count": 1,
   "images_included": 1,
-  "total_size_mb": 1.72,
+  "total_size_mb": 6.92,
   "content_items": [
     {
       "title": "Make something people want",
       "author": "Paul Graham",
-      "style": "essence-of-desire",
+      "style": "random",
       "has_image": true,
-      "brightness": 0.37
+      "brightness": 0.501
     }
   ]
 }

@@ -53,7 +53,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           echo "🎨 Generating images for new content..."
-          python scripts/generate_images.py --new-only
+          python scripts/generate_images.py --new-only --variations 3
           if [ $? -eq 0 ]; then
             echo "✅ Image generation completed successfully"
             # Check if any new images were created

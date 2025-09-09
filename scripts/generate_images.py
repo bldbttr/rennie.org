@@ -36,7 +36,7 @@ class ImageGenerator:
         # Cost tracking
         self.cost_per_image = 0.039  # $0.039 per 1024x1024 image
         
-    def generate_image_filename(self, content_data: Dict[str, Any]) -> str:
+    def generate_image_filename(self, content_data: Dict[str, Any], variation: int = 1) -> str:
         """Generate a consistent filename for an image."""
         # Create filename from author and title
         author = content_data['author'].lower().replace(' ', '_')
@@ -45,7 +45,7 @@ class ImageGenerator:
         title_clean = ''.join(c if c.isalnum() or c in [' ', '-'] else '' for c in title)
         title_clean = title_clean.replace(' ', '_')[:50]  # Limit length
         
-        return f"{author}_{title_clean}.png"
+        return f"{author}_{title_clean}_v{variation}.png"
     
     def check_existing_image(self, filename: str) -> bool:
         """Check if an image already exists."""
@@ -62,7 +62,7 @@ class ImageGenerator:
         return image_path
     
     def save_metadata(self, content_data: Dict[str, Any], filename: str, 
-                     generation_info: Dict[str, Any]) -> Path:
+                     generation_info: Dict[str, Any], variation_info: Dict[str, Any] = None) -> Path:
         """Save generation metadata for tracking."""
         metadata_filename = filename.replace('.png', '_metadata.json')
         metadata_path = self.metadata_dir / metadata_filename
@@ -76,8 +76,9 @@ class ImageGenerator:
                 'source_file': content_data['content_file']
             },
             'style': {
-                'name': content_data['style_name'],
-                'approach': content_data['style_approach']
+                'name': content_data.get('style_name', 'unknown'),
+                'approach': content_data.get('style_approach', 'artistic'),
+                'variation': variation_info if variation_info else {'type': 'original'}
             },
             'generation': {
                 'timestamp': datetime.now().isoformat(),
@@ -96,9 +97,10 @@ class ImageGenerator:
         
         return metadata_path
     
-    def generate_image(self, content_data: Dict[str, Any], force: bool = False) -> Dict[str, Any]:
+    def generate_image(self, content_data: Dict[str, Any], force: bool = False, 
+                      variation: int = 1, variation_info: Dict[str, Any] = None) -> Dict[str, Any]:
         """Generate an image using Nano Banana API."""
-        filename = self.generate_image_filename(content_data)
+        filename = self.generate_image_filename(content_data, variation)
         
         # Check if image already exists
         if not force and self.check_existing_image(filename):
@@ -166,7 +168,8 @@ class ImageGenerator:
                     'filename': filename,
                     'path': str(image_path),
                     'metadata_path': str(metadata_path),
-                    'cost': self.cost_per_image
+                    'cost': self.cost_per_image,
+                    'variation': variation
                 }
             else:
                 # No image found in response
@@ -208,8 +211,122 @@ class ImageGenerator:
                 'error': str(e)
             }
     
+    def generate_variations(self, content_data: Dict[str, Any], num_variations: int = 3, 
+                           force: bool = False) -> List[Dict[str, Any]]:
+        """Generate multiple variations of an image with different styles."""
+        from content_parser import ContentParser
+        import random
+        
+        results = []
+        parser = ContentParser()
+        
+        # Get the current style info
+        original_style = content_data.get('style_name', 'unknown')
+        original_approach = content_data.get('style_approach', 'artistic')
+        
+        # Get available styles
+        artistic_styles = list(parser.styles_data.get('abstract_artistic_styles', {}).keys())
+        scene_styles = list(parser.styles_data.get('animated_moment_styles', {}).keys())
+        
+        for variation_num in range(1, num_variations + 1):
+            print(f"\n  === Variation {variation_num}/{num_variations} ===")
+            
+            # Determine style for this variation
+            if variation_num == 1:
+                # Variation 1: Use the original style
+                style_name = original_style
+                style_approach = original_approach
+                variation_type = "original"
+            elif variation_num == 2:
+                # Variation 2: Random style from same category
+                if original_approach == 'artistic':
+                    available = [s for s in artistic_styles if s != original_style]
+                    style_name = random.choice(available) if available else original_style
+                else:
+                    available = [s for s in scene_styles if s != original_style]
+                    style_name = random.choice(available) if available else original_style
+                style_approach = original_approach
+                variation_type = "same_category"
+            else:
+                # Variation 3+: Random style from opposite category
+                if original_approach == 'artistic':
+                    style_name = random.choice(scene_styles) if scene_styles else original_style
+                    style_approach = 'scene'
+                else:
+                    style_name = random.choice(artistic_styles) if artistic_styles else original_style
+                    style_approach = 'artistic'
+                variation_type = "opposite_category"
+            
+            # Create modified content data with new style
+            variation_content = content_data.copy()
+            
+            # Get the new style data and regenerate prompt
+            style_data = parser.get_style_data(style_name, style_approach)
+            
+            # Update the content with new style
+            variation_content['style_name'] = style_name
+            variation_content['style_approach'] = style_approach
+            
+            # Regenerate the prompt with new style
+            if style_data:
+                prompt_parts = []
+                prompt_parts.append(style_data.get('base_prompt', ''))
+                
+                # Add personal context if available
+                if variation_content.get('what_i_see_in_it'):
+                    prompt_parts.append(f"Inspired by the feeling of: {variation_content['what_i_see_in_it']}")
+                
+                # Add mood and elements
+                if style_data.get('mood_elements'):
+                    prompt_parts.append(f"Capturing {', '.join(style_data['mood_elements'])}")
+                
+                # Add color palette
+                if style_data.get('color_palette'):
+                    colors = ', '.join(style_data['color_palette'])
+                    prompt_parts.append(f"Using a palette of {colors}")
+                
+                # Add composition guidance
+                if style_data.get('composition'):
+                    prompt_parts.append(style_data['composition'])
+                
+                # Always add square format optimization
+                prompt_parts.append("square composition, centered focus, 1:1 aspect ratio")
+                
+                # Join all parts with periods and spaces
+                prompt_text = '. '.join(part.strip() for part in prompt_parts if part)
+                
+                variation_content['prompt'] = {
+                    'text': prompt_text,
+                    'style_name': style_name,
+                    'style_approach': style_approach
+                }
+            
+            # Generate the image with variation info
+            variation_info = {
+                'variation_number': variation_num,
+                'variation_type': variation_type,
+                'original_style': original_style,
+                'variation_style': style_name,
+                'style_approach': style_approach
+            }
+            
+            result = self.generate_image(
+                variation_content, 
+                force=force, 
+                variation=variation_num,
+                variation_info=variation_info
+            )
+            
+            results.append(result)
+            
+            # Rate limiting between variations
+            if variation_num < num_variations and result['status'] == 'success':
+                time.sleep(2)
+        
+        return results
+    
     def generate_from_parsed_content(self, parsed_content_file: str = "generated/parsed_content.json",
-                                    force: bool = False) -> List[Dict[str, Any]]:
+                                    force: bool = False, variations: int = 3) -> List[Dict[str, Any]]:
         """Generate images from parsed content data."""
         # Load parsed content
         parsed_file = Path(parsed_content_file)
@@ -235,15 +352,25 @@ class ImageGenerator:
         for i, content_data in enumerate(all_content, 1):
             print(f"\n[{i}/{len(all_content)}] {content_data['title']} by {content_data['author']}")
             
-            result = self.generate_image(content_data, force=force)
-            results.append(result)
+            if variations > 1:
+                # Generate multiple variations
+                variation_results = self.generate_variations(content_data, num_variations=variations, force=force)
+                results.extend(variation_results)
+                
+                for result in variation_results:
+                    if result['status'] == 'success':
+                        total_cost += result['cost']
+            else:
+                # Generate single image (backward compatibility)
+                result = self.generate_image(content_data, force=force)
+                results.append(result)
+                
+                if result['status'] == 'success':
+                    total_cost += result['cost']
             
-            if result['status'] == 'success':
-                total_cost += result['cost']
-            
-            # Rate limiting - wait between requests
+            # Rate limiting - wait between content pieces
             if i < len(all_content):
-                time.sleep(2)  # 2-3 second delay between requests
+                time.sleep(2)  # 2-3 second delay between content pieces
         
         print("\n" + "=" * 60)
         print("Generation Summary:")
@@ -279,6 +406,8 @@ def main():
                        help='Generate only missing images (default)')
     parser.add_argument('--content-file', default='generated/parsed_content.json',
                        help='Path to parsed content JSON file')
+    parser.add_argument('--variations', type=int, default=3,
+                       help='Number of variations to generate per content piece (default: 3)')
     
     args = parser.parse_args()
     
@@ -299,7 +428,8 @@ def main():
         # Generate images
         results = generator.generate_from_parsed_content(
             parsed_content_file=args.content_file,
-            force=args.force_all
+            force=args.force_all,
+            variations=args.variations
         )
         
     except Exception as e:

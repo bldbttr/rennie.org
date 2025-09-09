@@ -9,6 +9,6 @@ echo "🖼️  Generating images for new content..."
 source ~/dev/.venv/bin/activate
 
 # Generate new images only
-python scripts/generate_images.py --new-only
+python scripts/generate_images.py --new-only --variations 3
 
 echo "✅ Generated images for new content"

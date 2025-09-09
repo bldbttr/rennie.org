@@ -40,15 +40,41 @@ def load_parsed_content() -> List[Dict[str, Any]]:
     return content
 
 
-def get_image_path(content_item: Dict[str, Any]) -> str:
-    """Generate expected image filename from content metadata"""
+def get_image_paths(content_item: Dict[str, Any]) -> List[str]:
+    """Get all available image variations for content"""
     title = content_item.get('title', 'untitled')
     author = content_item.get('author', 'unknown')
     
-    # Create filename using same logic as image generator
-    filename = f"{author.lower().replace(' ', '_')}_{title.lower().replace(' ', '_').replace('?', '').replace('!', '').replace(',', '').replace('.', '')}.png"
+    # Clean title and author for filename
+    title_clean = ''.join(c if c.isalnum() or c in [' ', '-'] else '' for c in title.lower())
+    title_clean = title_clean.replace(' ', '_')[:50]
+    author_clean = author.lower().replace(' ', '_')
     
-    return f"generated/images/{filename}"
+    # Look for variation files
+    image_paths = []
+    base_filename = f"{author_clean}_{title_clean}"
+    
+    # Check for variations (v1, v2, v3, etc.)
+    for variation in range(1, 6):  # Check up to 5 variations
+        filename = f"{base_filename}_v{variation}.png"
+        full_path = f"generated/images/{filename}"
+        
+        if Path(full_path).exists():
+            image_paths.append(f"images/{filename}")  # Relative path for web
+    
+    # Fallback to old single-image format if no variations found
+    if not image_paths:
+        old_filename = f"{base_filename}.png"
+        old_path = f"generated/images/{old_filename}"
+        if Path(old_path).exists():
+            image_paths.append(f"images/{old_filename}")
+    
+    return image_paths
+
+def get_image_path(content_item: Dict[str, Any]) -> str:
+    """Legacy function - returns first available image"""
+    paths = get_image_paths(content_item)
+    return f"generated/{paths[0]}" if paths else ""
 
 
 def analyze_image_brightness(image_path: str) -> Dict[str, Any]:
@@ -781,7 +807,17 @@ class InspirationApp {
         const mainImage = document.getElementById('main-image');
         const mobileImage = document.getElementById('mobile-image');
         
-        const imagePath = this.getImagePath(content);
+        let imagePath;
+        
+        // Check if we have multiple images available
+        if (content.images && content.images.length > 0) {
+            // Randomly select one of the available images
+            const randomIndex = Math.floor(Math.random() * content.images.length);
+            imagePath = content.images[randomIndex].path;
+        } else {
+            // Fallback to old method
+            imagePath = this.getImagePath(content);
+        }
         
         try {
             // Check if image exists
@@ -1035,21 +1071,46 @@ def build_site():
     for content in content_items:
         print(f"📝 Processing: {content['title']} by {content['author']}")
         
-        # Get image path and analyze brightness
-        image_path = get_image_path(content)
-        if Path(image_path).exists():
-            # Copy image to output directory
-            image_filename = Path(image_path).name
-            output_image_path = images_dir / image_filename
-            shutil.copy2(image_path, output_image_path)
+        # Get all image variations
+        image_paths = get_image_paths(content)
+        content['images'] = []
+        
+        if image_paths:
+            for img_path in image_paths:
+                # Full path for analysis
+                full_path = f"generated/{img_path}"
+                
+                if Path(full_path).exists():
+                    # Copy image to output directory
+                    image_filename = Path(full_path).name
+                    output_image_path = images_dir / image_filename
+                    shutil.copy2(full_path, output_image_path)
+                    
+                    # Analyze image brightness
+                    brightness_data = analyze_image_brightness(str(full_path))
+                    
+                    # Add to images array
+                    content['images'].append({
+                        "path": img_path,
+                        "filename": image_filename,
+                        "brightness_analysis": brightness_data
+                    })
+                    
+                    print(f"   🖼️  Image: {image_filename} (brightness: {brightness_data['brightness']})")
             
-            # Analyze image brightness
-            brightness_data = analyze_image_brightness(str(image_path))
-            content['brightness_analysis'] = brightness_data
-            
-            print(f"   🖼️  Image: {image_filename} (brightness: {brightness_data['brightness']})")
+            # Use first image's brightness for backward compatibility
+            if content['images']:
+                content['brightness_analysis'] = content['images'][0]['brightness_analysis']
+            else:
+                content['brightness_analysis'] = {
+                    "brightness": 0.5,
+                    "is_light": False,
+                    "text_color": "#ecf0f1",
+                    "background_color": "#34495e",
+                    "accent_color": "#e74c3c"
+                }
         else:
-            print(f"   ⚠️  Image not found: {image_path}")
+            print(f"   ⚠️  No images found")
             content['brightness_analysis'] = {
                 "brightness": 0.5,
                 "is_light": False,

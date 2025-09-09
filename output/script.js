@@ -161,7 +161,17 @@ class InspirationApp {
         const mainImage = document.getElementById('main-image');
         const mobileImage = document.getElementById('mobile-image');
         
-        const imagePath = this.getImagePath(content);
+        let imagePath;
+        
+        // Check if we have multiple images available
+        if (content.images && content.images.length > 0) {
+            // Randomly select one of the available images
+            const randomIndex = Math.floor(Math.random() * content.images.length);
+            imagePath = content.images[randomIndex].path;
+        } else {
+            // Fallback to old method
+            imagePath = this.getImagePath(content);
+        }
         
         try {
             // Check if image exists

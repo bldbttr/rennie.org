@@ -133,11 +133,40 @@ python scripts/generate_images.py --help
 - `bin/generate-new.sh` - Added --variations 3 (may need revert)
 - `bin/regenerate-all.sh` - Added --variations 3 (may need revert)
 
-## Next Steps for New Session
+## Actions Taken in Current Session
 
-1. Access detailed GitHub Actions logs or add debug logging
-2. Test deployment with clean single-image generation
-3. Gradually re-introduce variations feature with better error handling
-4. Consider splitting variations into separate workflow or post-processing step
+### ✅ API Key Security Fix
+- **Problem**: Script had hardcoded API key fallback (`AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE`)
+- **Fix**: Removed hardcoded key, added proper validation with clear error messages
+- **Result**: Security issue resolved, but deployment still failing
 
-**Current Site Status**: Multi-image variations working locally and deployed manually, but automated deployment broken.
+### ✅ Enhanced Debug Logging
+- **Added**: Comprehensive logging to image generator script
+- **Added**: Workflow debugging with environment info, Python version, package listing
+- **Added**: Import testing step to isolate dependency issues
+- **Status**: Workflow still failing at "Generate new images" step
+
+### Recent Workflow Runs (All Failed)
+- `17571554422` - Enhanced debugging version (failed in 18s)
+- `17571536750` - API key fix test (failed in 17s)  
+- Latest run: Added import testing to isolate issue
+
+### Current Hypothesis
+Since local testing works perfectly but GitHub Actions consistently fails:
+1. **Dependency issue**: Missing or incompatible package in CI environment
+2. **Import path issue**: Module import problems in GitHub Actions Python environment
+3. **Environment variable issue**: API key not properly passed despite workflow setup
+4. **Python version mismatch**: Different behavior between local Python and GitHub Actions Python 3.11
+
+### Next Steps
+1. **Wait for import testing results** from latest workflow run (`eec9b23`)
+2. **Analyze import test output** to identify specific failure point
+3. **Consider rollback strategy** if issue persists
+4. **Alternative deployment approach** if GitHub Actions proves unreliable
+
+### Rollback Strategy Ready
+- Can revert to single-image generation mode
+- Working bash scripts for manual deployment
+- Site is functional, just automation is broken
+
+**Current Site Status**: Multi-image variations working locally and deployed manually, automated deployment debugging in progress.

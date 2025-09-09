@@ -100,7 +100,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           echo "🎨 Generating images for new content..."
-          python scripts/generate_images.py --new-only --variations 1
+          python scripts/generate_images.py --new-only --variations 3
           exit_code=$?
           echo "Image generation exit code: $exit_code"
           if [ $exit_code -eq 0 ]; then

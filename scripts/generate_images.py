@@ -18,6 +18,10 @@ from content_parser import ContentParser
 
 
 class ImageGenerator:
+    # Single source of truth for the model name
+    MODEL_NAME = "gemini-2.5-flash-image-preview"
+    MODEL_DISPLAY_NAME = "Nano Banana (Gemini 2.5 Flash Image)"
+    
     def __init__(self, api_key: Optional[str] = None, check_only: bool = False):
         """Initialize the image generator with API credentials."""
         self.api_key = api_key or os.environ.get('GEMINI_API_KEY')
@@ -322,8 +326,8 @@ class ImageGenerator:
             },
             'generation': {
                 'timestamp': datetime.now().isoformat(),
-                'model': 'gemini-2.5-flash',
-                'model_display': 'Nano Banana',
+                'model': self.MODEL_NAME,
+                'model_display': self.MODEL_DISPLAY_NAME,
                 'prompt': content_data['prompt']['text'],
                 'prompt_length': len(content_data['prompt']['text']),
                 'dimensions': '1024x1024',
@@ -369,7 +373,7 @@ class ImageGenerator:
             
             # Generate the image using the new API
             response = self.client.models.generate_content(
-                model="gemini-2.5-flash",
+                model=self.MODEL_NAME,
                 contents=full_prompt
             )
             
@@ -749,7 +753,7 @@ def main():
         print("Nano Banana Image Generator")
         print("=" * 60)
         print(f"API Key: {api_key[:10]}...")
-        print(f"Model: gemini-2.5-flash")
+        print(f"Model: {generator.MODEL_DISPLAY_NAME}")
         print(f"Cost per image: ${generator.cost_per_image}")
         print(f"Variations: {args.variations}")
         print(f"Content file: {args.content_file}")

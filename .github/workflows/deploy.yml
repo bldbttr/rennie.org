@@ -134,7 +134,7 @@ jobs:
       
       - name: Setup SSH key for deployment
         env:
-          SSH_PRIVATE_KEY: ${{ vars.DREAMHOST_SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.DREAMHOST_SSH_KEY }}
         run: |
           echo "🔐 Setting up SSH key..."
           echo "SSH key environment variable set: $([ -n "$SSH_PRIVATE_KEY" ] && echo "yes" || echo "no")"

@@ -90,7 +90,6 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    animation: breathe var(--breathing-duration) ease-in-out infinite;
 }
 
 .quote-main {
@@ -202,7 +201,7 @@ body {
 }
 
 .mobile-quote-content {
-    animation: breathe var(--breathing-duration) ease-in-out infinite;
+    /* No breathing animation for text content */
 }
 
 .mobile-quote-text {
@@ -329,11 +328,6 @@ body {
 }
 
 /* Breathing Animations */
-@keyframes breathe {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.85; transform: scale(1.02); }
-}
-
 @keyframes breathe-image {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }

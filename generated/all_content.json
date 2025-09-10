@@ -5,20 +5,20 @@
     "author": "Marc Andreessen",
     "type": "quote",
     "quote_text": "And you can always feel product/market fit when it\u2019s happening. The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You\u2019re hiring sales and customer support staff as fast as you can. Reporters are calling because they\u2019ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck\u2019s",
-    "style_name": "kline-gestural",
+    "style_name": "turner-atmospheric",
     "style_category": "painting_technique",
     "style_data": {
-      "description": "Franz Kline's bold gestural abstraction with confident black brushstrokes",
-      "base_prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+      "description": "J.M.W. Turner's luminous atmospheric technique where light dissolves form",
+      "base_prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
       "key_techniques": [
-        "bold black brushstrokes",
-        "gestural movement capture",
-        "high contrast composition",
-        "minimal color emphasis"
+        "luminous atmospheric effects",
+        "soft focus rendering",
+        "light dissolving form",
+        "glowing paint passages"
       ],
-      "expression_method": "Raw gestural energy translated into confident brush movements",
-      "composition_flow": "Dynamic movement created through bold stroke direction and rhythm",
-      "abstraction_level": "Pure gesture and movement without representational content"
+      "color_philosophy": "Golden and warm light palette with forms emerging from luminous atmosphere",
+      "brush_approach": "Soft, blended brushwork where edges dissolve into light",
+      "light_focus": "Light as the primary subject with forms secondary to atmospheric effects"
     },
     "vibe": [
       "movement",
@@ -26,9 +26,9 @@
       "in-the-zone"
     ],
     "prompt": {
-      "text": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+      "text": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+        "base": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
         "vibe": [
           "movement",
           "flow",
@@ -97,28 +97,32 @@
     "author": "Paul Graham",
     "type": "quote",
     "quote_text": "Make something people want.",
-    "style_name": "monet-impressionist",
-    "style_category": "painting_technique",
+    "style_name": "spiderverse-dimensional",
+    "style_category": "visual_storytelling",
     "style_data": {
-      "description": "Claude Monet's broken brushwork technique capturing fleeting light effects",
-      "base_prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
+      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
       "key_techniques": [
-        "broken visible brushstrokes",
-        "optical color interaction",
-        "atmospheric light capture",
-        "temporal moment specificity"
+        "mixed animation styles",
+        "halftone comic patterns",
+        "dimensional depth effects",
+        "graphic design integration"
       ],
-      "color_philosophy": "Colors that interact optically to create new emotional temperatures and atmospheric effects",
-      "brush_approach": "Quick confident strokes that capture essence and light rather than precise form",
-      "light_focus": "Fleeting effects of light and atmosphere as primary subject matter"
+      "composition_principles": [
+        "dynamic perspective shifts",
+        "multiple focal points",
+        "graphic element rhythm",
+        "dimensional layering"
+      ],
+      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
     },
     "vibe": [
       "zen of purpose"
     ],
     "prompt": {
-      "text": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
+        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
         "vibe": [
           "zen of purpose"
         ],

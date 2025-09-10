@@ -292,10 +292,9 @@ class ImageGenerator:
                 status = "✅ CURRENT"
                 detail = f"{self.variations_per_content} variations with {current_style} style"
             
-            # Display the inventory line
-            print(f"{filename:<25} │ {status:<20} │ \"{title}\" by {author}")
+            # Display the inventory line with clean filename focus (per filename refactoring plan)
+            print(f"{filename:<40} │ {status:<15} │ {detail}")
             if status != "✅ CURRENT":
-                print(f"{'':<25} │ {'':<20} │ {detail}")
                 print()
         
     def get_base_filename_from_content(self, content_data: Dict[str, Any]) -> str:

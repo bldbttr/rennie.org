@@ -95,6 +95,41 @@ class ContentParser:
         
         return sections
     
+    def get_stable_style_for_content(self, content_file: str, style_category: str, style_specific: str) -> tuple[str, str]:
+        """Get stable style assignment using existing metadata when available.
+        Returns (style_name, actual_category)
+        """
+        # Check for existing metadata to maintain style consistency
+        base_filename = self._get_base_filename_from_content_file(content_file)
+        metadata_file = Path(f"generated/metadata/{base_filename}_v1_metadata.json")
+        
+        if metadata_file.exists():
+            try:
+                with open(metadata_file, 'r') as f:
+                    metadata = json.load(f)
+                    existing_style = metadata.get('style', {}).get('name')
+                    existing_approach = metadata.get('style', {}).get('approach')
+                    
+                    if existing_style and existing_approach:
+                        # Use existing style assignment for consistency
+                        return existing_style, existing_approach
+            except (json.JSONDecodeError, FileNotFoundError):
+                pass
+        
+        # No existing metadata - generate new random assignment
+        return self._generate_new_style_assignment(style_category, style_specific)
+    
+    def _get_base_filename_from_content_file(self, content_file: str) -> str:
+        """Extract base filename from content file path."""
+        if content_file.startswith('content/inspiration/'):
+            return content_file.replace('content/inspiration/', '').replace('.md', '')
+        else:
+            return Path(content_file).stem if content_file else 'unknown'
+    
+    def _generate_new_style_assignment(self, style_category: str, style_specific: str) -> tuple[str, str]:
+        """Generate new random style assignment for content without existing metadata."""
+        return self.select_style(style_category, style_specific)
+
     def select_style(self, style_category: str, style_specific: str) -> tuple[str, str]:
         """Select a style based on category and specific preferences.
         Returns (style_name, actual_category)
@@ -170,11 +205,12 @@ class ContentParser:
     def generate_prompt(self, parsed_content: Dict[str, Any]) -> Dict[str, Any]:
         """Generate a structured prompt for Nano Banana API."""
         frontmatter = parsed_content['frontmatter']
+        content_file = parsed_content['file_path']
         
-        # Select and get style using new system
+        # Select and get style using stable assignment system
         style_category = frontmatter.get('style_category', 'random')
         style_specific = frontmatter.get('style_specific', 'random')
-        style_name, actual_category = self.select_style(style_category, style_specific)
+        style_name, actual_category = self.get_stable_style_for_content(content_file, style_category, style_specific)
         style_data = self.get_style_data(style_name, actual_category)
         
         # Build the prompt components

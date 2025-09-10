@@ -4,6 +4,12 @@
     "cost_per_image": 0.039,
     "model": "gemini-2.5-flash"
   },
+  "display": {
+    "image_duration": 10000,
+    "transition_duration": 1500,
+    "quote_duration": 30000,
+    "mobile_image_duration": 10000
+  },
   "project": {
     "name": "rennie.org inspiration site",
     "version": "1.0"

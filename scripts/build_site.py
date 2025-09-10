@@ -183,6 +183,10 @@ def create_html_template() -> str:
                     <div class="image-container">
                         <img id="main-image" class="main-image" alt="AI-generated inspiration artwork" />
                         <div class="image-overlay"></div>
+                        <!-- Carousel Indicators -->
+                        <div id="carousel-indicators" class="carousel-indicators hidden">
+                            <!-- Dots added dynamically -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -191,6 +195,10 @@ def create_html_template() -> str:
             <div class="mobile-layout">
                 <div class="mobile-image-section">
                     <img id="mobile-image" class="mobile-image" alt="AI-generated inspiration artwork" />
+                    <!-- Mobile Carousel Indicators -->
+                    <div id="mobile-carousel-indicators" class="carousel-indicators mobile-indicators hidden">
+                        <!-- Dots added dynamically -->
+                    </div>
                 </div>
                 <div class="mobile-quote-section" id="mobile-quote-panel">
                     <div class="mobile-quote-content">
@@ -828,10 +836,61 @@ body {
     }
 }
 
+/* Carousel Indicators */
+.carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-indicators:not(.hidden) {
+    opacity: 1;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+}
+
+.carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
+
+.carousel-dot.active {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Mobile carousel indicators */
+.mobile-indicators {
+    bottom: 20px;
+}
+
+.mobile-indicators .carousel-dot {
+    width: 12px;
+    height: 12px;
+}
+
 /* Print Styles */
 @media print {
     .footer-bar,
-    .controls-hint {
+    .controls-hint,
+    .carousel-indicators {
         display: none;
     }
     

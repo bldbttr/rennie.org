@@ -61,18 +61,42 @@ else
     exit 1
 fi
 
-# Get commit message from user
+# Auto-generate commit message based on what's being committed
 echo ""
-echo "📝 Enter commit message (or press Enter for default):"
-read -r commit_message
+echo "📝 Auto-generating commit message..."
 
-if [ -z "$commit_message" ]; then
-    commit_message="Add content with locally generated images
+# Check what types of changes we have
+has_images=$(find . -name "*.png" -path "./generated/images/*" | head -1)
+has_code=$(git status --porcelain | grep -E '\.(js|html|css|py|sh|md)$' | head -1)
+has_content=$(git status --porcelain | grep 'content/inspiration' | head -1)
 
-🎨 Images generated locally using generate-new-images-locally.sh
-✅ Previewed and approved before deployment
-🚀 Ready for automatic deployment to rennie.org"
+timestamp=$(date '+%Y-%m-%d %H:%M')
+
+if [ -n "$has_content" ] && [ -n "$has_images" ]; then
+    commit_message="Add new content with generated images - $timestamp
+
+🎨 Images generated locally using hybrid workflow
+📝 New content added to inspiration collection
+✅ Previewed and approved before deployment"
+elif [ -n "$has_images" ]; then
+    commit_message="Update images with new variations - $timestamp
+
+🎨 Images regenerated locally using hybrid workflow  
+🔄 Style changes or new variations added
+✅ Previewed and approved before deployment"
+elif [ -n "$has_code" ]; then
+    commit_message="Frontend/backend improvements - $timestamp
+
+🔧 Code improvements and enhancements
+✅ Tested locally before deployment"
+else
+    commit_message="Content and site updates - $timestamp
+
+📝 Various updates and improvements
+✅ Ready for deployment"
 fi
+
+echo "💬 Commit message: $(echo "$commit_message" | head -1)"
 
 echo ""
 echo "💾 Committing changes..."

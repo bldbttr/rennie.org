@@ -25,6 +25,7 @@
       "flow",
       "in-the-zone"
     ],
+    "content_changed": false,
     "prompt": {
       "text": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
@@ -165,32 +166,17 @@
     "type": "quote",
     "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
     "style_name": "spiderverse-dimensional",
-    "style_category": "visual_storytelling",
-    "style_data": {
-      "description": "Spider-Verse's innovative mixed animation with comic book graphic elements",
-      "base_prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
-      "key_techniques": [
-        "mixed animation styles",
-        "halftone comic patterns",
-        "dimensional depth effects",
-        "graphic design integration"
-      ],
-      "composition_principles": [
-        "dynamic perspective shifts",
-        "multiple focal points",
-        "graphic element rhythm",
-        "dimensional layering"
-      ],
-      "lighting_approach": "Bold graphic lighting with comic book color separation effects"
-    },
+    "style_category": "painting_technique",
+    "style_data": {},
     "vibe": [
       "clarity",
       "revelation"
     ],
+    "content_changed": false,
     "prompt": {
-      "text": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame",
+        "base": "",
         "vibe": [
           "clarity",
           "revelation"
@@ -343,6 +329,7 @@
     "vibe": [
       "zen of purpose"
     ],
+    "content_changed": false,
     "prompt": {
       "text": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
       "components": {

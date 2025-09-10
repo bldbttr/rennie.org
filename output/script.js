@@ -7,7 +7,6 @@ class InspirationApp {
     constructor() {
         this.contentData = [];
         this.currentIndex = 0;
-        this.currentImageIndex = 0; // Track which image variation is currently displayed
         this.isBreathingActive = true;
         this.breathingTimer = null;
         this.isTransitioning = false;
@@ -82,22 +81,19 @@ class InspirationApp {
             this.pauseBreathing();
         });
         
-        // Generation details modal and tooltip
+        // Generation details modal
         const contentInfo = document.getElementById('content-info');
         const modal = document.getElementById('generation-modal');
         const modalClose = document.getElementById('modal-close');
         const modalBody = document.getElementById('modal-body');
-        const tooltip = document.getElementById('generation-tooltip');
-        const tooltipContent = document.querySelector('.tooltip-content');
         
         if (contentInfo && modal) {
             contentInfo.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const content = JSON.parse(contentInfo.dataset.content || '{}');
                 
-                // Use the currently displayed image instead of always the first one (if not placeholder)
-                if (this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex]) {
-                    const image = content.images[this.currentImageIndex];
+                if (content.images && content.images[0]) {
+                    const image = content.images[0];
                     const generation = image.generation || {};
                     const style = image.style || {};
                     
@@ -114,7 +110,6 @@ class InspirationApp {
                             <p><strong>Model:</strong> ${generation.model || 'Unknown'}</p>
                             <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
                             <p><strong>Dimensions:</strong> ${generation.dimensions || '1024x1024'}</p>
-                            <p><strong>Image:</strong> ${image.filename || 'Unknown'} (variation ${this.currentImageIndex + 1} of ${content.images.length})</p>
                             <div class="prompt-section">
                                 <p><strong>Prompt (${promptLength} chars):</strong></p>
                                 <div class="prompt-text">${promptDisplay}</div>
@@ -124,47 +119,13 @@ class InspirationApp {
                     
                     modalBody.innerHTML = modalContent;
                     modal.classList.remove('hidden');
-                    
-                    // Pause breathing while modal is open
-                    this.pauseBreathing();
                 }
-            });
-        }
-        
-        // Tooltip hover functionality
-        if (contentInfo && tooltip && tooltipContent) {
-            contentInfo.addEventListener('mouseenter', (e) => {
-                const content = JSON.parse(contentInfo.dataset.content || '{}');
-                
-                // Use the currently displayed image (if not placeholder)
-                if (this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex]) {
-                    const image = content.images[this.currentImageIndex];
-                    const generation = image.generation || {};
-                    const style = image.style || {};
-                    
-                    const tooltipHtml = `
-                        <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'}</p>
-                        <p><strong>Model:</strong> ${generation.model_display || 'Unknown'}</p>
-                        <p><strong>Image:</strong> variation ${this.currentImageIndex + 1} of ${content.images.length}</p>
-                        <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
-                    `;
-                    
-                    tooltipContent.innerHTML = tooltipHtml;
-                    tooltip.classList.remove('hidden');
-                }
-            });
-            
-            contentInfo.addEventListener('mouseleave', () => {
-                tooltip.classList.add('hidden');
             });
         }
         
         if (modalClose && modal) {
             modalClose.addEventListener('click', () => {
                 modal.classList.add('hidden');
-                
-                // Resume breathing when modal is closed
-                this.startBreathing();
             });
         }
         
@@ -172,9 +133,6 @@ class InspirationApp {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.add('hidden');
-                    
-                    // Resume breathing when modal is closed by clicking background
-                    this.startBreathing();
                 }
             });
         }
@@ -312,11 +270,10 @@ class InspirationApp {
         // Check if we have multiple images available
         if (content.images && content.images.length > 0) {
             // Randomly select one of the available images
-            this.currentImageIndex = Math.floor(Math.random() * content.images.length);
-            imagePath = content.images[this.currentImageIndex].path;
+            const randomIndex = Math.floor(Math.random() * content.images.length);
+            imagePath = content.images[randomIndex].path;
         } else {
             // Fallback to old method
-            this.currentImageIndex = 0;
             imagePath = this.getImagePath(content);
         }
         
@@ -343,9 +300,6 @@ class InspirationApp {
             const placeholderSrc = this.createPlaceholder(content);
             if (mainImage) mainImage.src = placeholderSrc;
             if (mobileImage) mobileImage.src = placeholderSrc;
-            
-            // Reset currentImageIndex to indicate we're using a placeholder, not a specific variation
-            this.currentImageIndex = -1;
         }
     }
     
@@ -361,33 +315,21 @@ class InspirationApp {
             sourceLink.style.display = 'none';
         }
         
-        // Update style info - use the currently displayed image's style
+        // Update style info
         if (contentInfo) {
-            let styleName = content.style_name || 'unknown';
-            
-            // If we have image data with style info, use that instead (but not for placeholders)
-            if (this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex] && content.images[this.currentImageIndex].style) {
-                styleName = content.images[this.currentImageIndex].style.name || styleName;
-            } else if (this.currentImageIndex === -1) {
-                // Using placeholder - show that this is not a specific style variation
-                styleName = `${content.style_name || 'unknown'} (placeholder)`;
-            }
-            
-            contentInfo.textContent = `Style: ${styleName}`;
+            const style = content.style_name || 'unknown';
+            contentInfo.textContent = `Style: ${style}`;
             
             // Store current content metadata for modal
             contentInfo.dataset.content = JSON.stringify(content);
         }
         
-        // Update model badge if we have generation metadata from current image
-        if (modelBadge && this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex]) {
-            const generation = content.images[this.currentImageIndex].generation;
+        // Update model badge if we have generation metadata
+        if (modelBadge && content.images && content.images[0]) {
+            const generation = content.images[0].generation;
             if (generation && generation.model_display) {
                 modelBadge.textContent = generation.model_display;
             }
-        } else if (modelBadge && this.currentImageIndex === -1) {
-            // For placeholders, show generic model info
-            modelBadge.textContent = 'Placeholder';
         }
     }
     

@@ -273,11 +273,11 @@ class ImageGenerator:
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
                     
-                    # Compare style from metadata with current content style
-                    if var_filename in existing_metadata:
+                    # Only check style consistency for v1 (primary variation)
+                    # v2 and v3 are intentional variations with different styles
+                    if v == 1 and var_filename in existing_metadata:
                         metadata_style = existing_metadata[var_filename]['style_name']
-                        if v == 1:  # Use first variation's style as reference
-                            existing_style = metadata_style
+                        existing_style = metadata_style
                         if metadata_style != current_style:
                             style_mismatch = True
             

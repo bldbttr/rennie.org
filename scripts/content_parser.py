@@ -10,6 +10,7 @@ import yaml
 import os
 import random
 import re
+import hashlib
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -95,9 +96,10 @@ class ContentParser:
         
         return sections
     
-    def get_stable_style_for_content(self, content_file: str, style_category: str, style_specific: str) -> tuple[str, str]:
+    def get_stable_style_for_content(self, content_file: str, content_text: str, style_category: str, style_specific: str) -> tuple[str, str, bool]:
         """Get stable style assignment using existing metadata when available.
-        Returns (style_name, actual_category)
+        If content has changed, generates a new random style.
+        Returns (style_name, actual_category, content_changed)
         """
         # Check for existing metadata to maintain style consistency
         base_filename = self._get_base_filename_from_content_file(content_file)
@@ -109,15 +111,24 @@ class ContentParser:
                     metadata = json.load(f)
                     existing_style = metadata.get('style', {}).get('name')
                     existing_approach = metadata.get('style', {}).get('approach')
+                    existing_content = metadata.get('content', {}).get('quote_text', '')
                     
-                    if existing_style and existing_approach:
-                        # Use existing style assignment for consistency
-                        return existing_style, existing_approach
+                    # Check if content has changed
+                    content_changed = existing_content != content_text
+                    
+                    if content_changed:
+                        # Content changed - generate new random style for variety
+                        style_name, actual_category = self._generate_new_style_assignment(style_category, style_specific)
+                        return style_name, actual_category, True
+                    elif existing_style and existing_approach:
+                        # Content unchanged - use existing style assignment for consistency
+                        return existing_style, existing_approach, False
             except (json.JSONDecodeError, FileNotFoundError):
                 pass
         
         # No existing metadata - generate new random assignment
-        return self._generate_new_style_assignment(style_category, style_specific)
+        style_name, actual_category = self._generate_new_style_assignment(style_category, style_specific)
+        return style_name, actual_category, False
     
     def _get_base_filename_from_content_file(self, content_file: str) -> str:
         """Extract base filename from content file path."""
@@ -206,11 +217,14 @@ class ContentParser:
         """Generate a structured prompt for Nano Banana API."""
         frontmatter = parsed_content['frontmatter']
         content_file = parsed_content['file_path']
+        content_text = parsed_content['content']
         
-        # Select and get style using stable assignment system
+        # Select and get style using stable assignment system with content change detection
         style_category = frontmatter.get('style_category', 'random')
         style_specific = frontmatter.get('style_specific', 'random')
-        style_name, actual_category = self.get_stable_style_for_content(content_file, style_category, style_specific)
+        style_name, actual_category, content_changed = self.get_stable_style_for_content(
+            content_file, content_text, style_category, style_specific
+        )
         style_data = self.get_style_data(style_name, actual_category)
         
         # Build the prompt components
@@ -246,6 +260,7 @@ class ContentParser:
             'style_category': actual_category,
             'style_data': style_data,
             'vibe': frontmatter.get('vibe', []),
+            'content_changed': content_changed,
             'prompt': {
                 'text': full_prompt,
                 'components': {

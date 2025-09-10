@@ -133,9 +133,10 @@ class ImageGenerator:
             # Generate expected filenames for all variations
             base_filename = self.generate_image_filename(content, 1).replace('_v1.png', '')
             
-            # Check if any variation exists and compare styles
+            # Check if any variation exists and compare styles and content
             variations_exist = []
             style_mismatch = False
+            content_change = content.get('content_changed', False)
             current_style = content.get('style_name', 'unknown')
             
             for v in range(1, self.variations_per_content + 1):  # Check for configured variations
@@ -143,8 +144,8 @@ class ImageGenerator:
                 if var_filename in [img.name for img in existing_images]:
                     variations_exist.append(v)
                     
-                    # Compare style from metadata with current content style
-                    if var_filename in existing_metadata:
+                    # Compare style from metadata with current content style (v1 only)
+                    if v == 1 and var_filename in existing_metadata:
                         metadata_style = existing_metadata[var_filename]['style_name']
                         if metadata_style != current_style:
                             style_mismatch = True
@@ -162,6 +163,18 @@ class ImageGenerator:
                     'expected_style': current_style,
                     'type': 'new'
                 })
+            elif content_change:
+                # Content has changed - needs regeneration with new style
+                filename = self.get_base_filename_from_content(content)
+                
+                needs_generation.append({
+                    'title': content['title'],
+                    'author': content['author'],
+                    'filename': filename,
+                    'reason': 'content_change',
+                    'expected_style': current_style,
+                    'type': 'update'
+                })
             elif style_mismatch:
                 # Find what style the existing images have
                 existing_style = 'unknown'
@@ -176,7 +189,7 @@ class ImageGenerator:
                     'title': content['title'],
                     'author': content['author'],
                     'filename': filename,
-                    'reason': f'style_change',
+                    'reason': 'style_change',
                     'expected_style': current_style,
                     'existing_style': existing_style,
                     'type': 'update'
@@ -263,9 +276,10 @@ class ImageGenerator:
             # Generate expected filenames for all variations
             base_filename = self.generate_image_filename(content, 1).replace('_v1.png', '')
             
-            # Check if any variation exists and compare styles
+            # Check if any variation exists and compare styles and content
             variations_exist = []
             style_mismatch = False
+            content_change = content.get('content_changed', False)
             existing_style = 'unknown'
             
             for v in range(1, self.variations_per_content + 1):  # Check for configured variations
@@ -285,6 +299,9 @@ class ImageGenerator:
             if not variations_exist:
                 status = "🆕 NEEDS NEW IMAGES"
                 detail = f"no images exist (style: {current_style})"
+            elif content_change:
+                status = "🔄 NEEDS UPDATE"
+                detail = f"content changed → new style: {current_style}"
             elif style_mismatch:
                 status = "🔄 NEEDS UPDATE"
                 detail = f"style change: {existing_style} → {current_style}"

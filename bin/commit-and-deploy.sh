@@ -51,22 +51,26 @@ fi
 echo "📊 Changes to be committed:"
 git status --porcelain
 
-# Check specifically for generated images
+# Check for generated images (for context, not requiring them for code-only commits)
 if [ -d "generated/images" ] && [ -n "$(find generated/images -name "*.png" -type f)" ]; then
     image_count=$(find generated/images -name "*.png" | wc -l | tr -d ' ')
-    echo "✅ Found $image_count generated images ready for commit"
+    echo "📁 Repository has $image_count generated images (already committed)"
 else
-    echo "⚠️ No generated images found"
-    echo "   Please run './bin/generate-new-images-locally.sh' first to generate images"
-    exit 1
+    echo "📁 No generated images in repository yet"
+fi
+
+# Check if we're committing any new images
+new_images=$(git status --porcelain | grep "generated/images.*\.png" | wc -l | tr -d ' ')
+if [ $new_images -gt 0 ]; then
+    echo "🆕 Adding $new_images new images to commit"
 fi
 
 # Auto-generate commit message based on what's being committed
 echo ""
 echo "📝 Auto-generating commit message..."
 
-# Check what types of changes we have
-has_images=$(find . -name "*.png" -path "./generated/images/*" | head -1)
+# Check what types of changes we're actually committing (not just what exists)
+has_images=$(git status --porcelain | grep "generated/images.*\.png" | head -1)
 has_code=$(git status --porcelain | grep -E '\.(js|html|css|py|sh|md)$' | head -1)
 has_content=$(git status --porcelain | grep 'content/inspiration' | head -1)
 

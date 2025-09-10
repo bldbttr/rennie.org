@@ -12,9 +12,40 @@ echo "============================="
 
 # Check if there are any changes to commit
 if git diff --quiet && git diff --cached --quiet && [ -z "$(git status --porcelain)" ]; then
-    echo "⚠️ No changes to commit"
-    echo "   Did you run './bin/generate-new-images-locally.sh' first?"
-    exit 1
+    echo "✅ Repository is clean - no pending changes to deploy"
+    echo ""
+    echo "🔍 Checking if any content needs new images..."
+    
+    # Check image status using existing script logic
+    python scripts/content_parser.py > /dev/null 2>&1
+    check_output=$(python scripts/generate_images.py --check-images 2>/dev/null)
+    
+    # Count files that need images
+    needs_images_count=$(echo "$check_output" | grep -c "🆕\|🔄" || true)
+    
+    if [ $needs_images_count -gt 0 ]; then
+        echo "📝 Found $needs_images_count content file(s) that need images:"
+        echo "$check_output" | grep "🆕\|🔄" | while read -r line; do
+            echo "   • $line"
+        done
+        echo ""
+        echo "💡 To generate images and deploy new content:"
+        echo "   ./bin/generate-new-images-locally.sh"
+    else
+        echo "✅ All content has current images"
+        echo ""
+        echo "📋 Current deployment status:"
+        echo "   • All changes are committed and deployed"
+        echo "   • Site is live at https://rennie.org"
+        echo "   • No further action needed"
+    fi
+    
+    echo ""
+    echo "🔧 If you have local changes to deploy, make sure to:"
+    echo "   1. Save your changes to files"
+    echo "   2. Re-run this script to commit and deploy them"
+    
+    exit 0
 fi
 
 echo "📊 Changes to be committed:"

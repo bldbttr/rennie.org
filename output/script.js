@@ -82,19 +82,21 @@ class InspirationApp {
             this.pauseBreathing();
         });
         
-        // Generation details modal
+        // Generation details modal and tooltip
         const contentInfo = document.getElementById('content-info');
         const modal = document.getElementById('generation-modal');
         const modalClose = document.getElementById('modal-close');
         const modalBody = document.getElementById('modal-body');
+        const tooltip = document.getElementById('generation-tooltip');
+        const tooltipContent = document.querySelector('.tooltip-content');
         
         if (contentInfo && modal) {
             contentInfo.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const content = JSON.parse(contentInfo.dataset.content || '{}');
                 
-                // Use the currently displayed image instead of always the first one
-                if (content.images && content.images[this.currentImageIndex]) {
+                // Use the currently displayed image instead of always the first one (if not placeholder)
+                if (this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex]) {
                     const image = content.images[this.currentImageIndex];
                     const generation = image.generation || {};
                     const style = image.style || {};
@@ -126,6 +128,34 @@ class InspirationApp {
                     // Pause breathing while modal is open
                     this.pauseBreathing();
                 }
+            });
+        }
+        
+        // Tooltip hover functionality
+        if (contentInfo && tooltip && tooltipContent) {
+            contentInfo.addEventListener('mouseenter', (e) => {
+                const content = JSON.parse(contentInfo.dataset.content || '{}');
+                
+                // Use the currently displayed image (if not placeholder)
+                if (this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex]) {
+                    const image = content.images[this.currentImageIndex];
+                    const generation = image.generation || {};
+                    const style = image.style || {};
+                    
+                    const tooltipHtml = `
+                        <p><strong>Style:</strong> ${style.name || content.style_name || 'Unknown'}</p>
+                        <p><strong>Model:</strong> ${generation.model_display || 'Unknown'}</p>
+                        <p><strong>Image:</strong> variation ${this.currentImageIndex + 1} of ${content.images.length}</p>
+                        <p><strong>Generated:</strong> ${generation.timestamp ? new Date(generation.timestamp).toLocaleDateString() : 'Unknown'}</p>
+                    `;
+                    
+                    tooltipContent.innerHTML = tooltipHtml;
+                    tooltip.classList.remove('hidden');
+                }
+            });
+            
+            contentInfo.addEventListener('mouseleave', () => {
+                tooltip.classList.add('hidden');
             });
         }
         
@@ -313,6 +343,9 @@ class InspirationApp {
             const placeholderSrc = this.createPlaceholder(content);
             if (mainImage) mainImage.src = placeholderSrc;
             if (mobileImage) mobileImage.src = placeholderSrc;
+            
+            // Reset currentImageIndex to indicate we're using a placeholder, not a specific variation
+            this.currentImageIndex = -1;
         }
     }
     
@@ -332,9 +365,12 @@ class InspirationApp {
         if (contentInfo) {
             let styleName = content.style_name || 'unknown';
             
-            // If we have image data with style info, use that instead
-            if (content.images && content.images[this.currentImageIndex] && content.images[this.currentImageIndex].style) {
+            // If we have image data with style info, use that instead (but not for placeholders)
+            if (this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex] && content.images[this.currentImageIndex].style) {
                 styleName = content.images[this.currentImageIndex].style.name || styleName;
+            } else if (this.currentImageIndex === -1) {
+                // Using placeholder - show that this is not a specific style variation
+                styleName = `${content.style_name || 'unknown'} (placeholder)`;
             }
             
             contentInfo.textContent = `Style: ${styleName}`;
@@ -344,11 +380,14 @@ class InspirationApp {
         }
         
         // Update model badge if we have generation metadata from current image
-        if (modelBadge && content.images && content.images[this.currentImageIndex]) {
+        if (modelBadge && this.currentImageIndex >= 0 && content.images && content.images[this.currentImageIndex]) {
             const generation = content.images[this.currentImageIndex].generation;
             if (generation && generation.model_display) {
                 modelBadge.textContent = generation.model_display;
             }
+        } else if (modelBadge && this.currentImageIndex === -1) {
+            // For placeholders, show generic model info
+            modelBadge.textContent = 'Placeholder';
         }
     }
     

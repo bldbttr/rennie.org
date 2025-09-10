@@ -24,6 +24,16 @@ from PIL import Image
 import numpy as np
 
 
+def get_base_filename_from_content(content_data: Dict[str, Any]) -> str:
+    """Extract base filename from content_file field"""
+    content_file = content_data.get('content_file', '')
+    if content_file.startswith('content/inspiration/'):
+        return content_file.replace('content/inspiration/', '').replace('.md', '')
+    else:
+        # Fallback for unexpected paths
+        return Path(content_file).stem if content_file else 'unknown'
+
+
 def load_parsed_content() -> List[Dict[str, Any]]:
     """Load parsed content data from generated/all_content.json"""
     content_file = Path("generated/all_content.json")
@@ -42,17 +52,11 @@ def load_parsed_content() -> List[Dict[str, Any]]:
 
 def get_image_paths(content_item: Dict[str, Any]) -> List[str]:
     """Get all available image variations for content"""
-    title = content_item.get('title', 'untitled')
-    author = content_item.get('author', 'unknown')
-    
-    # Clean title and author for filename
-    title_clean = ''.join(c if c.isalnum() or c in [' ', '-'] else '' for c in title.lower())
-    title_clean = title_clean.replace(' ', '_')[:50]
-    author_clean = author.lower().replace(' ', '_')
+    # Use the same base filename logic as generate_images.py
+    base_filename = get_base_filename_from_content(content_item)
     
     # Look for variation files
     image_paths = []
-    base_filename = f"{author_clean}_{title_clean}"
     
     # Check for variations (v1, v2, v3, etc.)
     for variation in range(1, 6):  # Check up to 5 variations

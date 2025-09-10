@@ -8,8 +8,9 @@
 # Check image status for all content
 ./bin/check-images.sh
 
-# Generate images + preview locally
+# Generate images + preview locally (working content)
 ./bin/generate-new-images-locally.sh
+./bin/preview-local.sh  # Serves at http://localhost:8000
 
 # Deploy to production
 ./bin/commit-and-deploy.sh
@@ -51,8 +52,11 @@ This quote captures the essence of creative thinking...
 # - Ask for your approval
 # - Generate images locally
 # - Build the site
-# - Open preview in your browser
+# - Open preview (file:// - won't work due to CORS)
 ./bin/generate-new-images-locally.sh
+
+# For working preview with content loading:
+./bin/preview-local.sh  # Serves at http://localhost:8000
 ```
 
 **Expected output:**
@@ -77,7 +81,10 @@ Proceed with generation? (yes/no): yes
 
 ### Step 3: Review and Deploy
 
-1. **Review the preview** that opens in your browser
+1. **Review the preview** using the local server:
+   ```bash
+   ./bin/preview-local.sh  # Serves at http://localhost:8000
+   ```
 2. **Check all variations** - each piece gets 3 image variations 
 3. **If satisfied**, deploy:
 
@@ -176,6 +183,7 @@ If you've modified the site's code, styles, or layout (files in `scripts/build_s
 ```bash
 # Just rebuild and deploy
 python scripts/build_site.py
+./bin/preview-local.sh  # Preview changes locally first
 ./bin/commit-and-deploy.sh
 ```
 
@@ -183,12 +191,15 @@ python scripts/build_site.py
 
 ```bash
 # Force regenerate all images + rebuild
-./bin/regenerate-all.sh
+# Note: Use generate-new-images-locally.sh and delete existing images first
+rm -rf generated/images/*.png  # Remove existing images to force regeneration
+./bin/generate-new-images-locally.sh  # Will detect all content needs images
 python scripts/build_site.py
+./bin/preview-local.sh  # Preview changes locally first
 ./bin/commit-and-deploy.sh
 ```
 
-**Warning:** `regenerate-all.sh` will cost ~$0.12 per content piece (so ~$0.36 for 3 pieces).
+**Warning:** Force regeneration will cost ~$0.12 per content piece (so ~$0.36 for 3 pieces).
 
 ---
 
@@ -231,7 +242,7 @@ Add new quote/content | Create `.md` file → `./bin/generate-new-images-locally
 Change visual styles | Edit frontmatter → `./bin/generate-new-images-locally.sh` → `./bin/commit-and-deploy.sh` 
 Check image status by file | `./bin/check-images.sh`
 Just rebuild site | `python scripts/build_site.py` → `./bin/commit-and-deploy.sh`
-Nuclear option (regenerate all) | `./bin/regenerate-all.sh` → `./bin/commit-and-deploy.sh`
+Nuclear option (regenerate all) | Remove images, then `./bin/generate-new-images-locally.sh` → `./bin/commit-and-deploy.sh`
 
 ---
 
@@ -292,9 +303,11 @@ The site uses a centralized configuration file at `config.json` in the project r
    ./bin/generate-new-images-locally.sh
    ```
 
-**Note**: Changing variations doesn't affect existing images. To regenerate existing content with the new variation count, use:
+**Note**: Changing variations doesn't affect existing images. To regenerate existing content with the new variation count:
 ```bash
-./bin/regenerate-all.sh  # Regenerates all content with new variation setting
+# Remove existing images to force regeneration with new variation count
+rm -rf generated/images/*.png
+./bin/generate-new-images-locally.sh  # Will regenerate all with new variation setting
 ```
 
 ---

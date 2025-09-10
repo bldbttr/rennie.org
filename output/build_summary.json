@@ -2,28 +2,28 @@
   "build_timestamp": "2025-09-08T00:00:00Z",
   "content_count": 3,
   "images_included": 3,
-  "total_size_mb": 18.55,
+  "total_size_mb": 34.55,
   "content_items": [
     {
       "title": "You can always feel product/market fit when it's happening",
       "author": "Marc Andreessen",
-      "style": "monet-impressionist",
+      "style": "kline-gestural",
       "has_image": true,
-      "brightness": 0.563
+      "brightness": 0.691
     },
     {
       "title": "Start with the customer experience and work backwards to the technology",
       "author": "Steve Jobs",
-      "style": "arcane-framing",
+      "style": "spiderverse-dimensional",
       "has_image": true,
-      "brightness": 0.228
+      "brightness": 0.279
     },
     {
       "title": "Make something people want",
       "author": "Paul Graham",
-      "style": "spiderverse-dimensional",
+      "style": "monet-impressionist",
       "has_image": true,
-      "brightness": 0.311
+      "brightness": 0.522
     }
   ]
 }

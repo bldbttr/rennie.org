@@ -38,11 +38,11 @@ rennie.org/
 ├── .github/workflows/         # GitHub Actions ✅
 │   └── deploy.yml            # Automated deployment pipeline ✅
 ├── bin/                      # Bash automation scripts ✅
-│   ├── generate-new-images-locally.sh  # Hybrid local-first workflow ✅
+│   ├── generate-new-images-locally.sh  # Main hybrid local-first workflow ✅
+│   ├── preview-local.sh      # Local HTTP server for CORS-free preview ✅
 │   ├── commit-and-deploy.sh  # Streamlined deployment ✅
 │   ├── check-images.sh       # Image status inventory ✅
-│   ├── generate-new.sh       # Generate missing images ✅
-│   └── regenerate-all.sh     # Force regeneration ✅
+│   └── cleanup-images.sh     # Remove orphaned images ✅
 ├── content/
 │   ├── inspiration/          # Individual content pieces ✅
 │   │   ├── paul-graham-make-something.md ✅
@@ -136,11 +136,16 @@ All development phases have been completed successfully. The project now feature
 - ✅ Cost-free status check and planning tool
 - ✅ Integration with content parser for up-to-date analysis
 
-#### 4. Image Management Scripts ✅
-- `bin/generate-new.sh` - Simple new image generation
-- `bin/regenerate-all.sh` - Force regenerate all images  
+#### 4. Local Preview Server (`bin/preview-local.sh`) ✅
+**Purpose**: Local HTTP server for CORS-free development preview
+**Features**:
+- ✅ Serves at http://localhost:8000 with working content loading
+- ✅ Automatic Python 3/2 fallback
+- ✅ Professional development workflow
+- ✅ No more "Failed to load inspiration content" errors
+
+#### 5. Image Management Scripts ✅
 - `bin/cleanup-images.sh` - Remove orphaned images (for deleted content or reduced variations) ✅
-- `bin/archive-and-regenerate.sh` - Archive old and generate new
 
 ### Phase 3: Static Website (web/)
 
@@ -322,7 +327,8 @@ The system uses a centralized `config.json` file to manage all system settings, 
 - **Production Site**: https://rennie.org ✅
 - **Content Library**: 3 inspirational pieces with 9 total image variations ✅
 - **Deployment**: Fully automated via GitHub Actions ✅
-- **Workflow**: Hybrid local-first with user-friendly scripts ✅
+- **Workflow**: Hybrid local-first with streamlined bin directory ✅
+- **Local Preview**: CORS-free development server ✅
 - **Documentation**: Complete user guide and technical specifications ✅
 
 ## Recommended Next Steps

@@ -5,10 +5,10 @@
     "model": "gemini-2.5-flash"
   },
   "display": {
-    "image_duration": 10000,
+    "image_duration": 5000,
     "transition_duration": 1500,
-    "quote_duration": 30000,
-    "mobile_image_duration": 10000
+    "quote_duration": 15000,
+    "mobile_image_duration": 5000
   },
   "project": {
     "name": "rennie.org inspiration site",

@@ -12,7 +12,7 @@ class ImageCarousel {
         this.isPaused = false;
         
         // Configuration from options or defaults
-        this.imageDuration = options.imageDuration || 10000; // 10 seconds
+        this.imageDuration = options.imageDuration || 5000; // 5 seconds
         this.transitionDuration = options.transitionDuration || 1500; // 1.5 seconds
         this.kenBurnsEnabled = options.kenBurnsEnabled !== false; // Default enabled
         
@@ -467,8 +467,8 @@ class InspirationApp {
         // Configuration - will be loaded dynamically
         this.breathingInterval = 15000; // Default 15 seconds
         this.transitionDuration = 1500; // 1.5 seconds
-        this.imageDuration = 10000; // 10 seconds per image
-        this.quoteDuration = 30000; // 30 seconds per quote (3 images)
+        this.imageDuration = 5000; // 5 seconds per image
+        this.quoteDuration = 15000; // 15 seconds per quote (3 images)
         
         // Initialize
         this.init();

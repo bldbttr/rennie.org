@@ -7,7 +7,7 @@ class ImageCarousel {
         this.isPaused = false;
         
         // Configuration from options or defaults
-        this.imageDuration = options.imageDuration || 10000; // 10 seconds
+        this.imageDuration = options.imageDuration || 5000; // 5 seconds
         this.transitionDuration = options.transitionDuration || 1500; // 1.5 seconds
         this.kenBurnsEnabled = options.kenBurnsEnabled !== false; // Default enabled
         

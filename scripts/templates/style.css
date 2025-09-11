@@ -625,19 +625,19 @@ body {
     display: flex;
     gap: 10px;
     z-index: 10;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.3s ease;
 }
 
-.carousel-indicators:not(.hidden) {
-    opacity: 1;
+.carousel-indicators.hidden {
+    opacity: 0;
 }
 
 .carousel-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;

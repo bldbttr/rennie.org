@@ -5,7 +5,7 @@ type: "quote"
 source: "https://youtu.be/oeqPrUmVz-o?t=112"
 style_category: "visual_storytelling"
 style_specific: "random"
-vibe: ["clarity", "revelation"]
+vibe: ["clarity", "inspiration"]
 status: "active"
 ---
 

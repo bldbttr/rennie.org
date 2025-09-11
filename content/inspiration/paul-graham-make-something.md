@@ -13,3 +13,4 @@ Make something people want.
 
 ## Why I Like It  
 PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this often.
+Known irony - this page is something I wanted. :) 

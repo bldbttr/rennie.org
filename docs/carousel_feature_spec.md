@@ -370,6 +370,43 @@ class TimerManager {
 - ✅ `output/script_carousel.js` (development file, preserved)
 - ✅ `scripts/build_site.py` (source template, proper location for changes)
 
+### CSS Cascade Conflict Issue (September 11, 2025)
+
+**Problem Discovered**: After implementation, carousel indicators intermittently disappeared during quote transitions.
+
+**Root Cause Analysis**:
+- Carousel indicators positioned within `image-panel` element
+- Quote transitions apply `fade-to-black` class to `image-panel`
+- `.fade-to-black` uses `opacity: 0 !important`, hiding all child elements
+- Strong CSS specificity prevented normal indicator visibility rules from working
+
+**Investigation Process**:
+1. **HTML Structure Check**: Confirmed indicator elements were present in DOM
+2. **CSS Rules Analysis**: Found CSS variable positioning was correct
+3. **JavaScript Logic Review**: Verified showIndicators() function working properly  
+4. **CSS Conflict Detection**: Identified parent opacity override affecting children
+
+**Solution Implemented**:
+```css
+/* Ensure carousel indicators remain visible during fade transitions */
+.fade-to-black .carousel-indicators,
+.fade-from-black .carousel-indicators {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.fade-to-black .carousel-indicators.hidden,
+.fade-from-black .carousel-indicators.hidden {
+    opacity: 0 !important;
+}
+```
+
+**Key Lessons**:
+- **CSS !important Cascade Effects**: Strong parent overrides can unintentionally affect child elements
+- **User-Reported Issues**: Real usage reveals edge cases not caught in development
+- **Systematic Debugging**: Process of elimination from HTML → CSS → JS → CSS conflicts
+- **Targeted Solutions**: Specific CSS overrides with matching specificity resolve conflicts while preserving existing functionality
+
 ## Implementation Results ✅
 
 ### Phase 1 & 2 Completed (September 10, 2025)

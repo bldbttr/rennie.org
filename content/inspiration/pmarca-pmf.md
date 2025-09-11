@@ -13,3 +13,4 @@ And you can always feel product/market fit when it’s happening. The customers 
 
 ## Why I Like It
 Timeless pieece.  Describes the mission of investing annd building, and captures the feeling when it's working and when it's not, without listing a metric. I re-read it a couple times a year.
+Known irony - personal projects don't have PMF :)

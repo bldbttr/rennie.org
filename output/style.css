@@ -396,6 +396,31 @@ body {
     transform: translateY(0) !important;
 }
 
+/* Quote-to-Quote Fade Through Black */
+.fade-to-black {
+    opacity: 0 !important;
+    background: #000000 !important;
+    transition: opacity 0.75s ease-out, background-color 0.75s ease-out !important;
+}
+
+.fade-from-black {
+    opacity: 1 !important;
+    background: transparent !important;
+    transition: opacity 0.75s ease-in, background-color 0.75s ease-in !important;
+}
+
+/* Ensure carousel indicators remain visible during fade transitions */
+.fade-to-black .carousel-indicators,
+.fade-from-black .carousel-indicators {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.fade-to-black .carousel-indicators.hidden,
+.fade-from-black .carousel-indicators.hidden {
+    opacity: 0 !important;
+}
+
 /* Attribution Elements */
 .model-badge {
     color: #ffffff;
@@ -513,9 +538,9 @@ body {
     color: var(--text-color);
     padding: 2rem;
     border-radius: 8px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
+    max-width: 800px;
+    width: 95%;
+    max-height: 85vh;
     overflow-y: auto;
     position: relative;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -566,10 +591,12 @@ body {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    line-height: 1.5;
     white-space: pre-wrap;
     word-break: break-word;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 /* Responsive Design */
@@ -614,19 +641,32 @@ body {
     .controls-hint {
         display: none; /* Hide on very small screens */
     }
+    
+    .modal-content {
+        max-width: 95%;
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .prompt-text {
+        font-size: 0.7rem;
+        padding: 0.8rem;
+        max-height: 300px;
+    }
 }
 
 /* Carousel Indicators */
 .carousel-indicators {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
+    position: fixed;
+    bottom: 70px;
+    left: calc(var(--quote-panel-width) + (var(--image-panel-width) / 2));
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
-    z-index: 10;
+    z-index: 100;
     opacity: 1;
     transition: opacity 0.3s ease;
+    pointer-events: auto;
 }
 
 .carousel-indicators.hidden {
@@ -658,7 +698,9 @@ body {
 
 /* Mobile carousel indicators */
 .mobile-indicators {
-    bottom: 20px;
+    bottom: 70px;
+    /* Mobile uses full width layout, so center on page is correct */
+    left: 50%;
 }
 
 .mobile-indicators .carousel-dot {

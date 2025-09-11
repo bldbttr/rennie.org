@@ -45,7 +45,9 @@
       "Bash(./bin/commit-and-deploy.sh:*)",
       "Bash(jq:*)",
       "Bash(./bin/preview-local.sh:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(cat:*)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

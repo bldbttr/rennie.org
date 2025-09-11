@@ -44,7 +44,8 @@
       "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py --preview-analysis)",
       "Bash(./bin/commit-and-deploy.sh:*)",
       "Bash(jq:*)",
-      "Bash(./bin/preview-local.sh:*)"
+      "Bash(./bin/preview-local.sh:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

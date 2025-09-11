@@ -1013,9 +1013,9 @@ class InspirationApp {
     
     updateStyleInfo(image) {
         // Update style information when carousel changes images
-        const styleInfo = document.getElementById('style-info');
-        if (styleInfo && image && image.style) {
-            styleInfo.textContent = image.style;
+        const contentInfo = document.getElementById('content-info');
+        if (contentInfo && image && image.style) {
+            contentInfo.textContent = `Style: ${image.style.name}`;
         }
     }
     

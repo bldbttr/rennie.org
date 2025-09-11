@@ -1,5 +1,6 @@
 {
-  "build_timestamp": "2025-09-08T00:00:00Z",
+  "build_timestamp": "2025-09-11T00:00:00Z",
+  "build_type": "refactored_modular",
   "content_count": 3,
   "images_included": 3,
   "total_size_mb": 34.6,

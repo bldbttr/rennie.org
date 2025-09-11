@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rennie.org</title>
+    <meta name="description" content="A breathing collection of inspiring quotes with AI-generated artwork">
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading inspiration...</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div id="main-content" class="main-content hidden">
+            <!-- Desktop Layout -->
+            <div class="desktop-layout">
+                <!-- Quote Panel (25% left) -->
+                <div class="quote-panel" id="quote-panel">
+                    <div class="quote-content">
+                        <div class="quote-main">
+                            <blockquote id="quote-text" class="quote-text">
+                                <!-- Quote content loaded here -->
+                            </blockquote>
+                            <cite id="quote-author" class="quote-author">
+                                <!-- Author loaded here -->
+                            </cite>
+                        </div>
+                        <div id="quote-context" class="quote-context">
+                            <!-- Personal context loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image Panel (75% right) -->
+                <div class="image-panel" id="image-panel">
+                    <div class="image-container">
+                        <img id="main-image" class="main-image" alt="AI-generated inspiration artwork" />
+                        <div class="image-overlay"></div>
+                        <!-- Carousel Indicators -->
+                        <div id="carousel-indicators" class="carousel-indicators hidden">
+                            <!-- Dots added dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Layout -->
+            <div class="mobile-layout">
+                <div class="mobile-image-section">
+                    <img id="mobile-image" class="mobile-image" alt="AI-generated inspiration artwork" />
+                    <!-- Mobile Carousel Indicators -->
+                    <div id="mobile-carousel-indicators" class="carousel-indicators mobile-indicators hidden">
+                        <!-- Dots added dynamically -->
+                    </div>
+                </div>
+                <div class="mobile-quote-section" id="mobile-quote-panel">
+                    <div class="mobile-quote-content">
+                        <blockquote id="mobile-quote-text" class="mobile-quote-text">
+                            <!-- Quote content loaded here -->
+                        </blockquote>
+                        <cite id="mobile-quote-author" class="mobile-quote-author">
+                            <!-- Author loaded here -->
+                        </cite>
+                        <div id="mobile-quote-context" class="mobile-quote-context">
+                            <!-- Personal context loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bar -->
+        <div id="footer-bar" class="footer-bar">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <a id="source-link" href="#" target="_blank" class="source-link">Source</a>
+                </div>
+                <div class="footer-right">
+                    <span id="model-badge" class="model-badge">
+                        <a href="https://ai.google.dev/gemini-api/docs/models/gemini#gemini-2.5-flash" target="_blank" style="color: inherit; text-decoration: none;">Gemini 2.5 Flash</a>
+                    </span>
+                    <span id="breathing-indicator" class="breathing-indicator">●</span>
+                    <span id="content-info" class="content-info">
+                        Style: essence-of-desire
+                        <div id="generation-tooltip" class="generation-tooltip hidden">
+                            <div class="tooltip-content">
+                                <!-- Content loaded dynamically -->
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Generation Details Modal -->
+        <div id="generation-modal" class="generation-modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <h3>Generation Details</h3>
+                <div id="modal-body" class="modal-body">
+                    <!-- Content loaded dynamically -->
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

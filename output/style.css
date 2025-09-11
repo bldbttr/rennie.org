@@ -343,6 +343,48 @@ body {
     50% { opacity: 1; transform: scale(1.1); }
 }
 
+/* Ken Burns Effects */
+@keyframes ken-burns-in {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+@keyframes ken-burns-out {
+    0% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes ken-burns-pan-left {
+    0% { transform: scale(1.03) translateX(2%); }
+    100% { transform: scale(1.03) translateX(-2%); }
+}
+
+@keyframes ken-burns-pan-right {
+    0% { transform: scale(1.03) translateX(-2%); }
+    100% { transform: scale(1.03) translateX(2%); }
+}
+
+.ken-burns-in {
+    animation: ken-burns-in 10s ease-out forwards;
+}
+
+.ken-burns-out {
+    animation: ken-burns-out 10s ease-out forwards;
+}
+
+.ken-burns-pan-left {
+    animation: ken-burns-pan-left 10s ease-out forwards;
+}
+
+.ken-burns-pan-right {
+    animation: ken-burns-pan-right 10s ease-out forwards;
+}
+
+/* Carousel Image Transition */
+.carousel-image-transition {
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Fade Transitions */
 .fade-out {
     opacity: 0 !important;
@@ -574,25 +616,6 @@ body {
     }
 }
 
-/* Print Styles */
-@media print {
-    .footer-bar,
-    .controls-hint {
-        display: none;
-    }
-    
-    .image-panel,
-    .mobile-image-section {
-        display: none;
-    }
-    
-    .quote-panel {
-        width: 100% !important;
-        background: white !important;
-        color: black !important;
-    }
-}
-
 /* Carousel Indicators */
 .carousel-indicators {
     position: absolute;
@@ -643,71 +666,22 @@ body {
     height: 12px;
 }
 
-/* Ken Burns Effect */
-.ken-burns-in {
-    animation: ken-burns-zoom-in 10s ease-out forwards;
-}
-
-.ken-burns-out {
-    animation: ken-burns-zoom-out 10s ease-out forwards;
-}
-
-.ken-burns-pan-left {
-    animation: ken-burns-pan-left 10s ease-out forwards;
-}
-
-.ken-burns-pan-right {
-    animation: ken-burns-pan-right 10s ease-out forwards;
-}
-
-@keyframes ken-burns-zoom-in {
-    0% {
-        transform: scale(1) translate(0, 0);
+/* Print Styles */
+@media print {
+    .footer-bar,
+    .controls-hint,
+    .carousel-indicators {
+        display: none;
     }
-    100% {
-        transform: scale(1.05) translate(0, 0);
+    
+    .image-panel,
+    .mobile-image-section {
+        display: none;
     }
-}
-
-@keyframes ken-burns-zoom-out {
-    0% {
-        transform: scale(1.05) translate(0, 0);
-    }
-    100% {
-        transform: scale(1) translate(0, 0);
-    }
-}
-
-@keyframes ken-burns-pan-left {
-    0% {
-        transform: scale(1.05) translate(2%, 0);
-    }
-    100% {
-        transform: scale(1.05) translate(-2%, 0);
-    }
-}
-
-@keyframes ken-burns-pan-right {
-    0% {
-        transform: scale(1.05) translate(-2%, 0);
-    }
-    100% {
-        transform: scale(1.05) translate(2%, 0);
-    }
-}
-
-/* Smooth image transitions */
-.carousel-image-transition {
-    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Disable Ken Burns on reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .ken-burns-in,
-    .ken-burns-out,
-    .ken-burns-pan-left,
-    .ken-burns-pan-right {
-        animation: none !important;
-        transform: none !important;
+    
+    .quote-panel {
+        width: 100% !important;
+        background: white !important;
+        color: black !important;
     }
 }

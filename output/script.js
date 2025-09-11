@@ -463,7 +463,6 @@ class InspirationApp {
         this.breathingTimer = null;
         this.isTransitioning = false;
         this.carousel = null;
-        this.isManuallyPaused = false;
         
         // Configuration - will be loaded dynamically
         this.breathingInterval = 15000; // Default 15 seconds
@@ -506,9 +505,6 @@ class InspirationApp {
             if (e.code === 'Space') {
                 e.preventDefault();
                 this.nextContent();
-            } else if (e.code === 'Escape') {
-                e.preventDefault();
-                this.togglePause();
             } else if (e.code === 'ArrowLeft') {
                 e.preventDefault();
                 // Navigate to previous image in carousel
@@ -614,12 +610,10 @@ class InspirationApp {
         if (modalClose && modal) {
             modalClose.addEventListener('click', () => {
                 modal.classList.add('hidden');
-                // Resume breathing and carousel when modal is closed (only if not manually paused)
-                if (!this.isManuallyPaused) {
-                    this.startBreathing();
-                    if (this.carousel) {
-                        this.carousel.resume();
-                    }
+                // Resume breathing and carousel when modal is closed
+                this.startBreathing();
+                if (this.carousel) {
+                    this.carousel.resume();
                 }
             });
         }
@@ -628,12 +622,10 @@ class InspirationApp {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.add('hidden');
-                    // Resume breathing and carousel when modal is closed by clicking background (only if not manually paused)
-                    if (!this.isManuallyPaused) {
-                        this.startBreathing();
-                        if (this.carousel) {
-                            this.carousel.resume();
-                        }
+                    // Resume breathing and carousel when modal is closed by clicking background
+                    this.startBreathing();
+                    if (this.carousel) {
+                        this.carousel.resume();
                     }
                 }
             });
@@ -968,11 +960,10 @@ class InspirationApp {
             document.querySelector('.mobile-image-section')
         ].filter(el => el);
         
-        // Phase 1: Fade to black (0.75s)
-        elements.forEach(el => el.classList.add('fade-to-black'));
+        elements.forEach(el => el.classList.add('fade-out'));
         
         return new Promise(resolve => {
-            setTimeout(resolve, 750); // Wait for fade to black
+            setTimeout(resolve, this.transitionDuration / 2);
         });
     }
     
@@ -984,18 +975,16 @@ class InspirationApp {
             document.querySelector('.mobile-image-section')
         ].filter(el => el);
         
-        // Phase 2: Fade from black (0.75s)
         elements.forEach(el => {
-            el.classList.remove('fade-to-black');
-            el.classList.add('fade-from-black');
+            el.classList.remove('fade-out');
+            el.classList.add('fade-in');
         });
         
         return new Promise(resolve => {
             setTimeout(() => {
-                // Clean up classes
-                elements.forEach(el => el.classList.remove('fade-from-black'));
+                elements.forEach(el => el.classList.remove('fade-in'));
                 resolve();
-            }, 750); // Wait for fade from black
+            }, this.transitionDuration / 2);
         });
     }
     
@@ -1008,9 +997,6 @@ class InspirationApp {
     }
     
     startBreathing() {
-        // Don't start breathing if manually paused
-        if (this.isManuallyPaused) return;
-        
         this.isBreathingActive = true;
         // Use longer interval when carousel is active (3 images × 10 seconds each)
         const interval = this.carousel && this.carousel.images.length > 1 
@@ -1018,8 +1004,8 @@ class InspirationApp {
             : this.breathingInterval;
         
         this.breathingTimer = setInterval(() => {
-            if (this.isBreathingActive && !this.carousel && !this.isManuallyPaused) {
-                // Only auto-advance if carousel is not handling it and not manually paused
+            if (this.isBreathingActive && !this.carousel) {
+                // Only auto-advance if carousel is not handling it
                 this.nextContent();
             }
         }, interval);
@@ -1027,27 +1013,9 @@ class InspirationApp {
     
     updateStyleInfo(image) {
         // Update style information when carousel changes images
-        const contentInfo = document.getElementById('content-info');
-        if (contentInfo && image && image.style) {
-            contentInfo.textContent = `Style: ${image.style.name}`;
-        }
-    }
-    
-    togglePause() {
-        this.isManuallyPaused = !this.isManuallyPaused;
-        
-        if (this.isManuallyPaused) {
-            // Pause both breathing and carousel
-            this.pauseBreathing();
-            if (this.carousel) {
-                this.carousel.pause();
-            }
-        } else {
-            // Resume both breathing and carousel
-            this.startBreathing();
-            if (this.carousel) {
-                this.carousel.resume();
-            }
+        const styleInfo = document.getElementById('style-info');
+        if (styleInfo && image && image.style) {
+            styleInfo.textContent = image.style;
         }
     }
     

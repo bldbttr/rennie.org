@@ -122,8 +122,8 @@ class InspirationApp {
                     // Format prompt (summarize if too long)
                     let promptDisplay = generation.prompt || 'Not available';
                     const promptLength = promptDisplay.length;
-                    if (promptLength > 300) {
-                        promptDisplay = promptDisplay.substring(0, 150) + '...' + promptDisplay.substring(promptLength - 100);
+                    if (promptLength > 500) {
+                        promptDisplay = promptDisplay.substring(0, 200) + '\n\n[...prompt continues...]\n\n' + promptDisplay.substring(promptLength - 150);
                     }
                     
                     const modalContent = `

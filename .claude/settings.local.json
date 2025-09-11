@@ -47,7 +47,9 @@
       "Bash(./bin/preview-local.sh:*)",
       "Bash(git checkout:*)",
       "Bash(cat:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "WebFetch(domain:rennie.org)",
+      "WebFetch(domain:localhost)"
     ],
     "deny": [],
     "ask": []

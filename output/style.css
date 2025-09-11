@@ -694,14 +694,12 @@ body {
 }
 
 /* Ensure carousel indicators remain visible during fade transitions */
-.fade-to-black .carousel-indicators,
-.fade-from-black .carousel-indicators {
+.fade-out .carousel-indicators {
     opacity: 1 !important;
     pointer-events: auto !important;
 }
 
-.fade-to-black .carousel-indicators.hidden,
-.fade-from-black .carousel-indicators.hidden {
+.fade-out .carousel-indicators.hidden {
     opacity: 0 !important;
 }
 

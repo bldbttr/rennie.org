@@ -622,6 +622,10 @@ class SmoothImageCarousel {
             this.applyKenBurnsToLayer(activeMobileLayer);
         }
         
+        // Ensure currentIndex is set and indicators are updated for initial image
+        this.currentIndex = 0;
+        this.updateIndicators();
+        
         // Preload next image
         if (this.images.length > 1) {
             this.preloadNextImages();
@@ -640,7 +644,8 @@ class SmoothImageCarousel {
                 const dot = document.createElement('button');
                 dot.className = 'carousel-dot';
                 dot.setAttribute('aria-label', `View variation ${index + 1}`);
-                dot.addEventListener('click', () => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     this.goToIndex(index);
                 });
                 container.appendChild(dot);
@@ -652,12 +657,17 @@ class SmoothImageCarousel {
     }
     
     updateIndicators() {
+        console.log(`[DEBUG] updateIndicators: currentIndex=${this.currentIndex}, images.length=${this.images.length}`);
+        
         const updateDots = (container) => {
             if (!container) return;
             
             const dots = container.querySelectorAll('.carousel-dot');
+            console.log(`[DEBUG] Found ${dots.length} dots, will activate dot at index ${this.currentIndex}`);
             dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === this.currentIndex);
+                const isActive = index === this.currentIndex;
+                dot.classList.toggle('active', isActive);
+                console.log(`[DEBUG] Dot ${index}: ${isActive ? 'ACTIVE' : 'inactive'}`);
             });
         };
         
@@ -786,6 +796,9 @@ class SmoothImageCarousel {
             if (nextDesktopLayer) nextDesktopLayer.classList.add('active');
             if (nextMobileLayer) nextMobileLayer.classList.add('active');
             
+            // Update current index before UI updates so indicators show correct state
+            this.currentIndex = index;
+            
             // Update UI elements immediately when cross-fade starts
             this.updateIndicators();
             this.onImageChange(index, nextImage);
@@ -796,7 +809,6 @@ class SmoothImageCarousel {
         
         // Update state
         this.activeLayerIndex = nextLayerIndex;
-        this.currentIndex = index;
         this.transitionInProgress = false;
         
         // Preload next images for smooth navigation

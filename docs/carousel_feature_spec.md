@@ -524,6 +524,209 @@ if (styleInfo && image && image.style) {
 
 **Lesson Learned**: HTML/JavaScript element ID synchronization is critical in template-based systems. Silent DOM query failures create subtle bugs that are easy to miss but significantly impact user experience. Consistent naming conventions and validation checks prevent these cross-file dependency issues.
 
+### Smooth Carousel Timing Issues (September 12, 2025)
+
+**⚠️ Problem Pattern**: After implementing smooth cross-fade transitions, three timing issues created visual disconnects in the user experience.
+
+**Issue 1: Image-to-Style Connection Delay**
+- **Problem**: Style information updated 2 seconds after new image became visible
+- **Root Cause**: `updateStyleInfo()` callback occurred after cross-fade completion, not when image became visible
+- **User Impact**: Confusing mismatch where users see new image but old style information for 2 seconds
+
+**Issue 2: Carousel Dots Update Delay**  
+- **Problem**: Indicator dots updated with same 2-second delay as style info
+- **Root Cause**: `updateIndicators()` called in same sequence after cross-fade completion
+- **User Impact**: Navigation feedback felt sluggish and disconnected from visual changes
+
+**Issue 3: Extra Image Transition in Sequence**
+- **Problem**: Extra transition occurred after 3rd image: `1→fade→2→fade→3→fade→quote_fade` instead of `1→fade→2→fade→3→quote_fade`
+- **Root Cause**: Carousel scheduling logic didn't check for cycle completion before scheduling next transition
+- **User Impact**: Redundant visual transition that broke intended rhythm
+
+**Solution Applied**:
+```javascript
+// Fix 1 & 2: Move UI updates to cross-fade start
+requestAnimationFrame(() => {
+    // Visual transition starts
+    currentLayer.classList.remove('active');
+    nextLayer.classList.add('active');
+    
+    // Update current index BEFORE UI updates
+    this.currentIndex = index;
+    
+    // Update UI immediately when transition starts
+    this.updateIndicators();
+    this.onImageChange(index, nextImage);
+});
+
+// Fix 3: Smart scheduling to prevent extra transitions
+scheduleNextTransition() {
+    const nextIndex = (this.currentIndex + 1) % this.images.length;
+    if (nextIndex === 0) {
+        // Schedule quote transition directly
+        this.timer = setTimeout(() => this.onComplete(), this.imageDuration);
+    } else {
+        // Schedule normal image transition
+        this.timer = setTimeout(() => {
+            this.next().then(() => this.scheduleNextTransition());
+        }, this.imageDuration);
+    }
+}
+```
+
+**Additional Bug: Carousel Dot Index Synchronization**
+- **Problem**: Dots not advancing from image 1→2, but working for 2→3  
+- **Root Cause**: `updateIndicators()` called before `this.currentIndex` was updated, using stale index value
+- **Solution**: Move `this.currentIndex = index` before `updateIndicators()` call
+
+**Key Lessons**:
+1. **Timing Dependencies**: UI updates must occur when users see visual changes, not when transitions complete
+2. **State Synchronization**: Update model state before view updates to ensure consistency
+3. **Sequence Logic**: Check for completion conditions before scheduling next actions
+4. **User Perception**: Visual feedback must be immediate to feel responsive and connected
+
+**Detection Methods**:
+- **User Reports**: "There's a delay between image and style updates", "Extra transition after 3rd image"
+- **Visual Testing**: Watch timing of dots, style info, and transition sequences
+- **Code Analysis**: Trace callback timing and state update order
+
+**Files Affected**:
+- ✅ `scripts/templates/app.js` - Timing logic fixes
+- ✅ `docs/smooth_carousel_transitions_implementation_timing_issues.md` - Detailed analysis
+
+**Prevention Strategy**: Test visual feedback timing during development, not just functional correctness. User perception of responsiveness requires immediate UI updates when visual changes occur.
+
+### Carousel Dot Index Synchronization Bug (September 12, 2025)
+
+**⚠️ Problem Pattern**: After fixing the timing issues, a new bug emerged where carousel dots were consistently one step behind the displayed images.
+
+**User-Reported Behavior**:
+- **Image 1**: Dot 1 active ✅ (correct)
+- **Image 2**: Dot 1 active ❌ (should be dot 2)  
+- **Image 3**: Dot 2 active ❌ (should be dot 3)
+
+**Investigation Process**:
+1. **Initial Confusion**: The previous timing fix seemed to address dot updating, but user reported persistent issues
+2. **Code Analysis**: Examined `updateIndicators()` method and `currentIndex` state management
+3. **Debugging Added**: Added console logging to trace index values during transitions
+4. **Template System Discovery**: Found that build script generates both old `ImageCarousel` and new `SmoothImageCarousel` classes, but app uses `SmoothImageCarousel`
+
+**Root Cause Identified**:
+- **Missing Initialization**: The `showInitialImage()` method didn't explicitly synchronize `currentIndex` and indicators for the initial state
+- **State Drift**: While constructor sets `currentIndex = 0`, the initialization sequence didn't guarantee proper indicator synchronization
+- **Inconsistent Patterns**: Initial setup used different state management pattern than subsequent transitions
+
+**Problem in Code Flow**:
+```javascript
+// Constructor
+this.currentIndex = 0; // ✓ Set correctly
+
+// init() method
+this.updateIndicators(); // ✓ Called but may not be synchronized
+
+// showInitialImage() - MISSING SYNCHRONIZATION
+this.onImageChange(0, firstImage); // ✓ Called but currentIndex might be drift
+// Missing: explicit currentIndex setting and indicator update
+```
+
+**Solution Applied**:
+```javascript
+// showInitialImage() - Added explicit synchronization
+showInitialImage() {
+    // ... image setup code ...
+    
+    // Ensure currentIndex is set and indicators are updated for initial image
+    this.currentIndex = 0;           // ✓ Explicit state setting
+    this.updateIndicators();         // ✓ Immediate indicator sync
+    
+    // ... rest of method ...
+}
+```
+
+**Why This Was Subtle**:
+1. **Initialization Complexity**: Multiple methods involved in setup (constructor, init, createIndicators, showInitialImage)
+2. **State Assumptions**: Code assumed constructor setting would persist through complex initialization
+3. **Timing Dependencies**: Indicators created before image setup, creating potential synchronization gaps
+4. **Inconsistent Patterns**: Initial setup didn't follow same pattern as transition methods
+
+**Key Lessons**:
+1. **Explicit State Management**: Always explicitly set and sync state in initialization methods, don't assume constructor values persist
+2. **Consistent Patterns**: Use the same state management pattern for initialization and transitions
+3. **Defensive Programming**: Add redundant state synchronization in critical setup methods
+4. **User-Reported Edge Cases**: Real usage reveals initialization edge cases that development testing might miss
+
+**Detection Methods**:
+- **User Report**: "Dots only advancing to second dot on transition to third image"
+- **Pattern Recognition**: Consistent "one step behind" behavior indicates initialization issue
+- **Console Debugging**: Added logging to trace index values during transitions
+- **Code Flow Analysis**: Traced initialization sequence to find missing synchronization
+
+**Files Affected**:
+- ✅ `scripts/templates/app.js` - Added explicit state sync in `showInitialImage()`
+- ✅ `output/script.js` - Generated with fix
+
+**Prevention Strategy**: 
+- **Initialization Checklist**: Ensure all initialization methods explicitly set and sync critical state
+- **Pattern Consistency**: Use same state management approach in initialization and runtime methods
+- **Defensive Sync**: Add redundant state synchronization in setup methods to prevent drift
+- **Integration Testing**: Test full initialization-to-runtime flow, not just individual methods
+
+### Carousel Dot Event Bubbling Bug (September 12, 2025) ✅ RESOLVED
+
+**⚠️ Problem Pattern**: After extensive debugging of carousel state management, discovered the "dot advancement bug" was actually an event handling conflict.
+
+**Misleading Symptoms**:
+- **User Report**: "Dots only advancing to second dot on transition to third image"
+- **Initial Analysis**: Appeared to be timing/synchronization issue with carousel index management
+- **Debug Attempts**: Multiple attempts to fix state management, timing, and initialization (all successful but didn't resolve user issue)
+- **Real Behavior**: Third dot click sometimes caused page reloads, sometimes worked correctly
+
+**Actual Root Cause**: Event bubbling conflict between carousel dot clicks and global page click handler
+- **Global Handler**: `document.addEventListener('click', () => this.nextContent())` for "click anywhere to advance"
+- **Dot Handler**: `dot.addEventListener('click', () => this.goToIndex(index))` without propagation prevention
+- **Conflict**: Dot clicks bubbled up to document level, triggering `nextContent()` immediately after `goToIndex()`
+- **Result**: Carousel worked correctly but was immediately overridden, creating illusion of broken functionality
+
+**Investigation Process**:
+1. **Extensive Debugging**: Added console logging to trace carousel state management (all working correctly)
+2. **Key User Clue**: "Third dot sometimes reloads page, sometimes works" indicated event conflicts
+3. **Event Flow Analysis**: Traced click event propagation to discover bubbling issue
+4. **Simple Fix**: Added `e.stopPropagation()` to prevent bubbling
+
+**Solution Applied**:
+```javascript
+// Before (problematic):
+dot.addEventListener('click', () => {
+    this.goToIndex(index);
+});
+
+// After (fixed):
+dot.addEventListener('click', (e) => {
+    e.stopPropagation();  // Prevent bubbling to global handler
+    this.goToIndex(index);
+});
+```
+
+**Key Lessons**:
+1. **Misleading Symptoms**: Complex-seeming bugs can have simple causes - event conflicts often masquerade as logic bugs
+2. **Debug Validation**: When debug output shows "correct" behavior during reported bugs, look outside the debugged system
+3. **User Behavior Clues**: "Sometimes works" patterns indicate event conflicts or race conditions, not logic errors
+4. **Global Event Handlers**: Require systematic `stopPropagation()` on all specific interactive elements
+5. **Personal Project Scale**: Simple fix appropriate - global handlers work fine with proper event management
+
+**Detection Methods**:
+- **User Report**: Inconsistent behavior ("sometimes works, sometimes reloads")
+- **Console Analysis**: Logic debugging shows correct behavior but user reports issues
+- **Click Testing**: Manual testing reveals event interference
+- **Event Flow Tracing**: Following click propagation reveals bubbling conflicts
+
+**Files Affected**:
+- ✅ `scripts/templates/app.js` - Added `e.stopPropagation()` to carousel dot click handlers
+- ✅ `output/script.js` - Generated with fix
+- ✅ Deployed via git commit `d904b2e`
+
+**Resolution Status**: ✅ RESOLVED - All carousel functionality working correctly with proper event handling
+
 ## Implementation Results ✅
 
 ### Phase 1 & 2 Completed (September 10, 2025)

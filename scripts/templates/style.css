@@ -633,12 +633,12 @@ body {
 /* Carousel Indicators */
 .carousel-indicators {
     position: absolute;
-    bottom: 30px;
+    bottom: 60px; /* Moved up to clear footer bar */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
-    z-index: 10;
+    z-index: 1100; /* Higher than footer bar (1000) */
     opacity: 1;
     transition: opacity 0.3s ease;
 }

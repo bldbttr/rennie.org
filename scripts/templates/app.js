@@ -328,6 +328,10 @@ class SmoothImageCarousel {
             // Fade in next layer
             if (nextDesktopLayer) nextDesktopLayer.classList.add('active');
             if (nextMobileLayer) nextMobileLayer.classList.add('active');
+            
+            // Update UI elements immediately when cross-fade starts
+            this.updateIndicators();
+            this.onImageChange(index, nextImage);
         });
         
         // Wait for cross-fade to complete
@@ -337,10 +341,6 @@ class SmoothImageCarousel {
         this.activeLayerIndex = nextLayerIndex;
         this.currentIndex = index;
         this.transitionInProgress = false;
-        
-        // Update indicators and notify callbacks
-        this.updateIndicators();
-        this.onImageChange(index, nextImage);
         
         // Preload next images for smooth navigation
         this.preloadNextImages();
@@ -446,16 +446,21 @@ class SmoothImageCarousel {
     scheduleNextTransition() {
         if (!this.isPlaying || this.isPaused) return;
         
-        this.timer = setTimeout(() => {
-            this.next().then(() => {
-                // Check if we've completed a full cycle
-                if (this.currentIndex === 0) {
-                    this.onComplete();
-                } else {
+        // Check if next transition would complete the cycle
+        const nextIndex = (this.currentIndex + 1) % this.images.length;
+        if (nextIndex === 0) {
+            // Schedule quote transition instead of another image transition
+            this.timer = setTimeout(() => {
+                this.onComplete();
+            }, this.imageDuration);
+        } else {
+            // Schedule normal image transition
+            this.timer = setTimeout(() => {
+                this.next().then(() => {
                     this.scheduleNextTransition();
-                }
-            });
-        }, this.imageDuration);
+                });
+            }, this.imageDuration);
+        }
     }
     
     pause() {

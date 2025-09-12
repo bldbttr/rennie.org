@@ -324,6 +324,19 @@ The system uses a centralized `config.json` file to manage all system settings, 
 4. **Social sharing**: Not implemented - Focus on personal inspiration over sharing
 5. **Analytics**: Not implemented - Privacy-focused, distraction-free experience
 
+## Critical Maintenance Patterns ⚠️ DOCUMENTED
+
+### HTML/JavaScript Element ID Synchronization
+**Recurring Issue**: Template refactoring breaks DOM element references, causing silent failures.
+
+**Pattern**: HTML template (`scripts/templates/index.html`) uses `id="content-info"`, JavaScript (`scripts/templates/app.js`) references `getElementById('style-info')` → null element → functionality breaks silently.
+
+**Affected Feature**: Carousel style synchronization - style info only updates with quote changes, not image variations.
+
+**Prevention**: Always update HTML element IDs and corresponding JavaScript references together during template refactoring. Add console warnings for missing DOM elements during development.
+
+**Quick Fix**: Verify element ID consistency between HTML templates and JavaScript DOM queries when carousel navigation works but style display doesn't update.
+
 ## Current Live Status ✅
 
 - **Production Site**: https://rennie.org ✅

@@ -1370,3 +1370,35 @@ If feature is lost due to template editing:
 - Clear documentation prevents repeated mistakes
 - Simple detection methods sufficient for personal project
 - Don't over-engineer - basic prevention strategies work well
+
+### Recurring HTML/JavaScript Element ID Synchronization Bug (September 12, 2025)
+
+**⚠️ Critical Recurring Issue**: Style synchronization breaking after template updates - style info only updates with quote changes, not image transitions.
+
+**Root Pattern**: HTML template uses `id="content-info"`, JavaScript references `getElementById('style-info')` → silent failure.
+
+**Why This Keeps Happening**:
+1. **Template System Complexity**: HTML and JavaScript templates updated independently during refactoring
+2. **Silent Failure**: No error when DOM element not found - bug is invisible during development  
+3. **Cross-File Dependencies**: Element ID changes in HTML don't trigger JavaScript updates
+4. **Inconsistent Refactoring**: Multiple commits over time created mixed naming conventions
+
+**Historical Timeline**:
+- **September 9**: UI improvements changed HTML element IDs
+- **September 11**: Template refactor potentially reset JavaScript references  
+- **September 12**: Bug reintroduced after template system regeneration
+
+**Prevention Strategy for Future**:
+1. **Element ID Documentation**: Maintain list of critical DOM elements and their JavaScript dependencies
+2. **Synchronization Checklist**: When updating HTML templates, verify all corresponding JavaScript references
+3. **Error Handling**: Add console warnings for missing DOM elements during development
+4. **Naming Standards**: Establish consistent element ID conventions and stick to them
+
+**Quick Detection Method**: When carousel navigation works but style info doesn't update → check element ID mismatch.
+
+**Template Files to Check Together**:
+- `scripts/templates/index.html` - HTML element definitions
+- `scripts/templates/app.js` - JavaScript DOM queries  
+- Both must use identical element IDs for functionality to work
+
+**Lesson**: In template-based systems, HTML and JavaScript are tightly coupled through DOM element IDs. Breaking this coupling through inconsistent naming creates silent failures that significantly impact user experience. Always update both sides of HTML/JS dependencies together.

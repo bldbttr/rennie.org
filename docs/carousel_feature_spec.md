@@ -469,6 +469,61 @@ class TimerManager {
 
 **Lesson**: Template-generated code management is a common source of confusion in projects with build systems. Clear documentation, obvious file structure, and systematic development workflows prevent feature loss and developer frustration.
 
+### Recurring Style Synchronization Bug (September 12, 2025)
+
+**⚠️ Problem Pattern**: Style information only updates when quote changes, not when carousel images change within the same quote.
+
+**Root Cause Analysis**:
+- **HTML Element ID**: Uses `id="content-info"` in template 
+- **JavaScript Reference**: Initially used `getElementById('style-info')` (wrong ID)
+- **Result**: `document.getElementById()` returns null, causing silent failure
+- **User Impact**: Style display shows stale information instead of updating with each image variation
+
+**Why This Kept Recurring**:
+1. **Template System Complexity**: Multiple refactoring sessions updated HTML and JavaScript independently
+2. **Silent Failure Pattern**: No error thrown when element not found - bug goes unnoticed during development
+3. **Cross-File Dependencies**: HTML template changes don't automatically trigger JavaScript updates
+4. **Inconsistent Naming**: Mixed conventions between `style-info` and `content-info` across different commits
+
+**Historical Occurrences**:
+- **September 9, 2025**: UI improvements changed element ID from `style-info` to `content-info` in HTML
+- **September 11, 2025**: Template system refactor reset some JavaScript references
+- **September 12, 2025**: Bug reappeared after template regeneration process
+
+**Complete Fix Applied**:
+```javascript
+// Before (broken):
+const styleInfo = document.getElementById('style-info'); // Element doesn't exist
+
+// After (working):
+const styleInfo = document.getElementById('content-info'); // Matches HTML template
+if (styleInfo && image && image.style) {
+    styleInfo.textContent = `Style: ${image.style.name || image.style}`;
+}
+```
+
+**Prevention Strategies**:
+1. **Consistent Naming Conventions**: Establish and document HTML element ID standards
+2. **Cross-File Validation**: Check that JavaScript element references match HTML templates
+3. **Integration Testing**: Verify DOM manipulation functions work with actual HTML structure  
+4. **Template Documentation**: Document critical element IDs and their JavaScript dependencies
+5. **Error Handling**: Add null checks and console warnings for missing elements
+
+**Detection Methods**:
+- **User Report**: "Style only changes with quote, not with image variations"
+- **Browser DevTools**: Check for null element references in console
+- **Code Review**: Verify getElementById calls match actual HTML element IDs
+- **Functional Testing**: Navigate carousel and verify style display updates correctly
+
+**Long-term Solution**: Consider adding JavaScript validation that logs warnings when critical DOM elements are not found, making silent failures visible during development.
+
+**Files Affected**:
+- ✅ `scripts/templates/app.js` - Fixed element ID reference  
+- ✅ `output/script.js` - Generated with correct template
+- ✅ HTML template uses consistent `id="content-info"`
+
+**Lesson Learned**: HTML/JavaScript element ID synchronization is critical in template-based systems. Silent DOM query failures create subtle bugs that are easy to miss but significantly impact user experience. Consistent naming conventions and validation checks prevent these cross-file dependency issues.
+
 ## Implementation Results ✅
 
 ### Phase 1 & 2 Completed (September 10, 2025)

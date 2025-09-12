@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Smooth Carousel Transitions - Inspiration</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional test-specific styles */
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+        }
+        
+        .test-controls h4 {
+            margin: 0 0 10px 0;
+            color: #e74c3c;
+        }
+        
+        .test-controls button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .test-controls button:hover {
+            background: #2980b9;
+        }
+        
+        .test-status {
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading inspiration content...</p>
+        </div>
+        
+        <div id="main-content" class="main-content hidden">
+            <!-- Desktop Layout -->
+            <div class="desktop-layout">
+                <!-- Quote Panel (25% left) -->
+                <div class="quote-panel" id="quote-panel">
+                    <div class="quote-container">
+                        <div class="quote-content">
+                            <blockquote id="quote-text" class="quote-text">
+                                Loading inspiration...
+                            </blockquote>
+                            <footer class="quote-attribution">
+                                <cite id="quote-author" class="quote-author">Author</cite>
+                            </footer>
+                            <div id="quote-context" class="quote-context"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image Panel (75% right) -->
+                <div class="image-panel" id="image-panel">
+                    <div class="image-container">
+                        <!-- This will be replaced by dual layer system -->
+                        <div class="image-overlay"></div>
+                        <!-- Carousel Indicators -->
+                        <div id="carousel-indicators" class="carousel-indicators hidden">
+                            <!-- Dots will be added by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Layout -->
+            <div class="mobile-layout">
+                <div class="mobile-image-section">
+                    <!-- This will be replaced by dual layer system -->
+                    <!-- Mobile Carousel Indicators -->
+                    <div id="mobile-carousel-indicators" class="carousel-indicators mobile-indicators hidden">
+                        <!-- Dots will be added by JavaScript -->
+                    </div>
+                </div>
+                
+                <div id="mobile-quote-panel" class="mobile-quote-panel">
+                    <div class="mobile-quote-container">
+                        <div class="mobile-quote-content">
+                            <blockquote id="mobile-quote-text" class="mobile-quote-text">
+                                Loading inspiration...
+                            </blockquote>
+                            <footer class="mobile-quote-attribution">
+                                <cite id="mobile-quote-author" class="mobile-quote-author">Author</cite>
+                            </footer>
+                            <div id="mobile-quote-context" class="mobile-quote-context"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bar -->
+        <div class="footer-bar">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <button id="new-inspiration-btn" class="btn btn-accent">
+                        New Inspiration
+                    </button>
+                    <a id="source-link" href="#" class="source-link" style="display: none;">
+                        Source
+                    </a>
+                </div>
+                <div class="footer-center">
+                    <span class="controls-hint">Space/Click: Next | ←→: Navigate Images</span>
+                </div>
+                <div class="footer-right">
+                    <span id="content-info" class="content-info" data-content="{}">
+                        Style: Loading...
+                    </span>
+                    <span id="model-badge" class="model-badge">
+                        Gemini
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Generation Details Modal -->
+        <div id="generation-modal" class="generation-modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <h3>Generation Details</h3>
+                <div id="modal-body" class="modal-body">
+                    <!-- Content loaded dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test Controls -->
+        <div class="test-controls">
+            <h4>Smooth Carousel Test</h4>
+            <button onclick="testCarousel.next()">Next Image</button>
+            <button onclick="testCarousel.previous()">Previous Image</button>
+            <button onclick="testCarousel.goToIndex(0)">Go to Image 1</button>
+            <button onclick="testCarousel.goToIndex(1)">Go to Image 2</button>
+            <button onclick="testCarousel.goToIndex(2)">Go to Image 3</button>
+            <button onclick="toggleAutoPlay()">Toggle Auto-play</button>
+            <div class="test-status" id="test-status">
+                Status: Initializing...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="script_carousel_smooth.js"></script>
+    <script>
+        // Test carousel functionality
+        let testCarousel = null;
+        let isAutoPlaying = false;
+        
+        // Mock inspiration data
+        const mockData = [
+            {
+                title: "Make something people want",
+                author: "Paul Graham", 
+                quote_text: "Make something people want",
+                style_name: "modern-inspirational",
+                images: [
+                    {
+                        path: "images/paul_graham_make_something_people_want_v1.png",
+                        style: { name: "essence-of-desire", approach: "artistic" },
+                        generation: { model: "gemini-2.5-flash", timestamp: Date.now() }
+                    },
+                    {
+                        path: "images/paul_graham_make_something_people_want_v2.png", 
+                        style: { name: "color-field-emotion", approach: "artistic" },
+                        generation: { model: "gemini-2.5-flash", timestamp: Date.now() }
+                    },
+                    {
+                        path: "images/paul_graham_make_something_people_want_v3.png",
+                        style: { name: "modern-tech-scene", approach: "scene" },
+                        generation: { model: "gemini-2.5-flash", timestamp: Date.now() }
+                    }
+                ]
+            }
+        ];
+        
+        function updateStatus(message) {
+            const status = document.getElementById('test-status');
+            status.textContent = 'Status: ' + message;
+            console.log('Carousel Test:', message);
+        }
+        
+        function toggleAutoPlay() {
+            if (isAutoPlaying) {
+                testCarousel.pause();
+                isAutoPlaying = false;
+                updateStatus('Auto-play paused');
+            } else {
+                testCarousel.start();
+                isAutoPlaying = true;
+                updateStatus('Auto-play started');
+            }
+        }
+        
+        // Initialize test app
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatus('DOM loaded, setting up test...');
+            
+            // Hide loading
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            
+            // Set up content
+            const content = mockData[0];
+            document.getElementById('quote-text').textContent = content.quote_text;
+            document.getElementById('quote-author').textContent = content.author;
+            document.getElementById('mobile-quote-text').textContent = content.quote_text;
+            document.getElementById('mobile-quote-author').textContent = content.author;
+            
+            // Initialize smooth carousel
+            if (content.images && content.images.length > 0) {
+                updateStatus('Initializing smooth carousel...');
+                
+                testCarousel = new SmoothImageCarousel(content.images, {
+                    imageDuration: 8000,  // 8 seconds for faster testing
+                    transitionDuration: 1500,
+                    crossFadeDuration: 2000,
+                    kenBurnsEnabled: true,
+                    onImageChange: (index, image) => {
+                        updateStatus(`Image changed to ${index + 1}/3: ${image.style.name}`);
+                        // Update style info
+                        const styleInfo = document.getElementById('content-info');
+                        if (styleInfo) {
+                            styleInfo.textContent = `Style: ${image.style.name}`;
+                        }
+                    },
+                    onComplete: () => {
+                        updateStatus('Carousel cycle completed');
+                    }
+                });
+                
+                updateStatus('Carousel initialized successfully');
+            } else {
+                updateStatus('No images available for carousel');
+            }
+            
+            // Set up keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (!testCarousel) return;
+                
+                if (e.code === 'ArrowLeft') {
+                    e.preventDefault();
+                    testCarousel.previous();
+                } else if (e.code === 'ArrowRight') {
+                    e.preventDefault();
+                    testCarousel.next();
+                } else if (e.code === 'Space') {
+                    e.preventDefault();
+                    toggleAutoPlay();
+                }
+            });
+            
+            updateStatus('Test ready - use controls or keyboard (←→ Space)');
+        });
+    </script>
+</body>
+</html>

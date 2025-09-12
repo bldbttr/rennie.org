@@ -50,7 +50,9 @@
       "Bash(pkill:*)",
       "WebFetch(domain:rennie.org)",
       "WebFetch(domain:localhost)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:www.kirupa.com)"
     ],
     "deny": [],
     "ask": []

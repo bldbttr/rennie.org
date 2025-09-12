@@ -703,6 +703,79 @@ body {
     opacity: 0 !important;
 }
 
+/* Smooth Carousel Transitions - Dual Layer System */
+.carousel-image-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-image-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity; /* Performance optimization */
+}
+
+.carousel-image-layer.active {
+    opacity: 1;
+}
+
+/* Extended Ken Burns animations for smoother flow */
+.ken-burns-in { 
+    animation: ken-burns-in 10s ease-out forwards; 
+}
+.ken-burns-out { 
+    animation: ken-burns-out 10s ease-out forwards; 
+}
+.ken-burns-pan-left { 
+    animation: ken-burns-pan-left 10s ease-out forwards; 
+}
+.ken-burns-pan-right { 
+    animation: ken-burns-pan-right 10s ease-out forwards; 
+}
+
+/* Enhanced Ken Burns keyframes for overlap period */
+@keyframes ken-burns-in {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); } /* Slightly increased for overlap period */
+}
+
+@keyframes ken-burns-out {
+    0% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes ken-burns-pan-left {
+    0% { transform: scale(1.05) translateX(2%); }
+    100% { transform: scale(1.05) translateX(-2%); }
+}
+
+@keyframes ken-burns-pan-right {
+    0% { transform: scale(1.05) translateX(-2%); }
+    100% { transform: scale(1.05) translateX(2%); }
+}
+
+/* Ensure smooth animation during reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-image-layer {
+        transition: opacity 0.5s ease;
+    }
+    
+    .ken-burns-in,
+    .ken-burns-out,
+    .ken-burns-pan-left,
+    .ken-burns-pan-right {
+        animation: none;
+    }
+}
+
 /* Print Styles */
 @media print {
     .footer-bar,

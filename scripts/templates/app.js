@@ -936,10 +936,15 @@ class InspirationApp {
     }
     
     getImagePath(content) {
-        // Generate expected image path based on content
-        const author = content.author.toLowerCase().replace(/\\s+/g, '_').replace(/[^a-z0-9_]/g, '');
-        const title = content.title.toLowerCase().replace(/\\s+/g, '_').replace(/[^a-z0-9_]/g, '');
-        return `images/${author}_${title}.png`;
+        // Generate expected image path based on content file (matches backend naming)
+        if (content.content_file && content.content_file.startsWith('content/inspiration/')) {
+            const baseFilename = content.content_file.replace('content/inspiration/', '').replace('.md', '');
+            return `images/${baseFilename}_v1.png`;
+        } else {
+            // Fallback for unexpected paths
+            const filename = content.content_file ? content.content_file.split('/').pop().replace('.md', '') : 'unknown';
+            return `images/${filename}_v1.png`;
+        }
     }
     
     createPlaceholder(content) {

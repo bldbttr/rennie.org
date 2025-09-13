@@ -183,7 +183,8 @@ def build_site():
     images_dir.mkdir(exist_ok=True)
     
     for content in content_items:
-        print(f"📝 Processing: {content['title']} by {content['author']}")
+        base_filename = get_base_filename_from_content(content)
+        print(f"📝 Processing: {base_filename}.md")
         
         # Get all image variations
         image_paths = get_image_paths(content)

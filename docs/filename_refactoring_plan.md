@@ -196,6 +196,70 @@ paul-graham-make-something_v1.png
 **Ready for Image Generation:**
 The system now generates predictable, stable filenames based on markdown file names rather than complex title/author processing. All old files removed for clean slate. Image generation script ready to run with new naming scheme.
 
+## Frontend Fix Implementation ✅
+
+### Critical Issue Discovered & Resolved (September 13, 2025)
+
+During final testing, we discovered the **frontend JavaScript was still using the old filename pattern** while the backend had been refactored to the new pattern. This caused a mismatch where:
+
+- **Backend generated:** `pmarca-pmf_v1.png` (new clean pattern)
+- **Frontend expected:** `marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v1.png` (old complex pattern)
+
+The site was working because **legacy files from both patterns coexisted** in `output/images/`, creating accidental compatibility.
+
+### Resolution Applied
+
+**File: `scripts/templates/app.js:938-948`** - Updated `getImagePath()` method:
+
+```javascript
+// BEFORE (fragile, complex)
+getImagePath(content) {
+    const author = content.author.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    const title = content.title.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    return `images/${author}_${title}.png`;
+}
+
+// AFTER (stable, simple)  
+getImagePath(content) {
+    // Generate expected image path based on content file (matches backend naming)
+    if (content.content_file && content.content_file.startsWith('content/inspiration/')) {
+        const baseFilename = content.content_file.replace('content/inspiration/', '').replace('.md', '');
+        return `images/${baseFilename}_v1.png`;
+    } else {
+        // Fallback for unexpected paths
+        const filename = content.content_file ? content.content_file.split('/').pop().replace('.md', '') : 'unknown';
+        return `images/${filename}_v1.png`;
+    }
+}
+```
+
+**File: `scripts/build_site.py:186`** - Updated display message for consistency:
+
+```python
+# BEFORE
+print(f"📝 Processing: {content['title']} by {content['author']}")
+
+# AFTER  
+base_filename = get_base_filename_from_content(content)
+print(f"📝 Processing: {base_filename}.md")
+```
+
+### Legacy Files Archived
+
+**10 legacy images** safely archived to `generated/archive/filename_refactoring_cleanup_20250913_081751/`:
+
+- `marc_andreessen_you_can_always_feel_productmarket_fit_when_its_hap_v*.png` (3 files)
+- `steve_jobs_start_with_the_customer_experience_and_work_backwa_v*.png` (3 files)  
+- `paul_graham_make_something_people_want_v*.png` (3 files)
+- `paul_graham_make_something_people_want.png` (1 file)
+
+### Testing Results
+
+✅ **Build verification:** Site builds correctly with new system  
+✅ **Frontend/backend sync:** Both generate identical filename patterns  
+✅ **Clean inventory:** Only new pattern files remain in generated/ and output/  
+✅ **Display messages:** Show clean filename format as planned  
+
 ### Key Achievements
 
 1. **Eliminated fragility**: No more breaking when titles/authors change
@@ -203,3 +267,5 @@ The system now generates predictable, stable filenames based on markdown file na
 3. **Enhanced maintainability**: Single source of truth for filename generation
 4. **Better user experience**: Short, meaningful filenames instead of truncated chaos
 5. **Clean architecture**: Consistent filename handling throughout codebase
+6. **🆕 Frontend/backend alignment**: Both systems now use identical naming logic
+7. **🆕 Legacy compatibility removed**: Clean break from complex filename patterns

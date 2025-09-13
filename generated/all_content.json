@@ -5,20 +5,20 @@
     "author": "Marc Andreessen",
     "type": "quote",
     "quote_text": "",
-    "style_name": "turner-atmospheric",
+    "style_name": "rothko-color-field",
     "style_category": "painting_technique",
     "style_data": {
-      "description": "J.M.W. Turner's luminous atmospheric technique where light dissolves form",
-      "base_prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
+      "description": "Mark Rothko's transcendent color field approach with luminous color relationships",
+      "base_prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
       "key_techniques": [
-        "luminous atmospheric effects",
-        "soft focus rendering",
-        "light dissolving form",
-        "glowing paint passages"
+        "luminous color fields",
+        "breathing color transitions",
+        "soft edge boundaries",
+        "contemplative minimal composition"
       ],
-      "color_philosophy": "Golden and warm light palette with forms emerging from luminous atmosphere",
-      "brush_approach": "Soft, blended brushwork where edges dissolve into light",
-      "light_focus": "Light as the primary subject with forms secondary to atmospheric effects"
+      "meditative_quality": "Colors that invite deep contemplation and emotional opening",
+      "transcendent_approach": "Visual experience designed to go beyond everyday perception",
+      "color_breathing": "Colors that appear alive and subtly changing even in stillness"
     },
     "vibe": [
       "movement",
@@ -27,9 +27,9 @@
     ],
     "content_changed": true,
     "prompt": {
-      "text": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
+        "base": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
         "vibe": [
           "movement",
           "flow",

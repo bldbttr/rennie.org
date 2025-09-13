@@ -1207,24 +1207,57 @@ class InspirationApp {
         const author = content.author;
         const context = content.metadata?.why_i_like_it || '';
         
-        // Calculate dynamic font size based on text length
-        const fontSize = this.calculateFontSize(text);
+        // Check if content has HTML formatting
+        const hasFormattedContent = content.formatted_content && content.formatted_content.html;
         
-        // Update desktop
-        if (quoteText) {
-            quoteText.textContent = text;
-            quoteText.style.fontSize = fontSize.desktop;
+        if (hasFormattedContent) {
+            // Use formatted HTML content
+            const htmlContent = content.formatted_content.html;
+            
+            // Update desktop with HTML
+            if (quoteText) {
+                quoteText.innerHTML = htmlContent;
+                quoteText.classList.add('formatted-content');
+            }
+            
+            // Update mobile with HTML
+            if (mobileQuoteText) {
+                mobileQuoteText.innerHTML = htmlContent;
+                mobileQuoteText.classList.add('formatted-content', 'mobile-quote-text');
+            }
+        } else {
+            // Fall back to plain text with dynamic font sizing
+            const fontSize = this.calculateFontSize(text);
+            
+            // Update desktop
+            if (quoteText) {
+                quoteText.textContent = text;
+                quoteText.style.fontSize = fontSize.desktop;
+                quoteText.classList.remove('formatted-content');
+            }
+            
+            // Update mobile
+            if (mobileQuoteText) {
+                mobileQuoteText.textContent = text;
+                mobileQuoteText.style.fontSize = fontSize.mobile;
+                mobileQuoteText.classList.remove('formatted-content', 'mobile-quote-text');
+            }
         }
+        
+        // Update author and context (always plain text)
         if (quoteAuthor) quoteAuthor.textContent = author;
-        if (quoteContext) quoteContext.textContent = context;
-        
-        // Update mobile
-        if (mobileQuoteText) {
-            mobileQuoteText.textContent = text;
-            mobileQuoteText.style.fontSize = fontSize.mobile;
-        }
+        if (quoteContext) quoteContext.innerHTML = this._formatContext(context);
         if (mobileQuoteAuthor) mobileQuoteAuthor.textContent = author;
-        if (mobileQuoteContext) mobileQuoteContext.textContent = context;
+        if (mobileQuoteContext) mobileQuoteContext.innerHTML = this._formatContext(context);
+    }
+    
+    _formatContext(text) {
+        // Split into paragraphs and apply progressive sizing
+        const paragraphs = text.split('\n\n');
+        return paragraphs.map((p, index) => {
+            const className = index === 0 ? 'context-primary' : 'context-secondary';
+            return `<p class="${className}">${p}</p>`;
+        }).join('');
     }
     
     calculateFontSize(text) {

@@ -4,32 +4,32 @@
     "title": "You can always feel product/market fit when it's happening",
     "author": "Marc Andreessen",
     "type": "quote",
-    "quote_text": "And you can always feel product/market fit when it\u2019s happening. The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You\u2019re hiring sales and customer support staff as fast as you can. Reporters are calling because they\u2019ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck\u2019s",
-    "style_name": "kline-gestural",
+    "quote_text": "",
+    "style_name": "turner-atmospheric",
     "style_category": "painting_technique",
     "style_data": {
-      "description": "Franz Kline's bold gestural abstraction with confident black brushstrokes",
-      "base_prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+      "description": "J.M.W. Turner's luminous atmospheric technique where light dissolves form",
+      "base_prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
       "key_techniques": [
-        "bold black brushstrokes",
-        "gestural movement capture",
-        "high contrast composition",
-        "minimal color emphasis"
+        "luminous atmospheric effects",
+        "soft focus rendering",
+        "light dissolving form",
+        "glowing paint passages"
       ],
-      "expression_method": "Raw gestural energy translated into confident brush movements",
-      "composition_flow": "Dynamic movement created through bold stroke direction and rhythm",
-      "abstraction_level": "Pure gesture and movement without representational content"
+      "color_philosophy": "Golden and warm light palette with forms emerging from luminous atmosphere",
+      "brush_approach": "Soft, blended brushwork where edges dissolve into light",
+      "light_focus": "Light as the primary subject with forms secondary to atmospheric effects"
     },
     "vibe": [
       "movement",
       "flow",
       "in-the-zone"
     ],
-    "content_changed": false,
+    "content_changed": true,
     "prompt": {
-      "text": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+      "text": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+        "base": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth",
         "vibe": [
           "movement",
           "flow",
@@ -42,7 +42,12 @@
       "source": "https://pmarchive.com/guide_to_startups_part4.html",
       "status": "active",
       "tags": [],
-      "why_i_like_it": "Timeless pieece.  Describes the mission of investing annd building, and captures the feeling when it's working and when it's not, without listing a metric. I re-read it a couple times a year."
+      "why_i_like_it": "Timeless piece. Describes the mission of investing and building, and captures the feeling when it's working and when it's not, without listing a metric. I re-read it a couple times a year.\n\nKnown irony - personal projects don't have PMF :)"
+    },
+    "formatted_content": {
+      "structured": true,
+      "html": "<p><strong>And you can always feel product/market fit when it's happening.</strong></p><p>The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account.</p><p>You're hiring sales and customer support staff as fast as you can. Reporters are calling because they've heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house.</p>",
+      "plain": "**And you can always feel product/market fit when it's happening.**\n\nThe customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account.\n\nYou're hiring sales and customer support staff as fast as you can. Reporters are calling because they've heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house."
     }
   },
   {
@@ -56,16 +61,16 @@
     "style_data": {},
     "vibe": [
       "clarity",
-      "revelation"
+      "inspiration"
     ],
     "content_changed": false,
     "prompt": {
-      "text": "Capturing the vibe of clarity, revelation. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
       "components": {
         "base": "",
         "vibe": [
           "clarity",
-          "revelation"
+          "inspiration"
         ],
         "format": "square composition, centered focus, 1:1 aspect ratio"
       }
@@ -75,6 +80,11 @@
       "status": "active",
       "tags": [],
       "why_i_like_it": "Masterful clarity, inspiration and motivation. This encapsulates the entire philosophy of great product development - understanding what people actually need and want."
+    },
+    "formatted_content": {
+      "structured": false,
+      "html": "<p>You've gotta start with the customer experience and work backwards to the technology.</p>",
+      "plain": "You've gotta start with the customer experience and work backwards to the technology."
     }
   },
   {
@@ -116,7 +126,12 @@
       "source": "https://paulgraham.com/good.html",
       "status": "active",
       "tags": [],
-      "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this often."
+      "why_i_like_it": "PG's wisdom resonates with me. This is the best single encapsulation of a startup or product mission I have come across. I try to challenge myself with this often.\nKnown irony - this nano banana sandbox is something I wanted to make for myself. :)"
+    },
+    "formatted_content": {
+      "structured": false,
+      "html": "<p>Make something people want.</p>",
+      "plain": "Make something people want."
     }
   }
 ]

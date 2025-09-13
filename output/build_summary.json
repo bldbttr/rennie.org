@@ -3,12 +3,12 @@
   "build_type": "refactored_modular",
   "content_count": 3,
   "images_included": 3,
-  "total_size_mb": 34.65,
+  "total_size_mb": 34.66,
   "content_items": [
     {
       "title": "You can always feel product/market fit when it's happening",
       "author": "Marc Andreessen",
-      "style": "kline-gestural",
+      "style": "turner-atmospheric",
       "has_image": true,
       "brightness": 0.691
     },

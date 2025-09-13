@@ -90,11 +90,52 @@ class ContentParser:
                 # Normalize section names
                 if 'why i like it' in header:
                     sections['why_i_like_it'] = content
+                elif 'content' in header:
+                    sections['content'] = content
                 # Remove what_i_see_in_it handling
                 else:
                     sections[header.replace(' ', '_')] = content
         
         return sections
+    
+    def _parse_content_with_formatting(self, content: str) -> Dict[str, Any]:
+        """Parse content preserving markdown formatting."""
+        
+        # Check for structured format (## Content header)
+        if '## Content' in content:
+            sections = re.split(r'^## ', content, flags=re.MULTILINE)
+            content_section = None
+            
+            for section in sections[1:]:  # Skip first (pre-header content)
+                if section.startswith('Content\n'):
+                    content_section = section[8:].strip()  # Remove "Content\n"
+                    break
+                    
+            if content_section:
+                return {
+                    'structured': True,
+                    'html': self._markdown_to_html(content_section),
+                    'plain': content_section
+                }
+        
+        # Fall back to existing format (content before first ##)
+        main_content = content.split('##')[0].strip()
+        return {
+            'structured': False,
+            'html': self._markdown_to_html(main_content),
+            'plain': main_content
+        }
+
+    def _markdown_to_html(self, text: str) -> str:
+        """Convert basic markdown to HTML."""
+        # Handle bold text
+        text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
+        
+        # Handle paragraphs
+        paragraphs = text.split('\n\n')
+        html_paragraphs = [f'<p>{p.strip()}</p>' for p in paragraphs if p.strip()]
+        
+        return ''.join(html_paragraphs)
     
     def get_stable_style_for_content(self, content_file: str, content_text: str, style_category: str, style_specific: str) -> tuple[str, str, bool]:
         """Get stable style assignment using existing metadata when available.
@@ -219,6 +260,21 @@ class ContentParser:
         content_file = parsed_content['file_path']
         content_text = parsed_content['content']
         
+        # Parse the original markdown content with formatting support
+        with open(content_file, 'r') as f:
+            full_content = f.read()
+        
+        # Extract markdown content after frontmatter
+        if full_content.startswith('---'):
+            parts = full_content.split('---', 2)
+            if len(parts) >= 3:
+                markdown_content = parts[2].strip()
+                formatted_content = self._parse_content_with_formatting(markdown_content)
+            else:
+                formatted_content = None
+        else:
+            formatted_content = None
+        
         # Select and get style using stable assignment system with content change detection
         style_category = frontmatter.get('style_category', 'random')
         style_specific = frontmatter.get('style_specific', 'random')
@@ -250,7 +306,7 @@ class ContentParser:
         full_prompt = ". ".join(prompt_parts)
         
         # Create structured output
-        return {
+        result = {
             'content_file': parsed_content['file_path'],
             'title': frontmatter.get('title'),
             'author': frontmatter.get('author'),
@@ -276,6 +332,12 @@ class ContentParser:
                 'why_i_like_it': parsed_content['why_i_like_it']
             }
         }
+        
+        # Add formatted content if available
+        if formatted_content:
+            result['formatted_content'] = formatted_content
+        
+        return result
     
     def parse_all_content(self) -> List[Dict[str, Any]]:
         """Parse all markdown files in the content directory."""

@@ -305,6 +305,9 @@ class SmoothImageCarousel {
         this.transitionInProgress = true;
         
         const nextImage = this.images[index];
+        console.log(`[DEBUG] Carousel transitioning to index=${index}, image:`, nextImage);
+        console.log(`[DEBUG] nextImage.style:`, nextImage?.style);
+
         const currentLayerIndex = this.activeLayerIndex;
         const nextLayerIndex = 1 - currentLayerIndex;
         
@@ -1145,11 +1148,19 @@ class InspirationApp {
     
     updateStyleInfo(image, index = 0) {
         // Update style information when carousel changes images
+        console.log(`[DEBUG] updateStyleInfo called with index=${index}, image:`, image);
+        console.log(`[DEBUG] image.style:`, image?.style);
+        console.log(`[DEBUG] image.filename:`, image?.filename);
+
         const styleInfo = document.getElementById('content-info');
         if (styleInfo && image && image.style) {
-            styleInfo.textContent = `Style: ${image.style.name || image.style}`;
+            const styleName = image.style.name || image.style;
+            console.log(`[DEBUG] Setting style display to: ${styleName}`);
+            styleInfo.textContent = `Style: ${styleName}`;
             // Store the current image index for modal to use
             styleInfo.dataset.currentImageIndex = index.toString();
+        } else {
+            console.log(`[DEBUG] updateStyleInfo failed - styleInfo:`, !!styleInfo, 'image:', !!image, 'image.style:', !!image?.style);
         }
     }
 

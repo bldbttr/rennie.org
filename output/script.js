@@ -472,6 +472,10 @@ class SmoothImageCarousel {
         this.transitionDuration = options.transitionDuration || 1500; // 1.5 seconds
         this.crossFadeDuration = options.crossFadeDuration || 2000; // 2 seconds for smooth cross-fade
         this.kenBurnsEnabled = options.kenBurnsEnabled !== false; // Default enabled
+
+        // Pause/resume timing state
+        this.pauseTime = null;
+        this.remainingTime = null;
         
         // Callback functions
         this.onImageChange = options.onImageChange || (() => {});
@@ -758,6 +762,9 @@ class SmoothImageCarousel {
         this.transitionInProgress = true;
         
         const nextImage = this.images[index];
+        console.log(`[DEBUG] Carousel transitioning to index=${index}, image:`, nextImage);
+        console.log(`[DEBUG] nextImage.style:`, nextImage?.style);
+
         const currentLayerIndex = this.activeLayerIndex;
         const nextLayerIndex = 1 - currentLayerIndex;
         
@@ -882,20 +889,26 @@ class SmoothImageCarousel {
     }
     
     // Public methods for navigation
-    async next() {
-        const now = Date.now();
-        if (now - this.lastKeyPress < this.keyDebounceTime) return;
-        this.lastKeyPress = now;
-        
+    async next(isAutomatic = false) {
+        // Only apply debouncing for manual keyboard navigation, not automatic transitions
+        if (!isAutomatic) {
+            const now = Date.now();
+            if (now - this.lastKeyPress < this.keyDebounceTime) return;
+            this.lastKeyPress = now;
+        }
+
         const nextIndex = (this.currentIndex + 1) % this.images.length;
         await this.transitionToImage(nextIndex);
     }
-    
-    async previous() {
-        const now = Date.now();
-        if (now - this.lastKeyPress < this.keyDebounceTime) return;
-        this.lastKeyPress = now;
-        
+
+    async previous(isAutomatic = false) {
+        // Only apply debouncing for manual keyboard navigation, not automatic transitions
+        if (!isAutomatic) {
+            const now = Date.now();
+            if (now - this.lastKeyPress < this.keyDebounceTime) return;
+            this.lastKeyPress = now;
+        }
+
         const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
         await this.transitionToImage(prevIndex);
     }
@@ -912,23 +925,32 @@ class SmoothImageCarousel {
         this.scheduleNextTransition();
     }
     
-    scheduleNextTransition() {
+    scheduleNextTransition(duration = null) {
         if (!this.isPlaying || this.isPaused) return;
-        
+
+        // Use provided duration or default to imageDuration
+        const timerDuration = duration || this.imageDuration;
+        this.timerStartTime = Date.now();
+        this.timerDuration = timerDuration;
+
         // Check if next transition would complete the cycle
         const nextIndex = (this.currentIndex + 1) % this.images.length;
         if (nextIndex === 0) {
             // Schedule quote transition instead of another image transition
             this.timer = setTimeout(() => {
+                this.timerStartTime = null;
+                this.timerDuration = null;
                 this.onComplete();
-            }, this.imageDuration);
+            }, timerDuration);
         } else {
             // Schedule normal image transition
             this.timer = setTimeout(() => {
-                this.next().then(() => {
+                this.timerStartTime = null;
+                this.timerDuration = null;
+                this.next(true).then(() => {  // Pass isAutomatic = true for auto-transitions
                     this.scheduleNextTransition();
                 });
-            }, this.imageDuration);
+            }, timerDuration);
         }
     }
     
@@ -937,15 +959,33 @@ class SmoothImageCarousel {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
+
+            // Calculate remaining time if timer was running
+            if (this.timerStartTime && this.timerDuration) {
+                const elapsed = Date.now() - this.timerStartTime;
+                this.remainingTime = Math.max(0, this.timerDuration - elapsed);
+            }
         }
+        this.pauseTime = Date.now();
     }
     
     resume() {
         if (!this.isPaused) return;
         this.isPaused = false;
+
         if (this.isPlaying) {
-            this.scheduleNextTransition();
+            // If we have remaining time from when we paused, use it
+            // Otherwise start a fresh timer
+            if (this.remainingTime !== null && this.remainingTime > 0) {
+                const timeToUse = this.remainingTime;
+                this.remainingTime = null;
+                this.scheduleNextTransition(timeToUse);
+            } else {
+                this.scheduleNextTransition();
+            }
         }
+
+        this.pauseTime = null;
     }
     
     destroy() {
@@ -1081,9 +1121,11 @@ class InspirationApp {
             contentInfo.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const content = JSON.parse(contentInfo.dataset.content || '{}');
-                
-                if (content.images && content.images[0]) {
-                    const image = content.images[0];
+                // Get the current image index from the dataset (default to 0)
+                const currentImageIndex = parseInt(contentInfo.dataset.currentImageIndex || '0', 10);
+
+                if (content.images && content.images[currentImageIndex]) {
+                    const image = content.images[currentImageIndex];
                     const generation = image.generation || {};
                     const style = image.style || {};
                     
@@ -1125,6 +1167,8 @@ class InspirationApp {
                 this.startBreathing();
                 if (this.carousel) {
                     this.carousel.resume();
+                    // Refresh style info to match current carousel state
+                    this.refreshCurrentStyleInfo();
                 }
             });
         }
@@ -1137,6 +1181,8 @@ class InspirationApp {
                     this.startBreathing();
                     if (this.carousel) {
                         this.carousel.resume();
+                        // Refresh style info to match current carousel state
+                        this.refreshCurrentStyleInfo();
                     }
                 }
             });
@@ -1319,7 +1365,7 @@ class InspirationApp {
                 kenBurnsEnabled: true,
                 onImageChange: (index, image) => {
                     // Update style info when image changes
-                    this.updateStyleInfo(image);
+                    this.updateStyleInfo(image, index);
                 },
                 onComplete: () => {
                     // When all images have been shown, move to next quote
@@ -1557,11 +1603,31 @@ class InspirationApp {
         }, interval);
     }
     
-    updateStyleInfo(image) {
+    updateStyleInfo(image, index = 0) {
         // Update style information when carousel changes images
+        console.log(`[DEBUG] updateStyleInfo called with index=${index}, image:`, image);
+        console.log(`[DEBUG] image.style:`, image?.style);
+        console.log(`[DEBUG] image.filename:`, image?.filename);
+
         const styleInfo = document.getElementById('content-info');
         if (styleInfo && image && image.style) {
-            styleInfo.textContent = `Style: ${image.style.name || image.style}`;
+            const styleName = image.style.name || image.style;
+            console.log(`[DEBUG] Setting style display to: ${styleName}`);
+            styleInfo.textContent = `Style: ${styleName}`;
+            // Store the current image index for modal to use
+            styleInfo.dataset.currentImageIndex = index.toString();
+        } else {
+            console.log(`[DEBUG] updateStyleInfo failed - styleInfo:`, !!styleInfo, 'image:', !!image, 'image.style:', !!image?.style);
+        }
+    }
+
+    refreshCurrentStyleInfo() {
+        // Refresh style info to match current carousel state
+        if (this.carousel && this.carousel.images && this.carousel.currentIndex >= 0) {
+            const currentImage = this.carousel.images[this.carousel.currentIndex];
+            if (currentImage) {
+                this.updateStyleInfo(currentImage, this.carousel.currentIndex);
+            }
         }
     }
     

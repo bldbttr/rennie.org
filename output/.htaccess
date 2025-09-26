@@ -1,0 +1,17 @@
+# Cache Control for rennie.org
+# Personal site with occasional content updates
+
+# HTML, CSS, JS - cache for 1 hour (in case of updates)
+<FilesMatch "\.(html|css|js|json)$">
+    Header set Cache-Control "max-age=3600, public"
+</FilesMatch>
+
+# Images - cache for 1 day (balance between performance and updates)
+<FilesMatch "\.(png|jpg|jpeg|gif|svg|webp)$">
+    Header set Cache-Control "max-age=86400, public"
+</FilesMatch>
+
+# Enable compression for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>

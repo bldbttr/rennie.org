@@ -630,9 +630,11 @@ class InspirationApp {
             contentInfo.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const content = JSON.parse(contentInfo.dataset.content || '{}');
-                
-                if (content.images && content.images[0]) {
-                    const image = content.images[0];
+                // Get the current image index from the dataset (default to 0)
+                const currentImageIndex = parseInt(contentInfo.dataset.currentImageIndex || '0', 10);
+
+                if (content.images && content.images[currentImageIndex]) {
+                    const image = content.images[currentImageIndex];
                     const generation = image.generation || {};
                     const style = image.style || {};
                     
@@ -868,7 +870,7 @@ class InspirationApp {
                 kenBurnsEnabled: true,
                 onImageChange: (index, image) => {
                     // Update style info when image changes
-                    this.updateStyleInfo(image);
+                    this.updateStyleInfo(image, index);
                 },
                 onComplete: () => {
                     // When all images have been shown, move to next quote
@@ -1106,11 +1108,13 @@ class InspirationApp {
         }, interval);
     }
     
-    updateStyleInfo(image) {
+    updateStyleInfo(image, index = 0) {
         // Update style information when carousel changes images
         const styleInfo = document.getElementById('content-info');
         if (styleInfo && image && image.style) {
             styleInfo.textContent = `Style: ${image.style.name || image.style}`;
+            // Store the current image index for modal to use
+            styleInfo.dataset.currentImageIndex = index.toString();
         }
     }
     

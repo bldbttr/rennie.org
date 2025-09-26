@@ -116,7 +116,7 @@ Styles are defined in `/content/styles/styles.json`:
 1. **Add new content:** Create markdown file in `/content/inspiration/`
 2. **Generate image:** Run `./bin/generate-new.sh`
 3. **Build site:** Run `python scripts/build_site.py`
-4. **Preview locally:** Open `/output/index.html`
+4. **Preview locally:** Run `./bin/preview-local.sh` (serves on http://localhost:8000 to avoid CORS issues)
 5. **Deploy:** Run `./bin/deploy.sh` or push to trigger GitHub Actions
 
 ## Project Philosophy

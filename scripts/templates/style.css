@@ -120,17 +120,17 @@ body {
 }
 
 .quote-text.formatted-content p:first-child {
-    font-size: 2.0rem;  /* Larger for first paragraph */
+    font-size: 1.4rem;  /* Larger for first paragraph */
     line-height: 1.3;
 }
 
 .quote-text.formatted-content p:nth-child(2) {
-    font-size: 1.6rem;  /* Medium for second paragraph */
+    font-size: 1.2rem;  /* Medium for second paragraph */
     line-height: 1.4;
 }
 
 .quote-text.formatted-content p:nth-child(n+3) {
-    font-size: 1.4rem;  /* Smaller for subsequent paragraphs */
+    font-size: 1.1rem;  /* Smaller for subsequent paragraphs */
     line-height: 1.4;
 }
 
@@ -265,17 +265,17 @@ body {
 }
 
 .mobile-quote-text.formatted-content p:first-child {
-    font-size: 1.6rem;  /* Larger for first paragraph */
+    font-size: 1.2rem;  /* Larger for first paragraph */
     line-height: 1.3;
 }
 
 .mobile-quote-text.formatted-content p:nth-child(2) {
-    font-size: 1.3rem;  /* Medium for second paragraph */
+    font-size: 1.0rem;  /* Medium for second paragraph */
     line-height: 1.4;
 }
 
 .mobile-quote-text.formatted-content p:nth-child(n+3) {
-    font-size: 1.2rem;  /* Smaller for subsequent paragraphs */
+    font-size: 0.95rem;  /* Smaller for subsequent paragraphs */
     line-height: 1.4;
 }
 

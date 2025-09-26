@@ -15,6 +15,10 @@ class SmoothImageCarousel {
         this.transitionDuration = options.transitionDuration || 1500; // 1.5 seconds
         this.crossFadeDuration = options.crossFadeDuration || 2000; // 2 seconds for smooth cross-fade
         this.kenBurnsEnabled = options.kenBurnsEnabled !== false; // Default enabled
+
+        // Pause/resume timing state
+        this.pauseTime = null;
+        this.remainingTime = null;
         
         // Callback functions
         this.onImageChange = options.onImageChange || (() => {});
@@ -461,23 +465,32 @@ class SmoothImageCarousel {
         this.scheduleNextTransition();
     }
     
-    scheduleNextTransition() {
+    scheduleNextTransition(duration = null) {
         if (!this.isPlaying || this.isPaused) return;
-        
+
+        // Use provided duration or default to imageDuration
+        const timerDuration = duration || this.imageDuration;
+        this.timerStartTime = Date.now();
+        this.timerDuration = timerDuration;
+
         // Check if next transition would complete the cycle
         const nextIndex = (this.currentIndex + 1) % this.images.length;
         if (nextIndex === 0) {
             // Schedule quote transition instead of another image transition
             this.timer = setTimeout(() => {
+                this.timerStartTime = null;
+                this.timerDuration = null;
                 this.onComplete();
-            }, this.imageDuration);
+            }, timerDuration);
         } else {
             // Schedule normal image transition
             this.timer = setTimeout(() => {
+                this.timerStartTime = null;
+                this.timerDuration = null;
                 this.next(true).then(() => {  // Pass isAutomatic = true for auto-transitions
                     this.scheduleNextTransition();
                 });
-            }, this.imageDuration);
+            }, timerDuration);
         }
     }
     
@@ -486,15 +499,33 @@ class SmoothImageCarousel {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
+
+            // Calculate remaining time if timer was running
+            if (this.timerStartTime && this.timerDuration) {
+                const elapsed = Date.now() - this.timerStartTime;
+                this.remainingTime = Math.max(0, this.timerDuration - elapsed);
+            }
         }
+        this.pauseTime = Date.now();
     }
     
     resume() {
         if (!this.isPaused) return;
         this.isPaused = false;
+
         if (this.isPlaying) {
-            this.scheduleNextTransition();
+            // If we have remaining time from when we paused, use it
+            // Otherwise start a fresh timer
+            if (this.remainingTime !== null && this.remainingTime > 0) {
+                const timeToUse = this.remainingTime;
+                this.remainingTime = null;
+                this.scheduleNextTransition(timeToUse);
+            } else {
+                this.scheduleNextTransition();
+            }
         }
+
+        this.pauseTime = null;
     }
     
     destroy() {

@@ -425,20 +425,26 @@ class SmoothImageCarousel {
     }
     
     // Public methods for navigation
-    async next() {
-        const now = Date.now();
-        if (now - this.lastKeyPress < this.keyDebounceTime) return;
-        this.lastKeyPress = now;
-        
+    async next(isAutomatic = false) {
+        // Only apply debouncing for manual keyboard navigation, not automatic transitions
+        if (!isAutomatic) {
+            const now = Date.now();
+            if (now - this.lastKeyPress < this.keyDebounceTime) return;
+            this.lastKeyPress = now;
+        }
+
         const nextIndex = (this.currentIndex + 1) % this.images.length;
         await this.transitionToImage(nextIndex);
     }
-    
-    async previous() {
-        const now = Date.now();
-        if (now - this.lastKeyPress < this.keyDebounceTime) return;
-        this.lastKeyPress = now;
-        
+
+    async previous(isAutomatic = false) {
+        // Only apply debouncing for manual keyboard navigation, not automatic transitions
+        if (!isAutomatic) {
+            const now = Date.now();
+            if (now - this.lastKeyPress < this.keyDebounceTime) return;
+            this.lastKeyPress = now;
+        }
+
         const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
         await this.transitionToImage(prevIndex);
     }
@@ -468,7 +474,7 @@ class SmoothImageCarousel {
         } else {
             // Schedule normal image transition
             this.timer = setTimeout(() => {
-                this.next().then(() => {
+                this.next(true).then(() => {  // Pass isAutomatic = true for auto-transitions
                     this.scheduleNextTransition();
                 });
             }, this.imageDuration);

@@ -3,7 +3,7 @@
     "title": "You can always feel product/market fit when it's happening",
     "author": "Marc Andreessen",
     "type": "quote",
-    "quote_text": "",
+    "quote_text": "And you can always feel product/market fit when it\u2019s happening. The customers are buying the product just as fast as you can make it\u2014or usage is growing just as fast as you can add more servers. Money from customers is piling up in your company checking account. You\u2019re hiring sales and customer support staff as fast as you can. Reporters are calling because they\u2019ve heard about your hot new thing and they want to talk to you about it. You start getting entrepreneur of the year awards from Harvard Business School. Investment bankers are staking out your house. You could eat free for a year at Buck\u2019s",
     "source_file": "content/inspiration/pmarca-pmf.md"
   },
   "style": {
@@ -14,18 +14,18 @@
     }
   },
   "generation": {
-    "timestamp": "2025-09-26T11:39:03.734074",
+    "timestamp": "2025-09-09T16:55:13.300685",
     "model": "gemini-2.5-flash-image-preview",
     "model_display": "Nano Banana (Gemini 2.5 Flash Image)",
     "prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
     "prompt_length": 385,
     "dimensions": "1024x1024",
     "cost": 0.039,
-    "image_filename": "pmarca-pmf_v2.png",
-    "image_path": "generated/images/pmarca-pmf_v2.png",
+    "image_filename": "pmarca-pmf_v1.png",
+    "image_path": "generated/images/pmarca-pmf_v1.png",
     "attempts": 1,
     "success": true,
-    "response_parts": 1,
+    "response_parts": 2,
     "image_parts": 1,
     "full_prompt": "Create a 1024x1024 abstract artwork: Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
     "image_size": "1024x1024"

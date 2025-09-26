@@ -52,7 +52,8 @@
       "WebFetch(domain:localhost)",
       "Bash(sed:*)",
       "WebFetch(domain:stackoverflow.com)",
-      "WebFetch(domain:www.kirupa.com)"
+      "WebFetch(domain:www.kirupa.com)",
+      "Bash(kill:*)"
     ],
     "deny": [],
     "ask": []

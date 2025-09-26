@@ -5,20 +5,20 @@
     "author": "Marc Andreessen",
     "type": "quote",
     "quote_text": "",
-    "style_name": "rothko-color-field",
+    "style_name": "monet-impressionist",
     "style_category": "painting_technique",
     "style_data": {
-      "description": "Mark Rothko's transcendent color field approach with luminous color relationships",
-      "base_prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+      "description": "Claude Monet's broken brushwork technique capturing fleeting light effects",
+      "base_prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
       "key_techniques": [
-        "luminous color fields",
-        "breathing color transitions",
-        "soft edge boundaries",
-        "contemplative minimal composition"
+        "broken visible brushstrokes",
+        "optical color interaction",
+        "atmospheric light capture",
+        "temporal moment specificity"
       ],
-      "meditative_quality": "Colors that invite deep contemplation and emotional opening",
-      "transcendent_approach": "Visual experience designed to go beyond everyday perception",
-      "color_breathing": "Colors that appear alive and subtly changing even in stillness"
+      "color_philosophy": "Colors that interact optically to create new emotional temperatures and atmospheric effects",
+      "brush_approach": "Quick confident strokes that capture essence and light rather than precise form",
+      "light_focus": "Fleeting effects of light and atmosphere as primary subject matter"
     },
     "vibe": [
       "movement",
@@ -27,9 +27,9 @@
     ],
     "content_changed": true,
     "prompt": {
-      "text": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+      "text": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
       "components": {
-        "base": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
+        "base": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",
         "vibe": [
           "movement",
           "flow",
@@ -85,6 +85,57 @@
       "structured": false,
       "html": "<p>You've gotta start with the customer experience and work backwards to the technology.</p>",
       "plain": "You've gotta start with the customer experience and work backwards to the technology."
+    }
+  },
+  {
+    "content_file": "content/inspiration/thirdchair.md",
+    "title": "Then I turned and noticed, behind me\u2014a third chair.",
+    "author": "Henrik Karlsson",
+    "type": "quote",
+    "quote_text": "**Then I turned and noticed, behind me\u2014a third chair..**",
+    "style_name": "kline-gestural",
+    "style_category": "painting_technique",
+    "style_data": {
+      "description": "Franz Kline's bold gestural abstraction with confident black brushstrokes",
+      "base_prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+      "key_techniques": [
+        "bold black brushstrokes",
+        "gestural movement capture",
+        "high contrast composition",
+        "minimal color emphasis"
+      ],
+      "expression_method": "Raw gestural energy translated into confident brush movements",
+      "composition_flow": "Dynamic movement created through bold stroke direction and rhythm",
+      "abstraction_level": "Pure gesture and movement without representational content"
+    },
+    "vibe": [
+      "gratitude",
+      "doubt",
+      "willingness to persevere"
+    ],
+    "content_changed": false,
+    "prompt": {
+      "text": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
+      "components": {
+        "base": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
+        "vibe": [
+          "gratitude",
+          "doubt",
+          "willingness to persevere"
+        ],
+        "format": "square composition, centered focus, 1:1 aspect ratio"
+      }
+    },
+    "metadata": {
+      "source": "https://www.henrikkarlsson.xyz/p/third-chair",
+      "status": "active",
+      "tags": [],
+      "why_i_like_it": "Wow, what a powerful short story.  Imagine being in each chair, what does that do in your mind?"
+    },
+    "formatted_content": {
+      "structured": false,
+      "html": "<p><strong>Then I turned and noticed, behind me\u2014a third chair..</strong></p>",
+      "plain": "**Then I turned and noticed, behind me\u2014a third chair..**"
     }
   },
   {

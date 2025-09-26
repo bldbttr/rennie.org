@@ -1,0 +1,33 @@
+{
+  "content": {
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "source_file": "content/inspiration/paul-graham-make-something.md"
+  },
+  "style": {
+    "name": "kline-gestural",
+    "approach": "painting_technique",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-09T16:56:12.173175",
+    "model": "gemini-2.5-flash-image-preview",
+    "model_display": "Nano Banana (Gemini 2.5 Flash Image)",
+    "prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 372,
+    "dimensions": "1024x1024",
+    "cost": 0.039,
+    "image_filename": "paul-graham-make-something_v2.png",
+    "image_path": "generated/images/paul-graham-make-something_v2.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 1,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

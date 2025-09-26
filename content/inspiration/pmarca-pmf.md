@@ -18,5 +18,3 @@ You're hiring sales and customer support staff as fast as you can. Reporters are
 
 ## Why I Like It
 Timeless piece. Describes the mission of investing and building, and captures the feeling when it's working and when it's not, without listing a metric. I re-read it a couple times a year.
-
-Known irony - personal projects don't have PMF :)

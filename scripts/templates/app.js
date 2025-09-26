@@ -707,6 +707,8 @@ class InspirationApp {
                 this.startBreathing();
                 if (this.carousel) {
                     this.carousel.resume();
+                    // Refresh style info to match current carousel state
+                    this.refreshCurrentStyleInfo();
                 }
             });
         }
@@ -719,6 +721,8 @@ class InspirationApp {
                     this.startBreathing();
                     if (this.carousel) {
                         this.carousel.resume();
+                        // Refresh style info to match current carousel state
+                        this.refreshCurrentStyleInfo();
                     }
                 }
             });
@@ -1146,6 +1150,16 @@ class InspirationApp {
             styleInfo.textContent = `Style: ${image.style.name || image.style}`;
             // Store the current image index for modal to use
             styleInfo.dataset.currentImageIndex = index.toString();
+        }
+    }
+
+    refreshCurrentStyleInfo() {
+        // Refresh style info to match current carousel state
+        if (this.carousel && this.carousel.images && this.carousel.currentIndex >= 0) {
+            const currentImage = this.carousel.images[this.carousel.currentIndex];
+            if (currentImage) {
+                this.updateStyleInfo(currentImage, this.carousel.currentIndex);
+            }
         }
     }
     

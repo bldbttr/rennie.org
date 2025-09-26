@@ -868,3 +868,43 @@ Enhanced the carousel system to eliminate jarring visual snaps during Ken Burns 
 - Maintained intuitive navigation while enhancing visual continuity
 
 This enhancement elevates the carousel from functional to truly professional-grade, providing the smooth, gallery-like experience users expect from modern web applications.
+
+---
+
+## State Management & Synchronization (September 26, 2025)
+
+### Final State Machine Implementation ✅
+
+The carousel properly implements a state machine with `currentIndex` as the single source of truth:
+
+```
+State Flow: 0 → 1 → 2 → (new quote) → 0 → 1 → 2 → ...
+
+Synchronized Elements:
+- image[currentIndex]     - Currently displayed image
+- style[currentIndex]     - Style name in footer
+- dot[currentIndex]       - Active carousel indicator
+- modal[currentIndex]     - Style details in modal
+```
+
+### Complete Synchronization Coverage
+
+All state changes flow through proper synchronization mechanisms:
+
+1. ✅ **Initial load** → `onImageChange(0, firstImage)`
+2. ✅ **Timed image transitions** → `onImageChange(index, nextImage)`
+3. ✅ **Coming out of modal** → `refreshCurrentStyleInfo()`
+4. ✅ **Manual dot clicks** → `goToIndex() → transitionToImage() → onImageChange()`
+5. ✅ **Mobile swipes** → `next()/previous() → transitionToImage() → onImageChange()`
+6. ✅ **New inspiration transitions** → New carousel → `showInitialImage() → onImageChange()`
+
+### Critical Bug Fixes Applied
+
+**September 26, 2025 Session:**
+- **Carousel Dot Advancement**: Fixed 1-1-2 pattern by separating automatic from manual navigation debouncing
+- **Style Modal Data**: Fixed modal showing wrong image data by tracking currentImageIndex
+- **Font Size Scaling**: Reduced oversized fonts for multi-paragraph formatted content
+- **Pause/Resume Timing**: Fixed state desync by preserving elapsed time across modal interactions
+- **Modal Resume Sync**: Added `refreshCurrentStyleInfo()` to ensure UI matches carousel state
+
+All UI elements now consistently derive their state from `currentIndex`, ensuring perfect synchronization across all user interactions and automatic transitions.

@@ -147,10 +147,81 @@ console.log(`[DEBUG] nextImage.style:`, nextImage?.style);
 
 - ✅ **Frontend synchronization**: All carousel state issues resolved
 - ✅ **Data pipeline**: Image generation and metadata coupling working
-- 🚨 **Deployment mismatch**: Local/production serving different images
-- ⏸️ **Investigation paused**: Context limit reached
+- ✅ **Deployment mismatch**: **RESOLVED** - Cache configuration issue fixed
+- ✅ **Investigation complete**: Root cause identified and corrected
 
-**Next session should focus on deployment pipeline and production image serving path.**
+## RESOLUTION (Session 2 - 2025-09-26)
+
+### Final Root Cause: Browser/CDN Caching Issue ✅
+
+The issue was **NOT** a deployment problem but a **caching configuration issue**:
+
+**Problem**:
+- DreamHost hosting set aggressive 30-day cache headers (`max-age=2592000`)
+- Users with cached content saw old images while metadata showed new styles
+- Fresh browsers (Safari) showed correct images, cached browsers (Chrome) showed old images
+
+**Evidence**:
+- ✅ Git commits contained correct images (verified by file size comparison)
+- ✅ Deployment process was working correctly (rsync successful)
+- ✅ Production server was serving correct files (2,493,945 bytes = Spider-Verse, not 1,769,027 bytes = Ghibli)
+- ❌ Browser cache was serving stale content due to 30-day TTL
+
+**Solution Implemented**:
+1. **Added `.htaccess` file** to `/output/` directory
+2. **Reduced image cache time** from 30 days to 1 day (`max-age=86400`)
+3. **Set appropriate cache for code** (1 hour for HTML/CSS/JS)
+4. **Enabled compression** for better performance
+
+**Cache Settings**:
+```apache
+# Images - cache for 1 day (balance between performance and updates)
+<FilesMatch "\.(png|jpg|jpeg|gif|svg|webp)$">
+    Header set Cache-Control "max-age=86400, public"
+</FilesMatch>
+
+# HTML, CSS, JS - cache for 1 hour (in case of updates)
+<FilesMatch "\.(html|css|js|json)$">
+    Header set Cache-Control "max-age=3600, public"
+</FilesMatch>
+```
+
+**Verification**:
+```bash
+# Before: cache-control: max-age=2592000 (30 days)
+# After:  cache-control: max-age=86400, public (1 day)
+curl -sI "https://rennie.org/images/paul-graham-make-something_v3.png"
+```
+
+### Lessons Learned
+
+1. **Image-style mismatches can have multiple causes**:
+   - Frontend synchronization bugs ❌
+   - Deployment/rsync issues ❌
+   - **Browser/CDN caching issues** ✅
+
+2. **Debugging process**:
+   - Always verify file integrity at each step (local → git → deployment → production)
+   - Check HTTP headers for cache configuration
+   - Test with fresh browser sessions to isolate caching
+
+3. **Cache configuration for personal sites**:
+   - 30-day cache too aggressive for sites with active development
+   - 1-day image cache provides good balance
+   - 1-hour code cache allows quick updates
+
+4. **Simple solutions work best**:
+   - `.htaccess` file simpler than image versioning
+   - Appropriate for low-traffic personal sites
+   - No code changes required in application
+
+### Prevention Strategy
+
+**For future deployments**:
+- ✅ Cache configuration is now appropriate for development pace
+- ✅ New images will be visible within 1 day (vs 30 days)
+- ✅ Force refresh (Cmd+Shift+R) still works for immediate testing
+- ✅ Performance maintained with reasonable cache times
 
 ---
 

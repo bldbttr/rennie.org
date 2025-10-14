@@ -37,6 +37,17 @@ if (!file_exists($htaccessPath)) {
     file_put_contents($htaccessPath, "Deny from all\n");
 }
 
+// Auto-cleanup: Delete logs older than 90 days (runs on 1% of requests)
+if (rand(1, 100) === 1) {
+    $cutoffTime = time() - (90 * 24 * 60 * 60); // 90 days ago
+    $files = glob($logsDir . '/perf_*.jsonl');
+    foreach ($files as $file) {
+        if (filemtime($file) < $cutoffTime) {
+            unlink($file);
+        }
+    }
+}
+
 // Get the log data
 $rawInput = file_get_contents('php://input');
 $data = json_decode($rawInput, true);
@@ -60,6 +71,14 @@ $data['clientIP'] = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 
 // Determine log file path (one file per day)
 $logFile = $logsDir . '/perf_' . date('Y-m-d') . '.jsonl';
+
+// Check file size limit (10MB per day to prevent abuse)
+$maxFileSize = 10 * 1024 * 1024; // 10MB
+if (file_exists($logFile) && filesize($logFile) >= $maxFileSize) {
+    http_response_code(507); // Insufficient Storage
+    echo json_encode(['error' => 'Daily log file size limit reached']);
+    exit;
+}
 
 // Append log entry in JSONL format (one JSON object per line)
 $success = file_put_contents($logFile, json_encode($data) . "\n", FILE_APPEND | LOCK_EX);

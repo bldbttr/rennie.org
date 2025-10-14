@@ -190,12 +190,39 @@ Or just server logging:
 this.serverLoggingEnabled = false;  // localStorage only
 ```
 
+## Log Management & Cleanup
+
+### Automatic Cleanup
+The PHP endpoint automatically deletes logs older than 90 days:
+- Runs on 1% of requests (low overhead)
+- No manual intervention needed
+- Keeps storage under 6MB
+
+### Daily File Size Limit
+Each day's log file has a 10MB limit:
+- Prevents abuse or runaway logging
+- Returns HTTP 507 if limit reached
+- Typical usage: ~67KB/day (149x under limit)
+
+### Manual Cleanup
+If needed, you can manually clean up logs:
+```bash
+# Preview what would be deleted (safe)
+python scripts/cleanup_old_logs.py --dry-run
+
+# Delete logs older than 90 days
+python scripts/cleanup_old_logs.py
+
+# Delete logs older than 30 days
+python scripts/cleanup_old_logs.py --days 30
+```
+
 ## Privacy & Data
 
 - **Session IDs**: Randomly generated, stored in sessionStorage (cleared on browser close)
 - **IP addresses**: Logged server-side for debugging, not shared
 - **Personal data**: None collected - only timing and performance metrics
-- **Retention**: Manual - delete log files as needed
+- **Retention**: Auto-deleted after 90 days, max 10MB per day
 
 ## File Locations
 

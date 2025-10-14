@@ -41,3 +41,4 @@ nano-banana-test/
 # Keep bin/ directory but ignore temporary files in it
 bin/*.tmp
 bin/*.log
+logs/

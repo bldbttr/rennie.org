@@ -32,15 +32,25 @@ class LogAnalyzer:
             date = datetime.now().strftime('%Y-%m-%d')
 
         log_filename = f"perf_{date}.jsonl"
-        remote_path = f"rennieorg@rennie.org:~/rennie.org/logs/{log_filename}"
+
+        # DreamHost connection details (matching deploy.yml)
+        ssh_key = Path.home() / '.ssh' / 'id_ed25519_dreamhost'
+        remote_host = 'rennie@iad1-shared-e1-05.dreamhost.com'
+        remote_path = f'{remote_host}:~/rennie.org/logs/{log_filename}'
         local_path = self.logs_dir / log_filename
 
         print(f"📥 Downloading logs for {date}...")
 
         try:
-            # Try using scp (adjust hostname/path as needed)
+            # Check if SSH key exists
+            if not ssh_key.exists():
+                print(f"❌ SSH key not found: {ssh_key}")
+                print("   Please configure SSH access to DreamHost")
+                return None
+
+            # Try using scp with SSH key
             result = subprocess.run(
-                ['scp', remote_path, str(local_path)],
+                ['scp', '-i', str(ssh_key), remote_path, str(local_path)],
                 capture_output=True,
                 text=True
             )
@@ -53,9 +63,9 @@ class LogAnalyzer:
                 return None
 
         except FileNotFoundError:
-            print("❌ scp not found. Please configure server access.")
-            print("   You can also manually download logs from:")
-            print(f"   https://rennie.org/logs/{log_filename}")
+            print("❌ scp not found. Please install SSH tools.")
+            print("   You can also manually download logs:")
+            print(f"   scp -i {ssh_key} {remote_path} {local_path}")
             return None
 
     def load_logs(self, log_file: Path) -> List[Dict[str, Any]]:

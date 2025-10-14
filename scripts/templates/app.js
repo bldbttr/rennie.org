@@ -1328,8 +1328,10 @@ class InspirationApp {
         // Update style info
         if (contentInfo) {
             const style = content.style_name || 'unknown';
-            contentInfo.textContent = `Style: ${style}`;
-            
+            // On mobile, show just the style name; on desktop, show "Style: name"
+            const isMobile = window.innerWidth <= 768;
+            contentInfo.textContent = isMobile ? style : `Style: ${style}`;
+
             // Store current content metadata for modal
             contentInfo.dataset.content = JSON.stringify(content);
         }
@@ -1527,7 +1529,9 @@ class InspirationApp {
         if (styleInfo && image && image.style) {
             const styleName = image.style.name || image.style;
             console.log(`[DEBUG] Setting style display to: ${styleName}`);
-            styleInfo.textContent = `Style: ${styleName}`;
+            // On mobile, show just the style name; on desktop, show "Style: name"
+            const isMobile = window.innerWidth <= 768;
+            styleInfo.textContent = isMobile ? styleName : `Style: ${styleName}`;
             // Store the current image index for modal to use
             styleInfo.dataset.currentImageIndex = index.toString();
         } else {

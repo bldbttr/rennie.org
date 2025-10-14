@@ -350,13 +350,14 @@ body {
 .source-link {
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 1rem;
+    opacity: 1;
     transition: opacity 0.2s ease;
 }
 
 .source-link:hover {
     opacity: 1;
+    text-decoration: underline;
 }
 
 .separator {
@@ -687,28 +688,49 @@ body {
     .desktop-layout {
         display: none;
     }
-    
+
     .mobile-layout {
         display: flex;
     }
-    
+
     .controls-hint {
         top: 1rem;
         right: 1rem;
         font-size: 0.8rem;
         padding: 0.6rem 1rem;
     }
-    
+
     .footer-bar {
         padding: 0.6rem 1rem;
     }
-    
+
     .footer-content {
         font-size: 0.8rem;
+        flex-wrap: wrap;
+        gap: 0.5rem 0;
     }
-    
+
     .footer-left {
         gap: 0.6rem;
+        flex: 1;
+        order: 1;
+        min-width: 0;
+    }
+
+    .footer-right {
+        flex: 1;
+        order: 2;
+        min-width: 0;
+        justify-content: flex-end;
+    }
+
+    .footer-center {
+        position: static;
+        transform: none;
+        flex: 1 1 100%;
+        order: 3;
+        justify-content: center;
+        font-size: 0.75rem;
     }
 }
 

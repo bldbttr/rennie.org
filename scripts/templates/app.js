@@ -351,7 +351,7 @@ class SmoothImageCarousel {
                 if (!layer) {
                     layer = document.createElement('img');
                     layer.className = `carousel-image-layer layer-${i}`;
-                    layer.alt = 'AI-generated inspiration artwork';
+                    layer.alt = 'Inspirational artwork';
                     stack.appendChild(layer);
                 }
                 this.desktopLayers[i] = layer;
@@ -383,7 +383,7 @@ class SmoothImageCarousel {
                 if (!layer) {
                     layer = document.createElement('img');
                     layer.className = `carousel-image-layer mobile-layer-${i}`;
-                    layer.alt = 'AI-generated inspiration artwork';
+                    layer.alt = 'Inspirational artwork';
                     mobileStack.appendChild(layer);
                 }
                 this.mobileLayers[i] = layer;
@@ -500,10 +500,23 @@ class SmoothImageCarousel {
             this.imagePanel?.querySelector('.carousel-image-stack'),
             this.mobileImageSection?.querySelector('.carousel-image-stack-mobile')
         ].filter(el => el);
-        
+
         stacks.forEach(element => {
             if (!element) return;
-            
+
+            // Pause on hover (desktop)
+            element.addEventListener('mouseenter', () => {
+                if (this.isPlaying && !this.isPaused) {
+                    this.pause();
+                }
+            });
+
+            element.addEventListener('mouseleave', () => {
+                if (this.isPaused) {
+                    this.resume();
+                }
+            });
+
             // Touch start
             element.addEventListener('touchstart', (e) => {
                 const touch = e.touches[0];
@@ -607,12 +620,18 @@ class SmoothImageCarousel {
         // Set up next layers with new image
         if (nextDesktopLayer) {
             nextDesktopLayer.src = nextImage.path;
+            // Update alt text with descriptive content
+            const styleName = nextImage.style?.name || 'artistic';
+            nextDesktopLayer.alt = `Artwork in ${styleName} style`;
             // Apply Ken Burns to next layer while it's still invisible
             this.applyKenBurnsToLayer(nextDesktopLayer);
         }
 
         if (nextMobileLayer) {
             nextMobileLayer.src = nextImage.path;
+            // Update alt text with descriptive content
+            const styleName = nextImage.style?.name || 'artistic';
+            nextMobileLayer.alt = `Artwork in ${styleName} style`;
             this.applyKenBurnsToLayer(nextMobileLayer);
         }
 
@@ -1040,6 +1059,19 @@ class InspirationApp {
                 }
             });
         }
+
+        // Escape key closes modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+                modal.classList.add('hidden');
+                // Resume breathing and carousel when modal is closed
+                this.startBreathing();
+                if (this.carousel) {
+                    this.carousel.resume();
+                    this.refreshCurrentStyleInfo();
+                }
+            }
+        });
     }
     
     hideLoading() {

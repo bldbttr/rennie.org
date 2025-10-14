@@ -1,4 +1,240 @@
 /**
+ * Performance Logger for tracking timing and debugging load issues
+ *
+ * USAGE FROM BROWSER CONSOLE:
+ *
+ * View statistics:
+ *   perfLogger.getStats()
+ *
+ * Export logs to JSON file:
+ *   perfLogger.exportLogs()
+ *
+ * View raw events:
+ *   perfLogger.events
+ *
+ * Clear logs:
+ *   localStorage.removeItem('perf_log')
+ *
+ * Disable logging:
+ *   perfLogger.enabled = false
+ */
+class PerformanceLogger {
+    constructor() {
+        this.sessionId = this.getOrCreateSessionId();
+        this.events = [];
+        this.startTime = performance.now();
+        this.enabled = true; // Set to false to disable logging
+
+        // Server logging configuration
+        this.serverLoggingEnabled = true; // Set to false for localStorage only
+        this.logEndpoint = window.location.hostname === 'localhost'
+            ? 'http://localhost:8000/log.php'  // Local testing
+            : 'https://rennie.org/log.php';     // Production
+        this.batchSize = 5; // Send logs in batches
+        this.batchBuffer = [];
+        this.batchTimeout = null;
+        this.batchDelay = 2000; // Send batch after 2 seconds of inactivity
+
+        // Log initial page load metrics
+        this.logPageLoadMetrics();
+
+        // Flush logs on page unload
+        this.setupUnloadHandler();
+    }
+
+    getOrCreateSessionId() {
+        let sessionId = sessionStorage.getItem('perf_session_id');
+        if (!sessionId) {
+            sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            sessionStorage.setItem('perf_session_id', sessionId);
+        }
+        return sessionId;
+    }
+
+    detectCacheStatus() {
+        // Check if this is likely a cached vs fresh load
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData && perfData.transferSize !== undefined) {
+            // transferSize of 0 typically means cached
+            return perfData.transferSize === 0 ? 'cached' : 'network';
+        }
+        return 'unknown';
+    }
+
+    logPageLoadMetrics() {
+        if (!this.enabled) return;
+
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData) {
+            this.log('page_load_metrics', {
+                dns: Math.round(perfData.domainLookupEnd - perfData.domainLookupStart),
+                tcp: Math.round(perfData.connectEnd - perfData.connectStart),
+                request: Math.round(perfData.responseStart - perfData.requestStart),
+                response: Math.round(perfData.responseEnd - perfData.responseStart),
+                domLoad: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart),
+                totalLoad: Math.round(perfData.loadEventEnd - perfData.fetchStart),
+                transferSize: perfData.transferSize
+            });
+        }
+    }
+
+    log(eventName, metadata = {}) {
+        if (!this.enabled) return;
+
+        const now = performance.now();
+        const event = {
+            sessionId: this.sessionId,
+            timestamp: new Date().toISOString(),
+            relativeTime: Math.round(now - this.startTime),
+            event: eventName,
+            cacheStatus: this.detectCacheStatus(),
+            ...metadata
+        };
+
+        this.events.push(event);
+
+        // Console output with color coding
+        const color = this.getEventColor(eventName);
+        console.log(`%c[PERF ${event.relativeTime}ms] ${eventName}`, `color: ${color}; font-weight: bold`, metadata);
+
+        // Persist to localStorage (keep last 100 events)
+        this.persist(event);
+    }
+
+    getEventColor(eventName) {
+        if (eventName.includes('_start')) return '#3498db';
+        if (eventName.includes('_complete') || eventName.includes('_loaded')) return '#2ecc71';
+        if (eventName.includes('_error') || eventName.includes('_failed')) return '#e74c3c';
+        if (eventName.includes('transition') || eventName.includes('fade')) return '#9b59b6';
+        return '#95a5a6';
+    }
+
+    persist(event) {
+        try {
+            // Save to localStorage as backup
+            const storageKey = 'perf_log';
+            let logs = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            logs.push(event);
+
+            // Keep only last 100 events to avoid storage bloat
+            if (logs.length > 100) {
+                logs = logs.slice(-100);
+            }
+
+            localStorage.setItem(storageKey, JSON.stringify(logs));
+
+            // Send to server if enabled
+            if (this.serverLoggingEnabled) {
+                this.sendToServer(event);
+            }
+        } catch (e) {
+            console.warn('Failed to persist performance log:', e);
+        }
+    }
+
+    sendToServer(event) {
+        // Add to batch buffer
+        this.batchBuffer.push(event);
+
+        // Clear existing timeout
+        if (this.batchTimeout) {
+            clearTimeout(this.batchTimeout);
+        }
+
+        // Send immediately if batch is full
+        if (this.batchBuffer.length >= this.batchSize) {
+            this.flushBatch();
+        } else {
+            // Otherwise, schedule a flush after delay
+            this.batchTimeout = setTimeout(() => {
+                this.flushBatch();
+            }, this.batchDelay);
+        }
+    }
+
+    flushBatch() {
+        if (this.batchBuffer.length === 0) return;
+
+        const batch = [...this.batchBuffer];
+        this.batchBuffer = [];
+
+        // Send each event individually (simpler server-side processing)
+        batch.forEach(event => {
+            fetch(this.logEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(event),
+                keepalive: true // Ensures logs send even if user navigates away
+            }).catch(err => {
+                // Silently fail - logs are already in localStorage as backup
+                if (this.enabled) {
+                    console.warn('Failed to send log to server:', err);
+                }
+            });
+        });
+    }
+
+    setupUnloadHandler() {
+        // Flush any remaining logs when page unloads
+        window.addEventListener('beforeunload', () => {
+            this.flushBatch();
+        });
+
+        // Also flush on visibility change (mobile/tab switches)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.flushBatch();
+            }
+        });
+    }
+
+    getStats() {
+        // Analyze timing statistics
+        const imageLoads = this.events.filter(e => e.event === 'image_loaded');
+        const transitions = this.events.filter(e => e.event.includes('transition'));
+
+        return {
+            totalEvents: this.events.length,
+            sessionId: this.sessionId,
+            sessionDuration: Math.round(performance.now() - this.startTime),
+            imageLoads: {
+                count: imageLoads.length,
+                avgDuration: imageLoads.length > 0
+                    ? Math.round(imageLoads.reduce((sum, e) => sum + (e.duration || 0), 0) / imageLoads.length)
+                    : 0,
+                slowest: imageLoads.length > 0
+                    ? Math.max(...imageLoads.map(e => e.duration || 0))
+                    : 0
+            },
+            transitions: {
+                count: transitions.length
+            },
+            events: this.events
+        };
+    }
+
+    exportLogs() {
+        // Export logs as JSON for analysis
+        const logs = JSON.parse(localStorage.getItem('perf_log') || '[]');
+        const dataStr = JSON.stringify(logs, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `perf_logs_${this.sessionId}.json`;
+        link.click();
+    }
+}
+
+// Global performance logger instance
+const perfLogger = new PerformanceLogger();
+
+// Expose to window for debugging
+window.perfLogger = perfLogger;
+
+/**
  * Smooth Image Carousel for seamless Ken Burns transitions
  */
 class SmoothImageCarousel {
@@ -62,23 +298,28 @@ class SmoothImageCarousel {
         this.init();
     }
     
-    init() {
+    async init() {
+        perfLogger.log('carousel_init_start', { imageCount: this.images.length });
+
         this.setupDualLayers();
-        
+
         if (this.images.length <= 1) {
             this.hideIndicators();
             // Still set up the first image
             if (this.images.length === 1) {
-                this.showInitialImage();
+                await this.showInitialImage();
             }
+            perfLogger.log('carousel_init_complete', { mode: 'single_image' });
             return;
         }
-        
+
         this.createIndicators();
         this.showIndicators();
         this.updateIndicators();
         this.setupTouchHandlers();
-        this.showInitialImage();
+        await this.showInitialImage();
+
+        perfLogger.log('carousel_init_complete', { mode: 'multi_image' });
     }
     
     setupDualLayers() {
@@ -150,36 +391,67 @@ class SmoothImageCarousel {
         }
     }
     
-    showInitialImage() {
+    async showInitialImage() {
         if (this.images.length === 0) return;
-        
+
+        perfLogger.log('carousel_initial_image_start', {
+            imageCount: this.images.length
+        });
+
         const firstImage = this.images[0];
         const activeDesktopLayer = this.desktopLayers[0];
         const activeMobileLayer = this.mobileLayers[0];
-        
+
+        // Wait for first image to load before displaying
+        const loadStart = performance.now();
+        await this.waitForImageLoad(firstImage.path);
+        const loadDuration = Math.round(performance.now() - loadStart);
+
+        perfLogger.log('carousel_initial_image_loaded', {
+            path: firstImage.path,
+            duration: loadDuration
+        });
+
         if (activeDesktopLayer) {
             activeDesktopLayer.src = firstImage.path;
             activeDesktopLayer.classList.add('active');
             this.applyKenBurnsToLayer(activeDesktopLayer);
         }
-        
+
         if (activeMobileLayer) {
             activeMobileLayer.src = firstImage.path;
             activeMobileLayer.classList.add('active');
             this.applyKenBurnsToLayer(activeMobileLayer);
         }
-        
+
         // Ensure currentIndex is set and indicators are updated for initial image
         this.currentIndex = 0;
         this.updateIndicators();
-        
+
         // Preload next image
         if (this.images.length > 1) {
             this.preloadNextImages();
         }
-        
+
         // Notify parent of initial image
         this.onImageChange(0, firstImage);
+
+        perfLogger.log('carousel_initial_image_complete');
+    }
+
+    waitForImageLoad(imagePath) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => {
+                console.warn('Failed to load image:', imagePath);
+                resolve(); // Resolve anyway to avoid blocking
+            };
+            img.src = imagePath;
+
+            // Timeout after 5 seconds to avoid infinite waiting
+            setTimeout(() => resolve(), 5000);
+        });
     }
     
     createIndicators() {
@@ -301,66 +573,81 @@ class SmoothImageCarousel {
     async transitionToImage(index) {
         if (this.transitionInProgress || index === this.currentIndex) return;
         if (index < 0 || index >= this.images.length) return;
-        
+
         this.transitionInProgress = true;
-        
+
         const nextImage = this.images[index];
-        console.log(`[DEBUG] Carousel transitioning to index=${index}, image:`, nextImage);
-        console.log(`[DEBUG] nextImage.style:`, nextImage?.style);
+        perfLogger.log('carousel_transition_start', {
+            fromIndex: this.currentIndex,
+            toIndex: index,
+            imagePath: nextImage.path
+        });
 
         const currentLayerIndex = this.activeLayerIndex;
         const nextLayerIndex = 1 - currentLayerIndex;
-        
+
         const currentDesktopLayer = this.desktopLayers[currentLayerIndex];
         const nextDesktopLayer = this.desktopLayers[nextLayerIndex];
         const currentMobileLayer = this.mobileLayers[currentLayerIndex];
         const nextMobileLayer = this.mobileLayers[nextLayerIndex];
-        
+
         // Preload the next image if not already loaded
+        const preloadStart = performance.now();
         if (!this.preloadedImages.has(nextImage.path)) {
             await this.immediatePreloadImage(nextImage.path, true);
+            const preloadDuration = Math.round(performance.now() - preloadStart);
+            perfLogger.log('carousel_image_preloaded', {
+                path: nextImage.path,
+                duration: preloadDuration
+            });
+        } else {
+            perfLogger.log('carousel_image_cache_hit', { path: nextImage.path });
         }
-        
+
         // Set up next layers with new image
         if (nextDesktopLayer) {
             nextDesktopLayer.src = nextImage.path;
             // Apply Ken Burns to next layer while it's still invisible
             this.applyKenBurnsToLayer(nextDesktopLayer);
         }
-        
+
         if (nextMobileLayer) {
             nextMobileLayer.src = nextImage.path;
             this.applyKenBurnsToLayer(nextMobileLayer);
         }
-        
+
         // Small delay to ensure image is loaded and Ken Burns is applied
         await this.waitForFrame();
-        
+
         // Start cross-fade transition
         requestAnimationFrame(() => {
             // Fade out current layer
             if (currentDesktopLayer) currentDesktopLayer.classList.remove('active');
             if (currentMobileLayer) currentMobileLayer.classList.remove('active');
-            
+
             // Fade in next layer
             if (nextDesktopLayer) nextDesktopLayer.classList.add('active');
             if (nextMobileLayer) nextMobileLayer.classList.add('active');
-            
+
             // Update current index before UI updates so indicators show correct state
             this.currentIndex = index;
-            
+
             // Update UI elements immediately when cross-fade starts
             this.updateIndicators();
             this.onImageChange(index, nextImage);
         });
-        
+
+        perfLogger.log('carousel_fade_started');
+
         // Wait for cross-fade to complete
         await this.waitForTransition(this.crossFadeDuration);
-        
+
         // Update state
         this.activeLayerIndex = nextLayerIndex;
         this.transitionInProgress = false;
-        
+
+        perfLogger.log('carousel_transition_complete', { index });
+
         // Preload next images for smooth navigation
         this.preloadNextImages();
     }
@@ -570,27 +857,50 @@ class InspirationApp {
     
     async init() {
         try {
+            perfLogger.log('app_init_start');
+
             await this.loadContent();
+            perfLogger.log('app_content_loaded', { contentCount: this.contentData.length });
+
             this.setupEventListeners();
-            this.displayCurrentContent();
+            perfLogger.log('app_listeners_setup');
+
+            await this.displayCurrentContent();
+            perfLogger.log('app_initial_content_displayed');
+
             this.startBreathing();
             this.hideLoading();
+
+            perfLogger.log('app_init_complete');
         } catch (error) {
             console.error('Failed to initialize app:', error);
+            perfLogger.log('app_init_error', { error: error.message });
             this.showError('Failed to load inspiration content');
         }
     }
     
     async loadContent() {
+        perfLogger.log('content_fetch_start');
+        const fetchStart = performance.now();
+
         const response = await fetch('content.json');
         if (!response.ok) {
             throw new Error('Failed to load content');
         }
+
+        const fetchDuration = Math.round(performance.now() - fetchStart);
+        perfLogger.log('content_fetch_response', { duration: fetchDuration });
+
         this.contentData = await response.json();
-        
+
         if (!this.contentData || this.contentData.length === 0) {
             throw new Error('No content available');
         }
+
+        perfLogger.log('content_fetch_complete', {
+            duration: Math.round(performance.now() - fetchStart),
+            count: this.contentData.length
+        });
     }
     
     setupEventListeners() {
@@ -761,24 +1071,43 @@ class InspirationApp {
     async displayCurrentContent() {
         if (this.isTransitioning) return;
         this.isTransitioning = true;
-        
+
         const content = this.contentData[this.currentIndex];
-        
+
+        perfLogger.log('quote_transition_start', {
+            index: this.currentIndex,
+            title: content.title,
+            imageCount: content.images?.length || 0
+        });
+
         // Fade out current content
+        perfLogger.log('quote_fade_out_start');
         await this.fadeOut();
-        
+        perfLogger.log('quote_fade_out_complete');
+
         // Update content
         this.updateTextContent(content);
+
+        // Update image content and wait for carousel to initialize
+        perfLogger.log('quote_image_update_start');
         await this.updateImageContent(content);
+        perfLogger.log('quote_image_update_complete');
+
         this.updateFooterContent(content);
-        
+
         // Analyze image and adapt colors
+        perfLogger.log('quote_color_analysis_start');
         await this.adaptColors(content);
-        
+        perfLogger.log('quote_color_analysis_complete');
+
         // Fade in new content
+        perfLogger.log('quote_fade_in_start');
         await this.fadeIn();
-        
+        perfLogger.log('quote_fade_in_complete');
+
         this.isTransitioning = false;
+
+        perfLogger.log('quote_transition_complete', { index: this.currentIndex });
     }
     
     updateTextContent(content) {
@@ -891,13 +1220,13 @@ class InspirationApp {
     async updateImageContent(content) {
         const mainImage = document.getElementById('main-image');
         const mobileImage = document.getElementById('mobile-image');
-        
+
         // Destroy existing carousel
         if (this.carousel) {
             this.carousel.destroy();
             this.carousel = null;
         }
-        
+
         // Check if we have multiple images available for carousel
         if (content.images && content.images.length > 0) {
             // Initialize smooth carousel for better transitions
@@ -915,22 +1244,38 @@ class InspirationApp {
                     this.nextContent();
                 }
             });
-            
+
+            // Wait for carousel initialization (which waits for first image load)
+            await this.carousel.init();
+
             // Start carousel if we have multiple images
             if (content.images.length > 1) {
+                perfLogger.log('carousel_autoplay_start');
                 this.carousel.start();
             }
         } else {
             // Fallback to single image without carousel
             let imagePath = this.getImagePath(content);
-            
+
             try {
+                perfLogger.log('single_image_load_start', { path: imagePath });
+                const loadStart = performance.now();
+
                 // Check if image exists
                 const response = await fetch(imagePath);
                 if (!response.ok) {
                     throw new Error('Image not found');
                 }
-                
+
+                // Wait for image to actually load
+                await this.waitForImageLoad(imagePath);
+                const loadDuration = Math.round(performance.now() - loadStart);
+
+                perfLogger.log('single_image_loaded', {
+                    path: imagePath,
+                    duration: loadDuration
+                });
+
                 // Update image sources
                 if (mainImage) {
                     mainImage.src = imagePath;
@@ -940,15 +1285,32 @@ class InspirationApp {
                     mobileImage.src = imagePath;
                     mobileImage.alt = `AI-generated artwork for "${content.title}" by ${content.author}`;
                 }
-                
+
             } catch (error) {
                 console.warn('Image not found, using placeholder:', imagePath);
+                perfLogger.log('single_image_load_error', { path: imagePath, error: error.message });
+
                 // Use a placeholder or default image
                 const placeholderSrc = this.createPlaceholder(content);
                 if (mainImage) mainImage.src = placeholderSrc;
                 if (mobileImage) mobileImage.src = placeholderSrc;
             }
         }
+    }
+
+    waitForImageLoad(imagePath) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => {
+                console.warn('Failed to load image:', imagePath);
+                resolve(); // Resolve anyway to avoid blocking
+            };
+            img.src = imagePath;
+
+            // Timeout after 5 seconds to avoid infinite waiting
+            setTimeout(() => resolve(), 5000);
+        });
     }
     
     updateFooterContent(content) {
@@ -1016,24 +1378,33 @@ class InspirationApp {
     
     async adaptColors(content) {
         try {
+            const analysisStart = performance.now();
+
             // Get the current image element
             const mainImage = document.getElementById('main-image');
             if (!mainImage) return;
-            
+
             // Analyze image brightness
             const brightness = await this.analyzeImageBrightness(mainImage);
-            
+            const analysisDuration = Math.round(performance.now() - analysisStart);
+
+            perfLogger.log('color_analysis_complete', {
+                brightness: brightness.toFixed(2),
+                duration: analysisDuration
+            });
+
             // Determine color scheme
             const colorScheme = this.getColorScheme(brightness, content);
-            
+
             // Apply colors to CSS variables
             document.documentElement.style.setProperty('--text-color', colorScheme.textColor);
             document.documentElement.style.setProperty('--background-color', colorScheme.backgroundColor);
             document.documentElement.style.setProperty('--accent-color', colorScheme.accentColor);
             document.documentElement.style.setProperty('--overlay-color', colorScheme.overlayColor);
-            
+
         } catch (error) {
             console.warn('Color adaptation failed, using defaults:', error);
+            perfLogger.log('color_analysis_error', { error: error.message });
         }
     }
     

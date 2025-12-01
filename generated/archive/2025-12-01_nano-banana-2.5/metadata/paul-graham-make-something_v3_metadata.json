@@ -1,0 +1,33 @@
+{
+  "content": {
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "source_file": "content/inspiration/paul-graham-make-something.md"
+  },
+  "style": {
+    "name": "spiderverse-dimensional",
+    "approach": "visual_storytelling",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2025-09-26T11:40:27.517803",
+    "model": "gemini-2.5-flash-image-preview",
+    "model_display": "Nano Banana (Gemini 2.5 Flash Image)",
+    "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 391,
+    "dimensions": "1024x1024",
+    "cost": 0.039,
+    "image_filename": "paul-graham-make-something_v3.png",
+    "image_path": "generated/images/paul-graham-make-something_v3.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 2,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

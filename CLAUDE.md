@@ -1,6 +1,6 @@
 # rennie.org - AI-Generated Inspirational Content
 
-Dynamic inspiration platform: AI-generated images for quotes and content using Nano Banana API.
+Dynamic inspiration platform: AI-generated images for quotes and content using Nano Banana Pro API (Gemini 3 Pro Image).
 **Project path:** `/Users/krennie/dev/rennie.org/`
 
 ## Tech Stack
@@ -82,7 +82,27 @@ source ~/dev/.venv/bin/activate
 
 # Legacy: Regenerate all images
 ./bin/regenerate-all.sh
+
+# Regenerate all with archive (preserves old images before overwriting)
+python scripts/generate_images.py --archive-and-regenerate
+
+# Force regenerate all (overwrites without archiving)
+python scripts/generate_images.py --force-all
 ```
+
+## Image Archives
+
+Old images are preserved in `generated/archive/` with timestamped folders:
+```
+generated/archive/
+├── 2025-12-01_nano-banana-2.5/   # Manual archive of pre-upgrade images
+│   ├── images/
+│   └── metadata/
+├── 2025-09-26_11-38/             # Auto-created by --archive-and-regenerate
+└── cleanup_TIMESTAMP/            # Created by cleanup operations
+```
+
+**Best practice:** Use `--archive-and-regenerate` when doing major regenerations (e.g., model upgrades) to preserve the ability to compare or rollback.
 
 ## Content File Format
 
@@ -140,8 +160,9 @@ See `docs/workflow_architecture_analysis.md` and `docs/filename_refactoring_plan
 - ✅ **Project:** Production ready with sophisticated carousel and cinematic features
 - ✅ **Structure:** Complete directory structure and automation
 - ✅ **Scripts:** All Python and bash scripts implemented
-- ✅ **Content:** 3 inspirational pieces with 9 AI-generated artwork variations
+- ✅ **Content:** 5 inspirational pieces with 15 AI-generated artwork variations
 - ✅ **Features:** Full carousel with Ken Burns effects, touch gestures, fade transitions
 - ✅ **Deployment:** Live at https://rennie.org via GitHub Actions
+- ✅ **Model:** Nano Banana Pro (Gemini 3 Pro Image) - upgraded Dec 2024
 
 Focus: Beautiful, inspiring content with minimal complexity. 80% of the value with 40% of the effort.

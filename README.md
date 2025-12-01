@@ -3,7 +3,7 @@
 Personal homepage displaying inspiration with AI-generated artwork.
 
 ## Features
-- AI-generated artwork using Google Gemini 2.5 Flash
+- AI-generated artwork using Google Nano Banana Pro (Gemini 3 Pro Image)
 - Image carousel with Ken Burns cinematic effects
 - Touch gestures and keyboard navigation
 - Multiple image variations per content piece
@@ -14,10 +14,11 @@ Personal homepage displaying inspiration with AI-generated artwork.
 - "Make something people want" - Paul Graham
 - "Product/Market Fit" - Marc Andreessen
 - "Customer Experience" - Steve Jobs
-- "Third Chair" - original content
+- "Third Chair" - Henrik Karlsson
+- "Mental phenomena are preceded by mind" - Dhammapada
 
 ## Tech Stack
-- **Image Generation:** Google Gemini 2.5 Flash
+- **Image Generation:** Google Nano Banana Pro (Gemini 3 Pro Image)
 - **Frontend:** Static HTML/CSS/JavaScript
 - **Backend:** Python scripts for image generation and site building
 - **Content:** Markdown files with YAML frontmatter

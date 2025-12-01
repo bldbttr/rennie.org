@@ -14,13 +14,13 @@
     }
   },
   "generation": {
-    "timestamp": "2025-09-26T11:39:03.734074",
-    "model": "gemini-2.5-flash-image-preview",
-    "model_display": "Nano Banana (Gemini 2.5 Flash Image)",
+    "timestamp": "2025-12-01T13:24:13.982846",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
     "prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
     "prompt_length": 385,
     "dimensions": "1024x1024",
-    "cost": 0.039,
+    "cost": 0.139,
     "image_filename": "pmarca-pmf_v2.png",
     "image_path": "generated/images/pmarca-pmf_v2.png",
     "attempts": 1,

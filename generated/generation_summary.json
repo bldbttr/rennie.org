@@ -1,13 +1,13 @@
 {
-  "timestamp": "2025-09-26T11:40:27.528255",
-  "total_content": 4,
+  "timestamp": "2025-12-01T13:27:48.495126",
+  "total_content": 5,
   "results": [
     {
       "status": "success",
       "filename": "pmarca-pmf_v1.png",
       "path": "generated/images/pmarca-pmf_v1.png",
       "metadata_path": "generated/metadata/pmarca-pmf_v1_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 1
     },
     {
@@ -15,7 +15,7 @@
       "filename": "pmarca-pmf_v2.png",
       "path": "generated/images/pmarca-pmf_v2.png",
       "metadata_path": "generated/metadata/pmarca-pmf_v2_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 2
     },
     {
@@ -23,7 +23,7 @@
       "filename": "pmarca-pmf_v3.png",
       "path": "generated/images/pmarca-pmf_v3.png",
       "metadata_path": "generated/metadata/pmarca-pmf_v3_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 3
     },
     {
@@ -31,7 +31,7 @@
       "filename": "steve-jobs-customer-experience-back-to-technology_v1.png",
       "path": "generated/images/steve-jobs-customer-experience-back-to-technology_v1.png",
       "metadata_path": "generated/metadata/steve-jobs-customer-experience-back-to-technology_v1_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 1
     },
     {
@@ -39,7 +39,7 @@
       "filename": "steve-jobs-customer-experience-back-to-technology_v2.png",
       "path": "generated/images/steve-jobs-customer-experience-back-to-technology_v2.png",
       "metadata_path": "generated/metadata/steve-jobs-customer-experience-back-to-technology_v2_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 2
     },
     {
@@ -47,7 +47,31 @@
       "filename": "steve-jobs-customer-experience-back-to-technology_v3.png",
       "path": "generated/images/steve-jobs-customer-experience-back-to-technology_v3.png",
       "metadata_path": "generated/metadata/steve-jobs-customer-experience-back-to-technology_v3_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
+      "variation": 3
+    },
+    {
+      "status": "success",
+      "filename": "dhammapada-mind_v1.png",
+      "path": "generated/images/dhammapada-mind_v1.png",
+      "metadata_path": "generated/metadata/dhammapada-mind_v1_metadata.json",
+      "cost": 0.139,
+      "variation": 1
+    },
+    {
+      "status": "success",
+      "filename": "dhammapada-mind_v2.png",
+      "path": "generated/images/dhammapada-mind_v2.png",
+      "metadata_path": "generated/metadata/dhammapada-mind_v2_metadata.json",
+      "cost": 0.139,
+      "variation": 2
+    },
+    {
+      "status": "success",
+      "filename": "dhammapada-mind_v3.png",
+      "path": "generated/images/dhammapada-mind_v3.png",
+      "metadata_path": "generated/metadata/dhammapada-mind_v3_metadata.json",
+      "cost": 0.139,
       "variation": 3
     },
     {
@@ -55,7 +79,7 @@
       "filename": "thirdchair_v1.png",
       "path": "generated/images/thirdchair_v1.png",
       "metadata_path": "generated/metadata/thirdchair_v1_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 1
     },
     {
@@ -63,7 +87,7 @@
       "filename": "thirdchair_v2.png",
       "path": "generated/images/thirdchair_v2.png",
       "metadata_path": "generated/metadata/thirdchair_v2_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 2
     },
     {
@@ -71,7 +95,7 @@
       "filename": "thirdchair_v3.png",
       "path": "generated/images/thirdchair_v3.png",
       "metadata_path": "generated/metadata/thirdchair_v3_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 3
     },
     {
@@ -79,7 +103,7 @@
       "filename": "paul-graham-make-something_v1.png",
       "path": "generated/images/paul-graham-make-something_v1.png",
       "metadata_path": "generated/metadata/paul-graham-make-something_v1_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 1
     },
     {
@@ -87,7 +111,7 @@
       "filename": "paul-graham-make-something_v2.png",
       "path": "generated/images/paul-graham-make-something_v2.png",
       "metadata_path": "generated/metadata/paul-graham-make-something_v2_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 2
     },
     {
@@ -95,9 +119,9 @@
       "filename": "paul-graham-make-something_v3.png",
       "path": "generated/images/paul-graham-make-something_v3.png",
       "metadata_path": "generated/metadata/paul-graham-make-something_v3_metadata.json",
-      "cost": 0.039,
+      "cost": 0.139,
       "variation": 3
     }
   ],
-  "total_cost": 0.4679999999999999
+  "total_cost": 2.085
 }

@@ -7,27 +7,27 @@
     "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
   },
   "style": {
-    "name": "kline-gestural",
+    "name": "turner-atmospheric",
     "approach": "painting_technique",
     "variation": {
       "type": "original"
     }
   },
   "generation": {
-    "timestamp": "2025-09-26T11:39:31.361020",
-    "model": "gemini-2.5-flash-image-preview",
-    "model_display": "Nano Banana (Gemini 2.5 Flash Image)",
-    "prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
-    "prompt_length": 378,
+    "timestamp": "2025-12-01T13:25:02.692037",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 373,
     "dimensions": "1024x1024",
-    "cost": 0.039,
+    "cost": 0.139,
     "image_filename": "steve-jobs-customer-experience-back-to-technology_v2.png",
     "image_path": "generated/images/steve-jobs-customer-experience-back-to-technology_v2.png",
     "attempts": 1,
     "success": true,
     "response_parts": 1,
     "image_parts": 1,
-    "full_prompt": "Create a 1024x1024 abstract artwork: Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "full_prompt": "Create a 1024x1024 abstract artwork: J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
     "image_size": "1024x1024"
   }
 }

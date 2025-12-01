@@ -54,7 +54,14 @@
       "WebFetch(domain:stackoverflow.com)",
       "WebFetch(domain:www.kirupa.com)",
       "Bash(kill:*)",
-      "Bash(cmp:*)"
+      "Bash(cmp:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(ssh-keyscan:*)",
+      "Bash(scp:*)",
+      "Bash(ssh:*)",
+      "WebFetch(domain:blog.google)",
+      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py:*)"
     ],
     "deny": [],
     "ask": []

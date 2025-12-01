@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Image Generator for Inspiration Site
-Generates AI artwork using Google's Nano Banana (Gemini 2.5 Flash Image) API.
+Generates AI artwork using Google's Nano Banana Pro (Gemini 3 Pro Image) API.
 """
 
 import json
@@ -28,16 +28,16 @@ def load_config() -> Dict[str, Any]:
         return {
             "image_generation": {
                 "variations_per_content": 3,
-                "cost_per_image": 0.039,
-                "model": "gemini-2.5-flash"
+                "cost_per_image": 0.139,
+                "model": "gemini-3-pro-image-preview"
             }
         }
 
 
 class ImageGenerator:
     # Single source of truth for the model name
-    MODEL_NAME = "gemini-2.5-flash-image-preview"
-    MODEL_DISPLAY_NAME = "Nano Banana (Gemini 2.5 Flash Image)"
+    MODEL_NAME = "gemini-3-pro-image-preview"
+    MODEL_DISPLAY_NAME = "Nano Banana Pro (Gemini 3 Pro Image)"
     
     def __init__(self, api_key: Optional[str] = None, check_only: bool = False):
         """Initialize the image generator with API credentials."""
@@ -63,7 +63,7 @@ class ImageGenerator:
         self.archive_dir.mkdir(parents=True, exist_ok=True)
         
         # Cost tracking
-        self.cost_per_image = 0.039  # $0.039 per 1024x1024 image
+        self.cost_per_image = 0.139  # $0.139 per 2K image (Nano Banana Pro)
 
     def archive_existing_images(self) -> Optional[str]:
         """Move existing images to timestamped archive folder."""

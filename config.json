@@ -1,8 +1,8 @@
 {
   "image_generation": {
     "variations_per_content": 3,
-    "cost_per_image": 0.039,
-    "model": "gemini-2.5-flash"
+    "cost_per_image": 0.139,
+    "model": "gemini-3-pro-image-preview"
   },
   "display": {
     "image_duration": 5000,

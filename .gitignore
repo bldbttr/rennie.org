@@ -2,6 +2,7 @@
 .env
 .env.local
 *.key
+github_pat.token
 
 # Generated content - MODIFIED for local-first workflow
 # Allow images and metadata to be committed for consistency

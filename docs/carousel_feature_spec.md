@@ -8,6 +8,28 @@
 
 Transform the current random single-image display into an immersive carousel experience that showcases all three AI-generated interpretations of each quote before transitioning to the next. This creates a gallery-like experience where users see the full artistic range of each inspiration piece.
 
+## Key Implementation Files
+
+**Source Templates** (edit these for changes):
+- `/scripts/templates/app.js` - JavaScript source with `SmoothImageCarousel` class
+- `/scripts/templates/style.css` - CSS source with carousel indicators and Ken Burns animations
+- `/scripts/templates/index.html` - HTML source with carousel structure
+
+**Generated Output** (do not edit directly):
+- `/output/script.js` - Generated JavaScript (from app.js template)
+- `/output/style.css` - Generated CSS (from style.css template)
+- `/output/index.html` - Generated HTML (from index.html template)
+
+**Configuration**:
+- `/config.json` - Timing and display settings
+
+**Build System**:
+- `/scripts/build_site.py` - Template generator (creates output/ files)
+
+**Reference Documentation**:
+- `/docs/smooth_carousel_transitions_implementation.md` - Dual-layer cross-fade system
+- `/docs/inspiration_site_build_notes.md` - Template system details
+
 ## Current Behavior (Baseline)
 - Randomly selects one quote/content piece
 - Randomly selects ONE of the three available image variations

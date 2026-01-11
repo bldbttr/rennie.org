@@ -141,11 +141,16 @@ if [ "$NEEDS_GENERATION" = "true" ]; then
     echo "⏱️  Expected time: ~$((TOTAL_IMAGES * 8)) seconds"
     echo ""
     
-    # Set API key and generate
+    # Check for API key
     if [ -z "$GEMINI_API_KEY" ]; then
-        # Use the API key from the project documentation
-        export GEMINI_API_KEY="AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE"
-        echo "🔑 Using project API key for generation"
+        echo "❌ Error: GEMINI_API_KEY environment variable not set"
+        echo "📝 Please set your API key:"
+        echo "   export GEMINI_API_KEY='your-api-key-here'"
+        echo ""
+        echo "💡 Or create a .env file in the project root with:"
+        echo "   GEMINI_API_KEY=your-api-key-here"
+        echo ""
+        exit 1
     fi
     
     # Generate with progress output

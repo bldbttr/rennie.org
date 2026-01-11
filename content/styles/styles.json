@@ -2,11 +2,11 @@
   "style_categories": {
     "visual_storytelling": {
       "description": "Cinematic and graphic novel composition techniques - how master directors and artists frame scenes",
-      "styles": ["ghibli-composition", "arcane-framing", "kibuishi-world", "spiderverse-dimensional"]
+      "styles": ["ghibli-composition", "arcane-framing", "kibuishi-world", "spiderverse-dimensional", "nolan-cinematic"]
     },
     "painting_technique": {
       "description": "Pure painting approaches from master artists - focused on technique and visual treatment",
-      "styles": ["turner-atmospheric", "kline-gestural", "rothko-color-field", "monet-impressionist"]
+      "styles": ["turner-atmospheric", "monet-impressionist"]
     }
   },
   
@@ -41,6 +41,14 @@
       "key_techniques": ["mixed animation styles", "halftone comic patterns", "dimensional depth effects", "graphic design integration"],
       "composition_principles": ["dynamic perspective shifts", "multiple focal points", "graphic element rhythm", "dimensional layering"],
       "lighting_approach": "Bold graphic lighting with comic book color separation effects"
+    },
+
+    "nolan-cinematic": {
+      "description": "Christopher Nolan's practical effects-driven cinematic realism with dramatic architectural perspectives",
+      "base_prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity",
+      "key_techniques": ["practical effects realism", "architectural perspective emphasis", "wide-angle spatial composition", "time/space visual metaphors"],
+      "composition_principles": ["dramatic scale emphasis", "geometric architectural framing", "spatial relationship clarity", "environmental storytelling"],
+      "lighting_approach": "High-contrast naturalistic lighting with dramatic shadows and practical light sources"
     }
   },
   
@@ -53,25 +61,7 @@
       "brush_approach": "Soft, blended brushwork where edges dissolve into light",
       "light_focus": "Light as the primary subject with forms secondary to atmospheric effects"
     },
-    
-    "kline-gestural": {
-      "description": "Franz Kline's bold gestural abstraction with confident black brushstrokes",
-      "base_prompt": "Franz Kline style bold gestural abstraction with confident black brushstrokes creating dynamic movement, high contrast between black marks and white space, gestural energy captured in sweeping brush movements, minimal color palette emphasizing form and gesture over representation",
-      "key_techniques": ["bold black brushstrokes", "gestural movement capture", "high contrast composition", "minimal color emphasis"],
-      "expression_method": "Raw gestural energy translated into confident brush movements",
-      "composition_flow": "Dynamic movement created through bold stroke direction and rhythm",
-      "abstraction_level": "Pure gesture and movement without representational content"
-    },
-    
-    "rothko-color-field": {
-      "description": "Mark Rothko's transcendent color field approach with luminous color relationships",
-      "base_prompt": "Mark Rothko style color field composition with large luminous areas of color that seem to breathe and glow from within, soft edges between color zones creating gentle transitions, colors chosen for emotional and spiritual resonance, minimal composition inviting contemplation and meditation",
-      "key_techniques": ["luminous color fields", "breathing color transitions", "soft edge boundaries", "contemplative minimal composition"],
-      "meditative_quality": "Colors that invite deep contemplation and emotional opening",
-      "transcendent_approach": "Visual experience designed to go beyond everyday perception",
-      "color_breathing": "Colors that appear alive and subtly changing even in stillness"
-    },
-    
+
     "monet-impressionist": {
       "description": "Claude Monet's broken brushwork technique capturing fleeting light effects",
       "base_prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value",

@@ -50,9 +50,27 @@ Files in `/output/` are **template-generated** by `scripts/build_site.py` during
 **Always edit source templates** in `/scripts/templates/` directory. Changes to `/output/` files will be lost during deployment.
 
 ## Quick Start
+
+### Initial Setup
+```bash
+# 1. Set up your API key (one-time setup)
+cp .env.example .env
+# Edit .env and add your Gemini API key from https://aistudio.google.com/apikey
+
+# 2. Activate virtual environment
+source ~/dev/.venv/bin/activate
+
+# 3. Load environment variables
+source bin/load-env.sh
+```
+
+### Daily Workflow
 ```bash
 # Activate virtual environment
 source ~/dev/.venv/bin/activate
+
+# Load API key from .env
+source bin/load-env.sh
 
 # Check image status (what needs generation or cleanup)
 ./bin/check-images.sh

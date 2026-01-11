@@ -3,7 +3,7 @@ title: "You can always feel product/market fit when it's happening"
 author: "Marc Andreessen"
 type: "quote"
 source: "https://pmarchive.com/guide_to_startups_part4.html"
-style_category: "painting_technique"
+style_category: "random"
 style_specific: "random"
 vibe: ["movement", "flow", "in-the-zone"]
 status: "active"

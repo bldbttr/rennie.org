@@ -1,0 +1,30 @@
+{
+  "content": {
+    "title": "Then I turned and noticed, behind me\u2014a third chair.",
+    "author": "Henrik Karlsson",
+    "type": "quote",
+    "quote_text": "Then I turned and noticed, behind me \u2014 a third chair.",
+    "source_file": "content/inspiration/thirdchair.md"
+  },
+  "style": {
+    "name": "nolan-cinematic",
+    "approach": "visual_storytelling",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2026-01-10T12:44:35.667271",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 479,
+    "dimensions": "1024x1024",
+    "cost": 0.139,
+    "image_filename": "thirdchair_v3.png",
+    "image_path": "generated/images/thirdchair_v3.png",
+    "attempts": 1,
+    "success": false,
+    "error": "403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "content": {
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
+  },
+  "style": {
+    "name": "nolan-cinematic",
+    "approach": "visual_storytelling",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2026-01-10T12:44:30.671513",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 457,
+    "dimensions": "1024x1024",
+    "cost": 0.139,
+    "image_filename": "steve-jobs-customer-experience-back-to-technology_v3.png",
+    "image_path": "generated/images/steve-jobs-customer-experience-back-to-technology_v3.png",
+    "attempts": 1,
+    "success": false,
+    "error": "403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}"
+  }
+}

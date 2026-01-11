@@ -3,7 +3,7 @@ title: "Make something people want"
 author: "Paul Graham"
 type: "quote"
 source: "https://paulgraham.com/good.html"
-style_category: "random"
+style_category: "visual_storytelling"
 style_specific: "random"
 vibe: ["zen of purpose"]
 status: "active"

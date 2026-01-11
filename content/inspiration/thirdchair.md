@@ -3,7 +3,7 @@ title: "Then I turned and noticed, behind me—a third chair."
 author: "Henrik Karlsson"
 type: "quote"
 source: "https://www.henrikkarlsson.xyz/p/third-chair"
-style_category: "painting_technique"
+style_category: "random"
 style_specific: "random"
 vibe: ["gratitude", "doubt", "willingness to persevere"]
 status: "active"

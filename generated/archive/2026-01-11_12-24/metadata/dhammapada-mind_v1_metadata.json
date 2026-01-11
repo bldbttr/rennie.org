@@ -1,0 +1,33 @@
+{
+  "content": {
+    "title": "Mental phenomena are preceded by mind, have mind as their leader, are made by mind.",
+    "author": "Dhammapada, Verse 1 (trans. K.R. Norman, 1997)",
+    "type": "quote",
+    "quote_text": "Mental phenomena are preceded by mind, have mind as their leader, are made by mind.",
+    "source_file": "content/inspiration/dhammapada-mind.md"
+  },
+  "style": {
+    "name": "monet-impressionist",
+    "approach": "painting_technique",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2026-01-11T11:03:37.605519",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 445,
+    "dimensions": "1024x1024",
+    "cost": 0.139,
+    "image_filename": "dhammapada-mind_v1.png",
+    "image_path": "generated/images/dhammapada-mind_v1.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 1,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

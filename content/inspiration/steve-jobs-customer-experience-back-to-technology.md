@@ -3,7 +3,7 @@ title: "Start with the customer experience and work backwards to the technology"
 author: "Steve Jobs"
 type: "quote"
 source: "https://youtu.be/oeqPrUmVz-o?t=112"
-style_category: "visual_storytelling"
+style_category: "random"
 style_specific: "random"
 vibe: ["clarity", "inspiration"]
 status: "active"

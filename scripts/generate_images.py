@@ -694,42 +694,34 @@ class ImageGenerator:
         results = []
         parser = ContentParser()
         
-        # Get the current style info
-        original_style = content_data.get('style_name', 'unknown')
-        original_approach = content_data.get('style_approach', 'painting_technique')
-        
-        # Get available styles
+        # Get all available styles from both categories
         painting_styles = list(parser.styles_data.get('painting_technique_styles', {}).keys())
         storytelling_styles = list(parser.styles_data.get('visual_storytelling_techniques', {}).keys())
-        
+
+        # Combine all styles into a single pool
+        all_styles = []
+        for style in painting_styles:
+            all_styles.append((style, 'painting_technique'))
+        for style in storytelling_styles:
+            all_styles.append((style, 'visual_storytelling'))
+
+        # Track used styles to avoid repetition within the same content
+        used_styles = []
+
         for variation_num in range(1, num_variations + 1):
             print(f"\n  === Variation {variation_num}/{num_variations} ===")
-            
-            # Determine style for this variation
-            if variation_num == 1:
-                # Variation 1: Use the original style
-                style_name = original_style
-                style_approach = original_approach
-                variation_type = "original"
-            elif variation_num == 2:
-                # Variation 2: Random style from same category
-                if original_approach == 'painting_technique':
-                    available = [s for s in painting_styles if s != original_style]
-                    style_name = random.choice(available) if available else original_style
-                else:
-                    available = [s for s in storytelling_styles if s != original_style]
-                    style_name = random.choice(available) if available else original_style
-                style_approach = original_approach
-                variation_type = "same_category"
+
+            # Randomly select from all available styles (excluding already used ones)
+            available_styles = [(name, approach) for name, approach in all_styles if name not in used_styles]
+
+            if available_styles:
+                style_name, style_approach = random.choice(available_styles)
+                used_styles.append(style_name)
+                variation_type = "random_all_styles"
             else:
-                # Variation 3+: Random style from opposite category
-                if original_approach == 'painting_technique':
-                    style_name = random.choice(storytelling_styles) if storytelling_styles else original_style
-                    style_approach = 'visual_storytelling'
-                else:
-                    style_name = random.choice(painting_styles) if painting_styles else original_style
-                    style_approach = 'painting_technique'
-                variation_type = "opposite_category"
+                # Fallback: if we've exhausted all styles (shouldn't happen with 7 styles and 3 variations)
+                style_name, style_approach = random.choice(all_styles)
+                variation_type = "random_fallback"
             
             # Create modified content data with new style
             variation_content = content_data.copy()
@@ -771,8 +763,7 @@ class ImageGenerator:
             variation_info = {
                 'variation_number': variation_num,
                 'variation_type': variation_type,
-                'original_style': original_style,
-                'variation_style': style_name,
+                'selected_style': style_name,
                 'style_approach': style_approach
             }
             

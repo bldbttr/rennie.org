@@ -61,7 +61,11 @@
       "Bash(scp:*)",
       "Bash(ssh:*)",
       "WebFetch(domain:blog.google)",
-      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py:*)"
+      "Bash(GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\" python scripts/generate_images.py:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(for file in generated/metadata/*_metadata.json)",
+      "Bash(do basename \"$file\")",
+      "Bash(export GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\")"
     ],
     "deny": [],
     "ask": []

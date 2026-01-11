@@ -3,7 +3,7 @@ title: "Mental phenomena are preceded by mind, have mind as their leader, are ma
 author: "Dhammapada, Verse 1 (trans. K.R. Norman, 1997)"
 type: "quote"
 source: "https://palitextsociety.org/product/word-of-the-doctrine/"
-style_category: "painting_technique"
+style_category: "random"
 style_specific: "random"
 vibe: ["mindfulness", "attention", "intention", "awareness"]
 status: "active"

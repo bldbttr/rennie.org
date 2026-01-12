@@ -677,23 +677,30 @@ class ImageGenerator:
                 'error': str(e)
             }
     
-    def generate_variations(self, content_data: Dict[str, Any], num_variations: int = 3, 
-                           force: bool = False) -> List[Dict[str, Any]]:
-        """Generate multiple variations of an image with different styles."""
+    def generate_variations(self, content_data: Dict[str, Any], num_variations: int = 3,
+                           force: bool = False, style_deck: List = None) -> List[Dict[str, Any]]:
+        """Generate multiple variations of an image with different styles.
+
+        Args:
+            content_data: Content metadata
+            num_variations: Number of variations to generate
+            force: Force regeneration even if images exist
+            style_deck: Pre-shuffled deck of styles for even distribution (optional)
+        """
         import random
         import sys
         import os
-        
+
         # Add scripts directory to Python path for imports
         script_dir = os.path.dirname(os.path.abspath(__file__))
         if script_dir not in sys.path:
             sys.path.insert(0, script_dir)
-        
+
         from content_parser import ContentParser
-        
+
         results = []
         parser = ContentParser()
-        
+
         # Get all available styles from both categories
         painting_styles = list(parser.styles_data.get('painting_technique_styles', {}).keys())
         storytelling_styles = list(parser.styles_data.get('visual_storytelling_techniques', {}).keys())
@@ -705,24 +712,34 @@ class ImageGenerator:
         for style in storytelling_styles:
             all_styles.append((style, 'visual_storytelling'))
 
-        # Track used styles to avoid repetition within the same content
-        used_styles = []
-
+        # Use provided style deck for even distribution, or random selection as fallback
         for variation_num in range(1, num_variations + 1):
             print(f"\n  === Variation {variation_num}/{num_variations} ===")
 
-            # Randomly select from all available styles (excluding already used ones)
-            available_styles = [(name, approach) for name, approach in all_styles if name not in used_styles]
-
-            if available_styles:
-                style_name, style_approach = random.choice(available_styles)
-                used_styles.append(style_name)
-                variation_type = "random_all_styles"
+            if style_deck is not None:
+                # Even distribution mode: pop styles from the pre-shuffled deck
+                if style_deck:
+                    style_name, style_approach = style_deck.pop()
+                    variation_type = "even_distribution"
+                else:
+                    # Deck exhausted (shouldn't happen with proper sizing)
+                    style_name, style_approach = random.choice(all_styles)
+                    variation_type = "even_distribution_fallback"
             else:
-                # Fallback: if we've exhausted all styles (shouldn't happen with 7 styles and 3 variations)
-                style_name, style_approach = random.choice(all_styles)
-                variation_type = "random_fallback"
-            
+                # Fallback: Pure random mode (no deck provided)
+                # Track used styles to avoid repetition within the same content
+                if variation_num == 1:
+                    used_styles = []
+
+                available_styles = [(name, approach) for name, approach in all_styles if name not in used_styles]
+                if available_styles:
+                    style_name, style_approach = random.choice(available_styles)
+                    used_styles.append(style_name)
+                    variation_type = "random_all_styles"
+                else:
+                    style_name, style_approach = random.choice(all_styles)
+                    variation_type = "random_fallback"
+
             # Create modified content data with new style
             variation_content = content_data.copy()
             
@@ -815,16 +832,57 @@ class ImageGenerator:
         
         results = []
         total_cost = 0
-        
-        print(f"\nGenerating images for {len(all_content)} content pieces...")
+
+        # Create evenly distributed style deck
+        # With 7 styles and (len(all_content) * variations) total images needed
+        import random
+        from content_parser import ContentParser
+
+        parser = ContentParser()
+        painting_styles = list(parser.styles_data.get('painting_technique_styles', {}).keys())
+        storytelling_styles = list(parser.styles_data.get('visual_storytelling_techniques', {}).keys())
+
+        all_styles = []
+        for style in painting_styles:
+            all_styles.append((style, 'painting_technique'))
+        for style in storytelling_styles:
+            all_styles.append((style, 'visual_storytelling'))
+
+        total_images_needed = len(all_content) * variations
+
+        # Create balanced deck: each style appears floor(total/num_styles) times,
+        # plus one extra appearance for (total % num_styles) random styles
+        style_deck = []
+        base_count = total_images_needed // len(all_styles)
+        extra_count = total_images_needed % len(all_styles)
+
+        # Add base count for each style
+        for style_tuple in all_styles:
+            for _ in range(base_count):
+                style_deck.append(style_tuple)
+
+        # Add extra appearances to random styles
+        extra_styles = random.sample(all_styles, extra_count)
+        style_deck.extend(extra_styles)
+
+        # Shuffle the deck for random assignment
+        random.shuffle(style_deck)
+
+        print(f"\n🎨 Style Distribution (Even):")
+        print(f"   Total images: {total_images_needed}")
+        print(f"   Styles available: {len(all_styles)}")
+        print(f"   Each style: {base_count}-{base_count + 1} times")
+        print()
+
+        print(f"Generating images for {len(all_content)} content pieces...")
         print("=" * 60)
-        
+
         for i, content_data in enumerate(all_content, 1):
             print(f"\n[{i}/{len(all_content)}] {content_data['title']} by {content_data['author']}")
             
             if variations > 1:
-                # Generate multiple variations
-                variation_results = self.generate_variations(content_data, num_variations=variations, force=force)
+                # Generate multiple variations (with even distribution)
+                variation_results = self.generate_variations(content_data, num_variations=variations, force=force, style_deck=style_deck)
                 results.extend(variation_results)
                 
                 for result in variation_results:

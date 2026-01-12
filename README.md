@@ -20,6 +20,23 @@ Personal homepage displaying inspiration with AI-generated artwork.
 - "Third Chair" - Henrik Karlsson
 - "Mental phenomena are preceded by mind" - Dhammapada
 
+## Visual Styles
+
+7 unique styles with even distribution across all content:
+
+**Visual Storytellers (5):**
+- **Ghibli** - Wide watercolor landscapes, characters small in vast environments
+- **Spiderverse** - Mixed animation with comic halftone patterns
+- **Arcane** - Dramatic close-ups with high-contrast lighting
+- **Kibuishi** - Detailed architectural world-building
+- **Nolan** - Cinematic realism with practical effects and dramatic architecture
+
+**Painters (2):**
+- **Monet** - Impressionist broken brushwork capturing fleeting light
+- **Turner** - Luminous atmospheric effects with golden light
+
+Each style appears 2-3 times across the 15 total images (5 content × 3 variations), ensuring balanced representation while maintaining variety.
+
 ## Tech Stack
 - **Image Generation:** Google Nano Banana Pro (Gemini 3 Pro Image)
 - **Frontend:** Static HTML/CSS/JavaScript

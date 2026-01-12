@@ -54,18 +54,18 @@
         "path": "images/pmarca-pmf_v1.png",
         "filename": "pmarca-pmf_v1.png",
         "brightness_analysis": {
-          "brightness": 0.425,
-          "is_light": false,
-          "text_color": "#ecf0f1",
-          "background_color": "#34495e",
-          "accent_color": "#e74c3c"
+          "brightness": 0.603,
+          "is_light": true,
+          "text_color": "#2c3e50",
+          "background_color": "#f8f9fa",
+          "accent_color": "#3498db"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:37:49.256995",
+          "timestamp": "2026-01-11T14:35:31.406850",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 404,
+          "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 428,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "pmarca-pmf_v1.png",
@@ -74,12 +74,12 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "spiderverse-dimensional",
-          "approach": "visual_storytelling",
+          "name": "monet-impressionist",
+          "approach": "painting_technique",
           "variation": {
             "type": "original"
           }
@@ -89,18 +89,18 @@
         "path": "images/pmarca-pmf_v2.png",
         "filename": "pmarca-pmf_v2.png",
         "brightness_analysis": {
-          "brightness": 0.297,
-          "is_light": false,
-          "text_color": "#ecf0f1",
-          "background_color": "#34495e",
-          "accent_color": "#e74c3c"
+          "brightness": 0.862,
+          "is_light": true,
+          "text_color": "#2c3e50",
+          "background_color": "#f8f9fa",
+          "accent_color": "#3498db"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:38:07.014652",
+          "timestamp": "2026-01-11T14:35:47.986441",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 377,
+          "prompt": "Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 392,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "pmarca-pmf_v2.png",
@@ -109,11 +109,11 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "arcane-framing",
+          "name": "ghibli-composition",
           "approach": "visual_storytelling",
           "variation": {
             "type": "original"
@@ -124,18 +124,18 @@
         "path": "images/pmarca-pmf_v3.png",
         "filename": "pmarca-pmf_v3.png",
         "brightness_analysis": {
-          "brightness": 0.317,
-          "is_light": false,
-          "text_color": "#ecf0f1",
-          "background_color": "#34495e",
-          "accent_color": "#e74c3c"
+          "brightness": 0.672,
+          "is_light": true,
+          "text_color": "#2c3e50",
+          "background_color": "#f8f9fa",
+          "accent_color": "#3498db"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:38:25.449575",
+          "timestamp": "2026-01-11T14:36:02.729260",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 404,
+          "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 428,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "pmarca-pmf_v3.png",
@@ -144,12 +144,12 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "kibuishi-world",
-          "approach": "visual_storytelling",
+          "name": "monet-impressionist",
+          "approach": "painting_technique",
           "variation": {
             "type": "original"
           }
@@ -157,11 +157,11 @@
       }
     ],
     "brightness_analysis": {
-      "brightness": 0.425,
-      "is_light": false,
-      "text_color": "#ecf0f1",
-      "background_color": "#34495e",
-      "accent_color": "#e74c3c"
+      "brightness": 0.603,
+      "is_light": true,
+      "text_color": "#2c3e50",
+      "background_color": "#f8f9fa",
+      "accent_color": "#3498db"
     }
   },
   {
@@ -205,14 +205,14 @@
         "path": "images/steve-jobs-customer-experience-back-to-technology_v1.png",
         "filename": "steve-jobs-customer-experience-back-to-technology_v1.png",
         "brightness_analysis": {
-          "brightness": 0.219,
+          "brightness": 0.272,
           "is_light": false,
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:38:44.364208",
+          "timestamp": "2026-01-11T14:36:21.304832",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
           "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
@@ -240,18 +240,18 @@
         "path": "images/steve-jobs-customer-experience-back-to-technology_v2.png",
         "filename": "steve-jobs-customer-experience-back-to-technology_v2.png",
         "brightness_analysis": {
-          "brightness": 0.842,
-          "is_light": true,
-          "text_color": "#2c3e50",
-          "background_color": "#f8f9fa",
-          "accent_color": "#3498db"
+          "brightness": 0.456,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:38:59.995401",
+          "timestamp": "2026-01-11T14:36:37.620360",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 421,
+          "prompt": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 397,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "steve-jobs-customer-experience-back-to-technology_v2.png",
@@ -260,12 +260,12 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "monet-impressionist",
-          "approach": "painting_technique",
+          "name": "kibuishi-world",
+          "approach": "visual_storytelling",
           "variation": {
             "type": "original"
           }
@@ -275,18 +275,18 @@
         "path": "images/steve-jobs-customer-experience-back-to-technology_v3.png",
         "filename": "steve-jobs-customer-experience-back-to-technology_v3.png",
         "brightness_analysis": {
-          "brightness": 0.487,
-          "is_light": false,
-          "text_color": "#ecf0f1",
-          "background_color": "#34495e",
-          "accent_color": "#e74c3c"
+          "brightness": 0.517,
+          "is_light": true,
+          "text_color": "#2c3e50",
+          "background_color": "#f8f9fa",
+          "accent_color": "#3498db"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:39:18.000223",
+          "timestamp": "2026-01-11T14:36:54.679375",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 370,
+          "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 397,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "steve-jobs-customer-experience-back-to-technology_v3.png",
@@ -295,11 +295,11 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "arcane-framing",
+          "name": "spiderverse-dimensional",
           "approach": "visual_storytelling",
           "variation": {
             "type": "original"
@@ -308,7 +308,7 @@
       }
     ],
     "brightness_analysis": {
-      "brightness": 0.219,
+      "brightness": 0.272,
       "is_light": false,
       "text_color": "#ecf0f1",
       "background_color": "#34495e",
@@ -372,18 +372,18 @@
         "path": "images/dhammapada-mind_v1.png",
         "filename": "dhammapada-mind_v1.png",
         "brightness_analysis": {
-          "brightness": 0.835,
+          "brightness": 0.512,
           "is_light": true,
           "text_color": "#2c3e50",
           "background_color": "#f8f9fa",
           "accent_color": "#3498db"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:39:34.229231",
+          "timestamp": "2026-01-11T14:37:11.143312",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 409,
+          "prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 397,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "dhammapada-mind_v1.png",
@@ -392,12 +392,12 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "ghibli-composition",
-          "approach": "visual_storytelling",
+          "name": "turner-atmospheric",
+          "approach": "painting_technique",
           "variation": {
             "type": "original"
           }
@@ -407,14 +407,14 @@
         "path": "images/dhammapada-mind_v2.png",
         "filename": "dhammapada-mind_v2.png",
         "brightness_analysis": {
-          "brightness": 0.267,
+          "brightness": 0.233,
           "is_light": false,
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:39:52.144199",
+          "timestamp": "2026-01-11T14:37:28.482774",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
           "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
@@ -442,18 +442,18 @@
         "path": "images/dhammapada-mind_v3.png",
         "filename": "dhammapada-mind_v3.png",
         "brightness_analysis": {
-          "brightness": 0.533,
-          "is_light": true,
-          "text_color": "#2c3e50",
-          "background_color": "#f8f9fa",
-          "accent_color": "#3498db"
+          "brightness": 0.366,
+          "is_light": false,
+          "text_color": "#ecf0f1",
+          "background_color": "#34495e",
+          "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:40:10.842121",
+          "timestamp": "2026-01-11T14:37:44.362567",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 421,
+          "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 481,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "dhammapada-mind_v3.png",
@@ -462,11 +462,11 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "spiderverse-dimensional",
+          "name": "nolan-cinematic",
           "approach": "visual_storytelling",
           "variation": {
             "type": "original"
@@ -475,7 +475,7 @@
       }
     ],
     "brightness_analysis": {
-      "brightness": 0.835,
+      "brightness": 0.512,
       "is_light": true,
       "text_color": "#2c3e50",
       "background_color": "#f8f9fa",
@@ -537,18 +537,18 @@
         "path": "images/thirdchair_v1.png",
         "filename": "thirdchair_v1.png",
         "brightness_analysis": {
-          "brightness": 0.285,
+          "brightness": 0.343,
           "is_light": false,
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:40:26.501726",
+          "timestamp": "2026-01-11T14:38:00.602240",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 479,
+          "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 419,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "thirdchair_v1.png",
@@ -557,11 +557,11 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "nolan-cinematic",
+          "name": "spiderverse-dimensional",
           "approach": "visual_storytelling",
           "variation": {
             "type": "original"
@@ -572,57 +572,22 @@
         "path": "images/thirdchair_v2.png",
         "filename": "thirdchair_v2.png",
         "brightness_analysis": {
-          "brightness": 0.143,
+          "brightness": 0.36,
           "is_light": false,
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:40:42.936562",
-          "model": "gemini-3-pro-image-preview",
-          "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 392,
-          "dimensions": "1024x1024",
-          "cost": 0.139,
-          "image_filename": "thirdchair_v2.png",
-          "image_path": "generated/images/thirdchair_v2.png",
-          "attempts": 1,
-          "success": true,
-          "response_parts": 1,
-          "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
-          "image_size": "1024x1024"
-        },
-        "style": {
-          "name": "arcane-framing",
-          "approach": "visual_storytelling",
-          "variation": {
-            "type": "original"
-          }
-        }
-      },
-      {
-        "path": "images/thirdchair_v3.png",
-        "filename": "thirdchair_v3.png",
-        "brightness_analysis": {
-          "brightness": 0.296,
-          "is_light": false,
-          "text_color": "#ecf0f1",
-          "background_color": "#34495e",
-          "accent_color": "#e74c3c"
-        },
-        "generation": {
-          "timestamp": "2026-01-11T12:40:59.210110",
+          "timestamp": "2026-01-11T14:38:17.721027",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
           "prompt": "Kazu Kibuishi Amulet style detailed environmental composition, isometric or elevated perspective showing architectural systems, warm enclosed lighting suggesting interior spaces, rich mechanical and architectural details distributed throughout the frame, multiple focal points for visual exploration. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
           "prompt_length": 419,
           "dimensions": "1024x1024",
           "cost": 0.139,
-          "image_filename": "thirdchair_v3.png",
-          "image_path": "generated/images/thirdchair_v3.png",
+          "image_filename": "thirdchair_v2.png",
+          "image_path": "generated/images/thirdchair_v2.png",
           "attempts": 1,
           "success": true,
           "response_parts": 1,
@@ -637,10 +602,45 @@
             "type": "original"
           }
         }
+      },
+      {
+        "path": "images/thirdchair_v3.png",
+        "filename": "thirdchair_v3.png",
+        "brightness_analysis": {
+          "brightness": 0.723,
+          "is_light": true,
+          "text_color": "#2c3e50",
+          "background_color": "#f8f9fa",
+          "accent_color": "#3498db"
+        },
+        "generation": {
+          "timestamp": "2026-01-11T14:38:33.751384",
+          "model": "gemini-3-pro-image-preview",
+          "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+          "prompt": "Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 407,
+          "dimensions": "1024x1024",
+          "cost": 0.139,
+          "image_filename": "thirdchair_v3.png",
+          "image_path": "generated/images/thirdchair_v3.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of gratitude, doubt, willingness to persevere. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "ghibli-composition",
+          "approach": "visual_storytelling",
+          "variation": {
+            "type": "original"
+          }
+        }
       }
     ],
     "brightness_analysis": {
-      "brightness": 0.285,
+      "brightness": 0.343,
       "is_light": false,
       "text_color": "#ecf0f1",
       "background_color": "#34495e",
@@ -698,57 +698,22 @@
         "path": "images/paul-graham-make-something_v1.png",
         "filename": "paul-graham-make-something_v1.png",
         "brightness_analysis": {
-          "brightness": 0.338,
-          "is_light": false,
-          "text_color": "#ecf0f1",
-          "background_color": "#34495e",
-          "accent_color": "#e74c3c"
-        },
-        "generation": {
-          "timestamp": "2026-01-11T12:41:16.037779",
-          "model": "gemini-3-pro-image-preview",
-          "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 391,
-          "dimensions": "1024x1024",
-          "cost": 0.139,
-          "image_filename": "paul-graham-make-something_v1.png",
-          "image_path": "generated/images/paul-graham-make-something_v1.png",
-          "attempts": 1,
-          "success": true,
-          "response_parts": 1,
-          "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
-          "image_size": "1024x1024"
-        },
-        "style": {
-          "name": "spiderverse-dimensional",
-          "approach": "visual_storytelling",
-          "variation": {
-            "type": "original"
-          }
-        }
-      },
-      {
-        "path": "images/paul-graham-make-something_v2.png",
-        "filename": "paul-graham-make-something_v2.png",
-        "brightness_analysis": {
-          "brightness": 0.682,
+          "brightness": 0.532,
           "is_light": true,
           "text_color": "#2c3e50",
           "background_color": "#f8f9fa",
           "accent_color": "#3498db"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:41:32.635254",
+          "timestamp": "2026-01-11T14:38:50.392766",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
           "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
           "prompt_length": 415,
           "dimensions": "1024x1024",
           "cost": 0.139,
-          "image_filename": "paul-graham-make-something_v2.png",
-          "image_path": "generated/images/paul-graham-make-something_v2.png",
+          "image_filename": "paul-graham-make-something_v1.png",
+          "image_path": "generated/images/paul-graham-make-something_v1.png",
           "attempts": 1,
           "success": true,
           "response_parts": 1,
@@ -765,21 +730,56 @@
         }
       },
       {
+        "path": "images/paul-graham-make-something_v2.png",
+        "filename": "paul-graham-make-something_v2.png",
+        "brightness_analysis": {
+          "brightness": 0.537,
+          "is_light": true,
+          "text_color": "#2c3e50",
+          "background_color": "#f8f9fa",
+          "accent_color": "#3498db"
+        },
+        "generation": {
+          "timestamp": "2026-01-11T14:39:11.654705",
+          "model": "gemini-3-pro-image-preview",
+          "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+          "prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 367,
+          "dimensions": "1024x1024",
+          "cost": 0.139,
+          "image_filename": "paul-graham-make-something_v2.png",
+          "image_path": "generated/images/paul-graham-make-something_v2.png",
+          "attempts": 1,
+          "success": true,
+          "response_parts": 1,
+          "image_parts": 1,
+          "full_prompt": "Create a 1024x1024 abstract artwork: J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+          "image_size": "1024x1024"
+        },
+        "style": {
+          "name": "turner-atmospheric",
+          "approach": "painting_technique",
+          "variation": {
+            "type": "original"
+          }
+        }
+      },
+      {
         "path": "images/paul-graham-make-something_v3.png",
         "filename": "paul-graham-make-something_v3.png",
         "brightness_analysis": {
-          "brightness": 0.235,
+          "brightness": 0.31,
           "is_light": false,
           "text_color": "#ecf0f1",
           "background_color": "#34495e",
           "accent_color": "#e74c3c"
         },
         "generation": {
-          "timestamp": "2026-01-11T12:41:48.573479",
+          "timestamp": "2026-01-11T14:39:28.150947",
           "model": "gemini-3-pro-image-preview",
           "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-          "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
-          "prompt_length": 451,
+          "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+          "prompt_length": 364,
           "dimensions": "1024x1024",
           "cost": 0.139,
           "image_filename": "paul-graham-make-something_v3.png",
@@ -788,11 +788,11 @@
           "success": true,
           "response_parts": 1,
           "image_parts": 1,
-          "full_prompt": "Create a 1024x1024 abstract artwork: Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+          "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
           "image_size": "1024x1024"
         },
         "style": {
-          "name": "nolan-cinematic",
+          "name": "arcane-framing",
           "approach": "visual_storytelling",
           "variation": {
             "type": "original"
@@ -801,11 +801,11 @@
       }
     ],
     "brightness_analysis": {
-      "brightness": 0.338,
-      "is_light": false,
-      "text_color": "#ecf0f1",
-      "background_color": "#34495e",
-      "accent_color": "#e74c3c"
+      "brightness": 0.532,
+      "is_light": true,
+      "text_color": "#2c3e50",
+      "background_color": "#f8f9fa",
+      "accent_color": "#3498db"
     }
   }
 ]

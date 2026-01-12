@@ -1,0 +1,33 @@
+{
+  "content": {
+    "title": "Make something people want",
+    "author": "Paul Graham",
+    "type": "quote",
+    "quote_text": "Make something people want.",
+    "source_file": "content/inspiration/paul-graham-make-something.md"
+  },
+  "style": {
+    "name": "nolan-cinematic",
+    "approach": "visual_storytelling",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2026-01-11T12:41:48.573479",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 451,
+    "dimensions": "1024x1024",
+    "cost": 0.139,
+    "image_filename": "paul-graham-make-something_v3.png",
+    "image_path": "generated/images/paul-graham-make-something_v3.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 1,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

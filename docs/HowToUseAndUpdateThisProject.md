@@ -31,11 +31,13 @@ title: "Imagination is more important than knowledge"
 author: "Albert Einstein"
 type: "quote"
 source: "https://example.com/source"
-style_category: "random"  # or "visual_storytelling" or "painting_technique"
-style_specific: "random"  # or specific style name like "monet-impressionist"
+style_category: "random"  # Always use "random" - styles are evenly distributed
+style_specific: "random"  # Always use "random" - system handles selection
 vibe: ["wonder", "curiosity"]
 status: "active"
 ---
+
+**Note:** The `style_category` and `style_specific` fields are now deprecated. The system uses even distribution across all 7 styles (5 storytellers + 2 painters), randomly assigning them to ensure each style appears 2-3 times across all content.
 
 Imagination is more important than knowledge.
 

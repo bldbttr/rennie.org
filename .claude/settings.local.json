@@ -65,7 +65,9 @@
       "Bash(git ls-tree:*)",
       "Bash(for file in generated/metadata/*_metadata.json)",
       "Bash(do basename \"$file\")",
-      "Bash(export GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\")"
+      "Bash(export GEMINI_API_KEY=\"AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE\")",
+      "Bash(do jq -r '.style.name' \"$file\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

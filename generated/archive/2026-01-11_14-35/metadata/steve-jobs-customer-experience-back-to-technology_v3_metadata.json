@@ -1,0 +1,33 @@
+{
+  "content": {
+    "title": "Start with the customer experience and work backwards to the technology",
+    "author": "Steve Jobs",
+    "type": "quote",
+    "quote_text": "You've gotta start with the customer experience and work backwards to the technology.",
+    "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
+  },
+  "style": {
+    "name": "arcane-framing",
+    "approach": "visual_storytelling",
+    "variation": {
+      "type": "original"
+    }
+  },
+  "generation": {
+    "timestamp": "2026-01-11T12:39:18.000223",
+    "model": "gemini-3-pro-image-preview",
+    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 370,
+    "dimensions": "1024x1024",
+    "cost": 0.139,
+    "image_filename": "steve-jobs-customer-experience-back-to-technology_v3.png",
+    "image_path": "generated/images/steve-jobs-customer-experience-back-to-technology_v3.png",
+    "attempts": 1,
+    "success": true,
+    "response_parts": 1,
+    "image_parts": 1,
+    "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "image_size": "1024x1024"
+  }
+}

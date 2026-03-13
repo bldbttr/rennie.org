@@ -1297,16 +1297,23 @@ class SmoothImageCarousel {
     destroy() {
         this.pause();
         this.isPlaying = false;
-        
-        // Clear all Ken Burns animations
+
+        // Clear all Ken Burns animations and reset layer state
         [...this.desktopLayers, ...this.mobileLayers].forEach(layer => {
             if (layer) {
                 this.kenBurnsAnimations.forEach(anim => {
                     layer.classList.remove(anim);
                 });
+                // Clear image source and active state to prevent
+                // stale images from previous content bleeding through
+                layer.classList.remove('active');
+                layer.removeAttribute('src');
             }
         });
-        
+
+        // Reset layer index so next carousel starts clean
+        this.activeLayerIndex = 0;
+
         // Clear preloaded images
         this.preloadedImages.clear();
     }

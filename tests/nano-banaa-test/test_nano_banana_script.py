@@ -13,7 +13,7 @@ from io import BytesIO
 def test_nano_banana():
     """Test nano banana with a simple prompt"""
     # Your API key (replace with your actual key)
-    api_key = "AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE"
+    api_key = os.environ.get('GEMINI_API_KEY')
     
     client = genai.Client(api_key=api_key)
     
@@ -64,7 +64,7 @@ def test_nano_banana():
 
 def test_idea_lightbulb():
     """Test with the lightbulb prompt from your curl test"""
-    api_key = "AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE"
+    api_key = os.environ.get('GEMINI_API_KEY')
     client = genai.Client(api_key=api_key)
     
     prompt = "Create a minimalist illustration of a lightbulb with the word IDEA inside it"

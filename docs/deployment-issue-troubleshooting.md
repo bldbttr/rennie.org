@@ -136,7 +136,7 @@ python scripts/generate_images.py --help
 ## Actions Taken in Current Session
 
 ### ✅ API Key Security Fix
-- **Problem**: Script had hardcoded API key fallback (`AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE`)
+- **Problem**: Script had hardcoded API key fallback (revoked)
 - **Fix**: Removed hardcoded key, added proper validation with clear error messages
 - **Result**: Security issue resolved, but deployment still failing
 
@@ -248,7 +248,7 @@ Latest successful steps in GitHub Actions:
 
 ### 📋 **Repository Secrets Now Configured**
 
-✅ **GEMINI_API_KEY**: `AIzaSyCh41...` (working)  
+✅ **GEMINI_API_KEY**: configured (working)
 ✅ **DREAMHOST_SSH_KEY**: SSH private key (loaded successfully)
 
 ### 🛠️ **Technical Achievements**

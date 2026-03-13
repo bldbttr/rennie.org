@@ -11,7 +11,7 @@ All specifications are in the `docs/` directory:
 
 ## Current Setup
 - Repository: https://github.com/bldbttr/rennie.org (live and connected)
-- API: Nano Banana working (key: AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE)
+- API: Nano Banana working (key configured in .env and GitHub secrets)
 - Test content: Paul Graham quote ready in `content/inspiration/`
 - Directory structure in place
 

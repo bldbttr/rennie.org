@@ -7,7 +7,7 @@ import os
 import google.generativeai as genai
 
 # Set API key
-api_key = os.environ.get('GEMINI_API_KEY', 'AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE')
+api_key = os.environ.get('GEMINI_API_KEY')
 genai.configure(api_key=api_key)
 
 print("Testing Gemini API capabilities...")

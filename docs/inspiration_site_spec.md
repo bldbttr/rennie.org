@@ -19,7 +19,7 @@ Create a personal homepage that displays inspiring quotes, poems, and stories al
 
 ✅ **Repository Structure**: Complete directory structure implemented  
 ✅ **Git Setup**: Repository live at github.com/bldbttr/rennie.org  
-✅ **Nano Banana API**: Production-ready (API key: AIzaSyCh41VaooU6xexjq7zndc7FSNOh2Sg4-EE)  
+✅ **Nano Banana API**: Production-ready (API key configured in .env and GitHub secrets)
 ✅ **Content Library**: 3 inspirational quotes with 9 AI-generated artwork variations  
 ✅ **Style Library**: Comprehensive visual style definitions with 8 distinct styles  
 ✅ **Core Scripts**: All Python automation scripts completed and tested  

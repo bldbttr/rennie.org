@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-11T14:39:28.156132",
+  "timestamp": "2026-03-13T15:57:44.075519",
   "total_content": 5,
   "results": [
     {
@@ -59,12 +59,10 @@
       "variation": 1
     },
     {
-      "status": "success",
+      "status": "error",
       "filename": "dhammapada-mind_v2.png",
-      "path": "generated/images/dhammapada-mind_v2.png",
       "metadata_path": "generated/metadata/dhammapada-mind_v2_metadata.json",
-      "cost": 0.139,
-      "variation": 2
+      "error": "'NoneType' object is not iterable"
     },
     {
       "status": "success",
@@ -83,12 +81,10 @@
       "variation": 1
     },
     {
-      "status": "success",
+      "status": "error",
       "filename": "thirdchair_v2.png",
-      "path": "generated/images/thirdchair_v2.png",
       "metadata_path": "generated/metadata/thirdchair_v2_metadata.json",
-      "cost": 0.139,
-      "variation": 2
+      "error": "'NoneType' object is not iterable"
     },
     {
       "status": "success",
@@ -123,5 +119,5 @@
       "variation": 3
     }
   ],
-  "total_cost": 2.085
+  "total_cost": 1.8070000000000002
 }

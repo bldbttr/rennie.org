@@ -14,9 +14,9 @@
     }
   },
   "generation": {
-    "timestamp": "2026-01-11T14:36:21.304832",
-    "model": "gemini-3-pro-image-preview",
-    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "timestamp": "2026-03-13T15:54:50.771723",
+    "model": "gemini-3.1-flash-image-preview",
+    "model_display": "Nano Banana 2 (Gemini 3.1 Flash Image)",
     "prompt": "Christopher Nolan style cinematic realism with practical effects aesthetic, dramatic architectural perspectives emphasizing scale and geometry, high-contrast naturalistic lighting with deep shadows, wide-angle establishing shots showing spatial relationships, visual metaphors for time and space through environmental design, IMAX-quality photographic clarity. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
     "prompt_length": 457,
     "dimensions": "1024x1024",

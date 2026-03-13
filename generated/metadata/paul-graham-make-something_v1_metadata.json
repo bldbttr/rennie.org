@@ -14,9 +14,9 @@
     }
   },
   "generation": {
-    "timestamp": "2026-01-11T14:38:50.392766",
-    "model": "gemini-3-pro-image-preview",
-    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
+    "timestamp": "2026-03-13T15:56:58.295245",
+    "model": "gemini-3.1-flash-image-preview",
+    "model_display": "Nano Banana 2 (Gemini 3.1 Flash Image)",
     "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of zen of purpose. square composition, centered focus, 1:1 aspect ratio",
     "prompt_length": 415,
     "dimensions": "1024x1024",

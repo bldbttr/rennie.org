@@ -7,18 +7,18 @@
     "source_file": "content/inspiration/pmarca-pmf.md"
   },
   "style": {
-    "name": "monet-impressionist",
-    "approach": "painting_technique",
+    "name": "arcane-framing",
+    "approach": "visual_storytelling",
     "variation": {
       "type": "original"
     }
   },
   "generation": {
-    "timestamp": "2026-01-11T14:35:31.406850",
-    "model": "gemini-3-pro-image-preview",
-    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-    "prompt": "Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
-    "prompt_length": 428,
+    "timestamp": "2026-03-13T15:54:02.418281",
+    "model": "gemini-3.1-flash-image-preview",
+    "model_display": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 377,
     "dimensions": "1024x1024",
     "cost": 0.139,
     "image_filename": "pmarca-pmf_v1.png",
@@ -27,7 +27,7 @@
     "success": true,
     "response_parts": 1,
     "image_parts": 1,
-    "full_prompt": "Create a 1024x1024 abstract artwork: Claude Monet style impressionist technique with broken visible brushstrokes capturing fleeting effects of light and atmosphere, colors that interact and influence each other optically, emphasis on temporal specificity and momentary atmospheric conditions, loose brushwork suggesting form through color temperature and value. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
+    "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of movement, flow, in-the-zone. square composition, centered focus, 1:1 aspect ratio",
     "image_size": "1024x1024"
   }
 }

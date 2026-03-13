@@ -7,18 +7,19 @@
     "source_file": "content/inspiration/dhammapada-mind.md"
   },
   "style": {
-    "name": "arcane-framing",
-    "approach": "visual_storytelling",
+    "name": "turner-atmospheric",
+    "approach": "painting_technique",
     "variation": {
-      "type": "original"
+      "type": "variation",
+      "number": 2
     }
   },
   "generation": {
-    "timestamp": "2026-01-11T14:37:28.482774",
-    "model": "gemini-3-pro-image-preview",
-    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-    "prompt": "Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
-    "prompt_length": 394,
+    "timestamp": "2026-03-13T16:09:32.634307",
+    "model": "gemini-3.1-flash-image-preview",
+    "model_display": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "prompt": "J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 397,
     "dimensions": "1024x1024",
     "cost": 0.139,
     "image_filename": "dhammapada-mind_v2.png",
@@ -27,7 +28,7 @@
     "success": true,
     "response_parts": 1,
     "image_parts": 1,
-    "full_prompt": "Create a 1024x1024 abstract artwork: Fortiche Arcane style dramatic close-ups with dynamic camera angles, high contrast lighting creating sharp shadows and bright highlights, mixed media technique with smooth character focus against painterly textured backgrounds, vertical emphasis with cinematic crop ratios. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
+    "full_prompt": "Create a 1024x1024 abstract artwork: J.M.W. Turner style atmospheric luminism with golden light dissolving and emerging from forms, soft focus throughout composition, luminous passages where paint itself seems to glow, forms suggested rather than defined by light, atmospheric perspective creating infinite depth. Capturing the vibe of mindfulness, attention, intention, awareness. square composition, centered focus, 1:1 aspect ratio",
     "image_size": "1024x1024"
   }
 }

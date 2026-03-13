@@ -29,15 +29,15 @@ def load_config() -> Dict[str, Any]:
             "image_generation": {
                 "variations_per_content": 3,
                 "cost_per_image": 0.139,
-                "model": "gemini-3-pro-image-preview"
+                "model": "gemini-3.1-flash-image-preview"
             }
         }
 
 
 class ImageGenerator:
     # Single source of truth for the model name
-    MODEL_NAME = "gemini-3-pro-image-preview"
-    MODEL_DISPLAY_NAME = "Nano Banana Pro (Gemini 3 Pro Image)"
+    MODEL_NAME = "gemini-3.1-flash-image-preview"
+    MODEL_DISPLAY_NAME = "Nano Banana 2 (Gemini 3.1 Flash Image)"
     
     def __init__(self, api_key: Optional[str] = None, check_only: bool = False):
         """Initialize the image generator with API credentials."""

@@ -3,42 +3,42 @@
   "build_type": "refactored_modular",
   "content_count": 5,
   "images_included": 5,
-  "total_size_mb": 25.35,
+  "total_size_mb": 28.53,
   "content_items": [
     {
       "title": "You can always feel product/market fit when it's happening",
       "author": "Marc Andreessen",
       "style": "monet-impressionist",
       "has_image": true,
-      "brightness": 0.603
+      "brightness": 0.241
     },
     {
       "title": "Start with the customer experience and work backwards to the technology",
       "author": "Steve Jobs",
       "style": "spiderverse-dimensional",
       "has_image": true,
-      "brightness": 0.272
+      "brightness": 0.185
     },
     {
       "title": "Mental phenomena are preceded by mind, have mind as their leader, are made by mind.",
       "author": "Dhammapada, Verse 1 (trans. K.R. Norman, 1997)",
       "style": "monet-impressionist",
       "has_image": true,
-      "brightness": 0.512
+      "brightness": 0.678
     },
     {
       "title": "Then I turned and noticed, behind me—a third chair.",
       "author": "Henrik Karlsson",
       "style": "turner-atmospheric",
       "has_image": true,
-      "brightness": 0.343
+      "brightness": 0.489
     },
     {
       "title": "Make something people want",
       "author": "Paul Graham",
       "style": "monet-impressionist",
       "has_image": true,
-      "brightness": 0.532
+      "brightness": 0.471
     }
   ]
 }

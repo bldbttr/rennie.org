@@ -7,18 +7,18 @@
     "source_file": "content/inspiration/steve-jobs-customer-experience-back-to-technology.md"
   },
   "style": {
-    "name": "spiderverse-dimensional",
+    "name": "ghibli-composition",
     "approach": "visual_storytelling",
     "variation": {
       "type": "original"
     }
   },
   "generation": {
-    "timestamp": "2026-01-11T14:36:54.679375",
-    "model": "gemini-3-pro-image-preview",
-    "model_display": "Nano Banana Pro (Gemini 3 Pro Image)",
-    "prompt": "Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
-    "prompt_length": 397,
+    "timestamp": "2026-03-13T15:55:18.354743",
+    "model": "gemini-3.1-flash-image-preview",
+    "model_display": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+    "prompt": "Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "prompt_length": 385,
     "dimensions": "1024x1024",
     "cost": 0.139,
     "image_filename": "steve-jobs-customer-experience-back-to-technology_v3.png",
@@ -27,7 +27,7 @@
     "success": true,
     "response_parts": 1,
     "image_parts": 1,
-    "full_prompt": "Create a 1024x1024 abstract artwork: Spider-Verse style mixed animation techniques combining multiple visual approaches, comic book halftone dot patterns and Ben-Day dots, dynamic perspective with dimensional depth effects, bold graphic design elements integrated naturally, multiple focal points creating visual rhythm across the frame. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
+    "full_prompt": "Create a 1024x1024 abstract artwork: Studio Ghibli style wide establishing shots with characters small in vast landscapes, horizontal composition with multiple layered depth planes, soft watercolor rendering technique, gentle natural lighting filtering through atmosphere, negative space used as compositional breathing room. Capturing the vibe of clarity, inspiration. square composition, centered focus, 1:1 aspect ratio",
     "image_size": "1024x1024"
   }
 }

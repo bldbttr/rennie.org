@@ -1139,6 +1139,9 @@ class SimpleImageCarousel {
         this.pause();
         this.isPlaying = false;
 
+        // Hide indicators immediately to prevent stale dots showing
+        this.hideIndicators();
+
         // Remove all stored event listeners
         this._listeners.forEach(({ el, type, fn, opts }) => {
             el.removeEventListener(type, fn, opts);
@@ -1712,8 +1715,8 @@ class InspirationApp {
         try {
             const analysisStart = performance.now();
 
-            // Get the current image element
-            const mainImage = document.getElementById('main-image');
+            // Get the current image element from the carousel or fallback
+            const mainImage = (this.carousel && this.carousel.desktopImg) || document.getElementById('main-image');
             if (!mainImage) return;
 
             // Analyze image brightness

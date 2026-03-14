@@ -833,7 +833,7 @@ body {
     opacity: 0 !important;
 }
 
-/* Smooth Carousel Transitions - Dual Layer System */
+/* Carousel Image Stack */
 .carousel-image-stack {
     position: relative;
     width: 100%;
@@ -841,7 +841,7 @@ body {
     overflow: hidden;
 }
 
-.carousel-image-layer {
+.carousel-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -849,12 +849,8 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity; /* Performance optimization */
-}
-
-.carousel-image-layer.active {
-    opacity: 1;
+    transition: opacity 0.4s ease;
+    will-change: transform, opacity;
 }
 
 /* Extended Ken Burns animations for smoother flow */
@@ -894,8 +890,8 @@ body {
 
 /* Ensure smooth animation during reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .carousel-image-layer {
-        transition: opacity 0.5s ease;
+    .carousel-image {
+        transition: opacity 0.3s ease;
     }
     
     .ken-burns-in,

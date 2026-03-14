@@ -1,8 +1,9 @@
 # Carousel Simplification Plan
 
 **Date**: March 13, 2026
-**Status**: PLANNED — Ready for implementation in new session
-**Goal**: Replace 623-line dual-layer carousel with ~200-line single-element carousel
+**Status**: COMPLETE — Implemented and deployed March 13, 2026
+**Goal**: Replace 623-line dual-layer carousel with ~250-line single-element carousel
+**Commits**: `4ffbcdc` (main simplification), `bd70eae` (review fixes)
 
 ## Context
 
